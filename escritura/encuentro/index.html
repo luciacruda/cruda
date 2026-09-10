@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Encuentros de escritura para madres en Tortosa. Una vez al mes, gratuito.">
+<title>Encuentros de escritura para madres · Tortosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Petrona:ital,wght@0,400;0,600;1,400&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Karla:wght@400;600&display=swap">
+<style>
+  :root{
+    /* paleta de Arquitectura sensible */
+    --ground:#F9F5EF;     /* fondo  */
+    --surface:#F4EFE7;    /* hueso  */
+    --ink:#3D3A36;        /* tinta  */
+    --ink-soft:#6E6860;
+    --accent:#3D3A36;
+    --accent-ink:#F9F5EF;
+    --margen:#B46F55;     /* arcilla */
+    --rule:#D8C6AE;       /* arena  */
+    --verde:#7C8064;
+    --focus:#B46F55;
+  }
+  :root{ color-scheme:light; }
+
+  *{box-sizing:border-box;}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:"Newsreader",Georgia,"Times New Roman",serif;
+    font-size:19px; line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+  }
+  .hoja{ max-width:720px; margin:0 auto; padding:0 24px 96px; }
+
+  /* la raya del margen del cuaderno */
+  .hoja{ position:relative; }
+  @media (min-width:900px){
+    .hoja{ padding-left:64px; }
+    .hoja::before{
+      content:""; position:absolute; left:24px; top:56px; bottom:96px;
+      width:1px; background:var(--margen); opacity:.5;
+    }
+  }
+
+  header{ padding:76px 0 0; }
+  .kicker{
+    font-family:"Karla",system-ui,sans-serif; font-size:13px; font-weight:600;
+    letter-spacing:.26em; text-transform:uppercase; color:var(--margen); margin:0 0 20px;
+  }
+  h1{
+    font-family:"Petrona",Georgia,serif; font-weight:600;
+    font-size:clamp(40px,7vw,62px); line-height:1.04; letter-spacing:-.015em;
+    margin:0; text-wrap:balance;
+  }
+  h1 em{ display:block; font-style:italic; font-weight:400; color:var(--accent); }
+  .entradilla{
+    font-size:21px; line-height:1.55; color:var(--ink-soft); margin:26px 0 0; max-width:60ch;
+  }
+
+  h2{
+    font-family:"Karla",system-ui,sans-serif; font-size:13px; font-weight:600;
+    letter-spacing:.22em; text-transform:uppercase; color:var(--margen);
+    margin:56px 0 14px; padding-top:26px; border-top:1px solid var(--rule);
+  }
+  p{ margin:0 0 20px; max-width:62ch; }
+  p:last-child{ margin-bottom:0; }
+  strong{ font-weight:500; color:var(--ink); }
+
+  .acciones{ display:flex; flex-wrap:wrap; gap:12px; margin:34px 0 0; }
+  .btn{
+    font-family:"Karla",system-ui,sans-serif; font-size:16px; font-weight:600;
+    text-decoration:none; padding:13px 22px; border-radius:2px; line-height:1.2;
+    display:inline-flex; align-items:center; gap:9px;
+    background:var(--accent); color:var(--accent-ink); border:1px solid var(--accent);
+  }
+  .btn.secundario{ background:transparent; color:var(--ink); border-color:var(--rule); }
+  .btn:hover{ opacity:.88; }
+  .btn:focus-visible{ outline:2px solid var(--focus); outline-offset:3px; }
+  .pendiente{
+    font-family:"Karla",system-ui,sans-serif; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--margen); margin:14px 0 0;
+  }
+
+  .eleccion{ background:var(--surface); padding:30px 28px 28px; margin:56px 0 0; border-radius:2px; }
+  .eleccion h2{ margin:0 0 6px; padding:0; border:0; }
+  .eleccion p{ margin:0 0 16px; color:var(--ink-soft); font-size:17px; }
+  .fechas{ list-style:none; margin:0 0 22px; padding:0; display:flex; flex-direction:column; gap:0; }
+  .fechas li{
+    display:flex; gap:14px; align-items:baseline; padding:11px 2px;
+    border-bottom:1px solid var(--rule); font-variant-numeric:tabular-nums;
+  }
+  .fechas li:first-child{ border-top:1px solid var(--rule); }
+  .fechas .dia{ font-weight:500; color:var(--ink); min-width:12.5ch; }
+  .fechas .hora{ color:var(--ink-soft); }
+  .btn.grande{ font-size:17px; padding:16px 26px; width:100%; justify-content:center; }
+
+  dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:12px 26px; align-items:baseline; }
+  dt{
+    font-family:"Karla",system-ui,sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); padding-top:5px;
+  }
+  dd{ margin:0; }
+  @media (max-width:520px){
+    dl{ grid-template-columns:1fr; gap:4px 0; }
+    dd{ margin-bottom:14px; }
+  }
+
+  .firma{
+    font-family:"Petrona",Georgia,serif; font-style:italic; font-size:26px;
+    margin:44px 0 0; color:var(--ink);
+  }
+  footer{
+    margin-top:64px; padding-top:26px; border-top:1px solid var(--rule);
+    font-family:"Karla",system-ui,sans-serif; font-size:14px; color:var(--ink-soft);
+  }
+  a{ color:var(--margen); }
+</style>
+
+</head>
+<body>
+<div class="hoja">
+  <header>
+    <p class="kicker">Tortosa</p>
+    <h1>Primer encuentro de<em>escritura para madres</em></h1>
+    <p class="entradilla">Nos encontramos a escribir, acompañadas de un té o un café, y a conversar sobre lo que nos atraviesa cuando nos convertimos en madres.</p>
+  </header>
+
+
+  <h2>Qué es</h2>
+  <p>Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.</p>
+  <p>Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.</p>
+  <p>Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.</p>
+
+  <h2>Lo práctico</h2>
+  <dl>
+    <dt>Dónde</dt><dd><a href="https://maps.app.goo.gl/km5MiHNQM2udTwss7" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.</dd>
+    <dt>Cuánto dura</dt><dd>Entre 60 y 75 minutos.</dd>
+    <dt>Cuánto cuesta</dt><dd>Nada. Cada quien paga su consumición.</dd>
+    <dt>Qué traer</dt><dd>Un cuaderno y algo para escribir.</dd>
+    <dt>Hijos</dt><dd>El lugar es apto para venir con ellos, si hace falta.</dd>
+    <dt>Lenguas</dt><dd>Se escribe y se lee en català, castellano o inglés.</dd>
+  </dl>
+
+  <section class="eleccion">
+    <h2>Las fechas</h2>
+    <p>Estas son las cuatro opciones posibles. El día lo elegimos entre todas: al entrar al grupo, en la descripción está el enlace para votar la que mejor te vaya, y ahí se ve lo que han marcado las demás.</p>
+    <ul class="fechas">
+      <li><span class="dia">miércoles 30/09</span> <span class="hora">18:00</span></li>
+      <li><span class="dia">jueves 1/10</span> <span class="hora">11:30</span></li>
+      <li><span class="dia">miércoles 7/10</span> <span class="hora">11:30</span></li>
+      <li><span class="dia">jueves 8/10</span> <span class="hora">18:00</span></li>
+    </ul>
+    <p>El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.</p>
+    <a class="btn grande" href="#pendiente">Entrar al grupo de WhatsApp</a>
+    <p class="pendiente">Enlace pendiente</p>
+  </section>
+
+  <h2>Quién convoca</h2>
+  <p>Mi nombre es Lucía. Nací hace 40 años en Argentina, pero hace más de 15 vivo en este lado del Atlántico. Llegué a Tortosa con la gestación de mi primer hijo y desde entonces habito este territorio, que me encanta.</p>
+  <div class="acciones">
+    <a class="btn secundario" href="#pendiente">Escribirme</a>
+  </div>
+  <p class="pendiente">Enlace pendiente</p>
+  <p class="firma">Lucía</p>
+</div>
+
+</body>
+</html>

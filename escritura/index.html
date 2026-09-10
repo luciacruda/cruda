@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escriptura per a mares · Tortosa</title>
+<meta name="description" content="Trobades d'escriptura per a mares, a Tortosa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&family=Work+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+<!-- ══════════════════════════════════════════════════════════════════
+     LOS ÚNICOS DATOS QUE HAY QUE TOCAR ESTÁN AQUÍ ABAJO.
+     Se rellenan los que faltan y se sube el archivo. Nada más.
+     ══════════════════════════════════════════════════════════════════ -->
+<script>
+const LINKS = {
+  landing:    "/escritura/encuentro/",     // listo
+  formulario: "https://beta.framadate.org/polls/2a66bceb8c1d522fbf9f", // listo (Framadate)
+  grupo:      "",                          // invitación de WhatsApp. Falta.
+  chat:       "https://wa.me/491636494792" // listo
+};
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --fondo: #F9F5EF;
+  --negro: #14100E;
+  --suave: #2A2522;
+  --linea: #14100E;
+  --rojo:  #C0342A;   /* variante bermellón */
+}
+body{
+  background:var(--fondo);
+  color:var(--negro);
+  font-family:'Work Sans',system-ui,sans-serif;
+  font-weight:300;
+  font-size:16px;
+  line-height:1.75;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:56px 20px;
+}
+main{width:100%;max-width:430px}
+
+.idiomas{
+  display:flex;gap:18px;justify-content:center;
+  margin-bottom:52px;
+  font-size:11px;letter-spacing:1.6px;text-transform:uppercase;
+}
+.idiomas button{
+  background:none;border:none;padding:0 0 3px;cursor:pointer;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;
+  color:var(--negro);
+  border-bottom:1px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.idiomas button:hover{color:var(--rojo)}
+.idiomas button[aria-current="true"]{color:var(--rojo);border-bottom-color:var(--rojo)}
+
+header{text-align:center}
+h1{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;
+  font-size:36px;
+  line-height:1.25;
+  color:var(--negro);
+  letter-spacing:.3px;
+}
+.lugar{
+  margin-top:16px;
+  font-size:12px;
+  letter-spacing:2.4px;
+  text-transform:uppercase;
+  color:var(--suave);
+}
+.linea{width:40px;height:1px;background:var(--negro);margin:38px auto}
+
+.botones{display:flex;flex-direction:column;gap:12px}
+a.boton{
+  display:block;
+  padding:20px 24px;
+  background:none;
+  border:1px solid var(--linea);
+  color:var(--negro);
+  text-decoration:none;
+  transition:border-color .2s,color .2s,transform .2s;
+}
+a.boton:hover{
+  border-color:var(--rojo);
+  transform:translateY(-1px);
+}
+a.boton:hover .titulo{color:var(--rojo)}
+a.boton .titulo{
+  display:block;
+  font-family:'Fraunces',Georgia,serif;
+  font-size:18px;
+  font-weight:400;
+  line-height:1.35;
+  transition:color .2s;
+}
+a.boton .nota{
+  display:block;margin-top:6px;
+  font-size:13px;line-height:1.6;color:var(--suave);
+}
+a.boton[aria-disabled="true"]{
+  border-style:dashed;
+  opacity:.35;
+  pointer-events:none;
+}
+
+footer{margin-top:48px;text-align:center;font-size:12.5px;color:var(--suave)}
+
+@media (max-width:400px){
+  body{padding:40px 18px}
+  h1{font-size:29px}
+  a.boton{padding:17px 20px}
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="idiomas" role="group" aria-label="Idioma">
+    <button data-lang="ca" aria-current="true">Català</button>
+    <button data-lang="es">Castellano</button>
+    <button data-lang="en">English</button>
+  </div>
+
+  <header>
+    <h1 data-t="titulo"></h1>
+    <p class="lugar">Tortosa</p>
+  </header>
+
+  <div class="linea"></div>
+
+  <nav class="botones">
+    <a class="boton" data-link="landing"><span class="titulo" data-t="b1"></span><span class="nota" data-t="b1n"></span></a>
+    <a class="boton" data-link="formulario"><span class="titulo" data-t="b2"></span><span class="nota" data-t="b2n"></span></a>
+    <a class="boton" data-link="grupo"><span class="titulo" data-t="b3"></span><span class="nota" data-t="b3n"></span></a>
+    <a class="boton" data-link="chat"><span class="titulo" data-t="b4"></span><span class="nota" data-t="b4n"></span></a>
+  </nav>
+
+  <footer><p data-t="pie"></p></footer>
+</main>
+
+<script>
+const T = {
+  ca:{
+    titulo:"Escriptura per a mares",
+    b1:"La primera trobada",   b1n:"Què és, com funciona, on i quan.",
+    b2:"Votar la data",        b2n:"Triem entre totes el dia. Es veu el que han marcat les altres.",
+    b3:"El grup de WhatsApp",  b3n:"Allà avisem de la data i el lloc. Es pot ser només llegint.",
+    b4:"Escriure a la Lúcia",  b4n:"Per qualsevol dubte abans de venir.",
+    pie:"Gratuït. Cadascú es paga la consumició."
+  },
+  es:{
+    titulo:"Escritura para madres",
+    b1:"El primer encuentro",  b1n:"Qué es, cómo funciona, dónde y cuándo.",
+    b2:"Votar la fecha",       b2n:"Elegimos entre todas el día. Se ve lo que han marcado las demás.",
+    b3:"El grupo de WhatsApp", b3n:"Ahí aviso de la fecha y el lugar. Se puede estar solo leyendo.",
+    b4:"Escribirle a Lucía",   b4n:"Para cualquier duda antes de venir.",
+    pie:"Gratuito. Cada quien se paga su consumición."
+  },
+  en:{
+    titulo:"Writing for mothers",
+    b1:"The first gathering",  b1n:"What it is, how it works, where and when.",
+    b2:"Vote on the date",     b2n:"We pick the day together. You can see what the others marked.",
+    b3:"The WhatsApp group",   b3n:"Date and place are announced there. Reading only is fine.",
+    b4:"Write to Lucía",       b4n:"For any question before coming.",
+    pie:"Free. Everyone pays for their own drink."
+  }
+};
+
+function pintar(lang){
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    el.textContent = T[lang][el.dataset.t] || "";
+  });
+  document.querySelectorAll('.idiomas button').forEach(b=>{
+    b.setAttribute('aria-current', String(b.dataset.lang === lang));
+  });
+  try{ localStorage.setItem('esc_lang', lang); }catch(e){}
+}
+
+document.querySelectorAll('.idiomas button').forEach(b=>{
+  b.addEventListener('click', ()=> pintar(b.dataset.lang));
+});
+
+// Un botón sin link todavía se ve apagado y no lleva a ningún sitio roto.
+document.querySelectorAll('a.boton').forEach(a=>{
+  const url = LINKS[a.dataset.link];
+  if(url){ a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
+  else { a.setAttribute('aria-disabled','true'); }
+});
+
+let inicial = 'ca';
+try{
+  const guardado = localStorage.getItem('esc_lang');
+  if(guardado && T[guardado]) inicial = guardado;
+  else { const nav = (navigator.language||'').slice(0,2); if(T[nav]) inicial = nav; }
+}catch(e){}
+pintar(inicial);
+</script>
+</body>
+</html>
