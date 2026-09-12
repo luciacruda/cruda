@@ -76,6 +76,12 @@
     letter-spacing:.22em; text-transform:uppercase; color:var(--margen);
     margin:56px 0 14px; padding-top:26px; border-top:1px solid var(--rule);
   }
+  h3{
+    font-family:"Petrona",Georgia,serif; font-style:italic; font-weight:400;
+    font-size:23px; line-height:1.3; color:var(--ink);
+    margin:34px 0 10px;
+  }
+  h3:first-of-type{ margin-top:4px; }
   p{ margin:0 0 20px; max-width:62ch; }
   p:last-child{ margin-bottom:0; }
   strong{ font-weight:500; color:var(--ink); }
@@ -146,7 +152,17 @@
 
 
   <h2 data-t="h2que">Qué es</h2>
-  <p data-t="p1">Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.</p>
+  <h3 data-t="q1">¿Por qué la escritura?</h3>
+  <p data-t="r1">Porque es un medio común a todas, en mayor o menor medida, y porque basta con papel y lápiz. Es también una herramienta de introspección muy potente, y permite hacer registro: algo que perdura en el tiempo y que, con la distancia, podemos volver a leer para entendernos más, o mejor.</p>
+
+  <h3 data-t="q2">¿Por qué entre mujeres?</h3>
+  <p data-t="r2">Siendo todas mujeres podemos construir un espacio seguro de expresión abierta, libre y sensible. Es esencial para expresarnos con honestidad y sin miedo a mostrarnos vulnerables.</p>
+
+  <h3 data-t="q3">¿Por qué madres?</h3>
+  <p data-t="r3">Ser todas madres nos permite compartir un lenguaje, un registro, una experiencia que hace de nexo entre todas nuestras subjetividades.</p>
+
+  <h3 data-t="q4">¿Por qué en estos tres idiomas?</h3>
+  <p data-t="r4">Porque las Terres de l'Ebre son un espacio pluricultural. El català por ser la lengua de la terra; el castellano y el inglés por ser las lenguas que habitamos las que venimos de fuera, como lengua materna o como segunda. Así podemos unirnos narrativamente, vengamos de donde vengamos.</p>
   <p data-t="p2">Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.</p>
   <p data-t="p3">Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.</p>
 
@@ -191,7 +207,14 @@ const T = {
   h1:"Primera trobada<em>d'escriptura per a mares</em>",
   entradilla:"Ens trobem per escriure, acompanyades d'un te o un cafè, i per conversar sobre allò que ens travessa quan ens convertim en mares.",
   h2que:"Què és",
-  p1:"Aquest grup neix del desig de fer xarxa, trobar-nos i conversar sobre la quantitat de qüestions que ens travessen quan ens convertim en mares, compartint amb dones que també travessen l'experiència de gestar, criar i fer dol. És un espai que busca ser refugi, on poder sentir-nos segures per crear i expressar en paraules allò que necessiti sortir o quedar registrat en paper, un altar on cuidar-nos, respectar-nos i nodrir-nos. No busquem peces excepcionals, ni llibres, ni textos cèlebres; el que busquem és habitar l'escriptura des de l'honestedat, la vulnerabilitat i la sensibilitat, viure-la com a eina, escriure des del gaudi.",
+  q1:"Per què l'escriptura?",
+  r1:"Perquè és un mitjà comú a totes, en major o menor mesura, i perquè amb paper i llapis n'hi ha prou. També és una eina d'introspecció molt potent, i permet fer registre: alguna cosa que perdura en el temps i que, amb la distància, podem tornar a llegir per entendre'ns més, o millor.",
+  q2:"Per què entre dones?",
+  r2:"Sent totes dones podem construir un espai segur d'expressió oberta, lliure i sensible. És essencial per expressar-nos amb honestedat i sense por de mostrar-nos vulnerables.",
+  q3:"Per què mares?",
+  r3:"Ser totes mares ens permet compartir un llenguatge, un registre, una experiència que fa de nexe entre totes les nostres subjectivitats.",
+  q4:"Per què en aquests tres idiomes?",
+  r4:"Perquè les Terres de l'Ebre són un espai pluricultural. El català per ser la llengua de la terra; el castellà i l'anglès per ser les llengües que habitem les que venim de fora, com a llengua materna o com a segona. Així podem unir-nos narrativament, vinguem d'on vinguem.",
   p2:"Aquest espai té un ritme calmat i respectuós amb els desitjos i les necessitats de cadascú, i el mètode és simple: ens trobem, triem un tema, que proposarem de maneres diferents perquè cadascú trobi el seu punt de partida inspirador, i escrivim acompanyades d'un te, un cafè, una copa de vi o el que abelleixi. Com a tancament de la trobada qui vulgui podrà compartir allò escrit, una part o tot, encara que no és obligatori, només una possibilitat: no s'opinarà sobre cap text, només s'aplaudirà en acabar cada lectura, i tot el que es parli o es llegeixi aquí serà privat i confidencial.",
   p3:"És una proposta horitzontal, no un taller ni un grup terapèutic, una iniciativa per fer xarxa materna compartint l'escriptura i el seu poder expressiu, creatiu i terapèutic, i no cal haver escrit mai per venir.",
   h2practico:"La part pràctica",
@@ -215,7 +238,14 @@ const T = {
   h1:"Primer encuentro de<em>escritura para madres</em>",
   entradilla:"Nos encontramos a escribir, acompañadas de un té o un café, y a conversar sobre lo que nos atraviesa cuando nos convertimos en madres.",
   h2que:"Qué es",
-  p1:"Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.",
+  q1:"¿Por qué la escritura?",
+  r1:"Porque es un medio común a todas, en mayor o menor medida, y porque basta con papel y lápiz. Es también una herramienta de introspección muy potente, y permite hacer registro: algo que perdura en el tiempo y que, con la distancia, podemos volver a leer para entendernos más, o mejor.",
+  q2:"¿Por qué entre mujeres?",
+  r2:"Siendo todas mujeres podemos construir un espacio seguro de expresión abierta, libre y sensible. Es esencial para expresarnos con honestidad y sin miedo a mostrarnos vulnerables.",
+  q3:"¿Por qué madres?",
+  r3:"Ser todas madres nos permite compartir un lenguaje, un registro, una experiencia que hace de nexo entre todas nuestras subjetividades.",
+  q4:"¿Por qué en estos tres idiomas?",
+  r4:"Porque las Terres de l'Ebre son un espacio pluricultural. El català por ser la lengua de la terra; el castellano y el inglés por ser las lenguas que habitamos las que venimos de fuera, como lengua materna o como segunda. Así podemos unirnos narrativamente, vengamos de donde vengamos.",
   p2:"Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.",
   p3:"Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.",
   h2practico:"Lo práctico",
@@ -239,7 +269,14 @@ const T = {
   h1:"A first gathering of<em>writing for mothers</em>",
   entradilla:"We meet to write, with a cup of tea or coffee, and to talk about what runs through us when we become mothers.",
   h2que:"What this is",
-  p1:"This group comes from the wish to build a network, to meet and talk about the many things that run through us when we become mothers, sharing with women who are also going through carrying, raising, grieving. It wants to be a refuge, a place where we feel safe to create and put into words whatever needs to come out or stay on paper, an altar where we care for ourselves, respect ourselves and nourish ourselves. We are not after exceptional pieces, or books, or famous texts; what we are after is inhabiting writing from honesty, vulnerability and sensitivity, living it as a tool, writing for the pleasure of it.",
+  q1:"Why writing?",
+  r1:"Because it is a medium we all share, to a greater or lesser degree, and because paper and a pencil are enough. It is also a powerful tool for looking inward, and it leaves a record: something that lasts, and that we can come back to later and read in order to understand ourselves more, or better.",
+  q2:"Why among women?",
+  r2:"Being all women lets us build a safe space for open, free and sensitive expression. That is essential in order to speak honestly, without fear of showing ourselves vulnerable.",
+  q3:"Why mothers?",
+  r3:"Being all mothers gives us a shared language, a shared register, an experience that works as a link between all our subjectivities.",
+  q4:"Why in these three languages?",
+  r4:"Because Terres de l'Ebre is a multicultural place. Catalan because it is the language of this land; Spanish and English because they are the languages that those of us who come from elsewhere tend to inhabit, as a mother tongue or as a second one. This way we can come together in our narratives, wherever we come from.",
   p2:"This space has a calm rhythm, respectful of what each person wants and needs, and the method is simple: we meet, we choose a theme, offered in different ways so that everyone finds their own starting point, and we write with a tea, a coffee, a glass of wine or whatever feels right. At the end, whoever wants to can share what they wrote, part of it or all of it, though it is not compulsory, only a possibility: no one comments on anyone's text, we simply applaud when each reading ends, and everything spoken or read here stays private and confidential.",
   p3:"This is a horizontal proposal, not a workshop and not a therapy group, an initiative to build a mothers' network by sharing writing and its expressive, creative and therapeutic power, and you do not need to have ever written before.",
   h2practico:"Practical details",
