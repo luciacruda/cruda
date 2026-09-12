@@ -182,6 +182,11 @@ function pintar(lang){
   document.querySelectorAll('.idiomas button').forEach(b=>{
     b.setAttribute('aria-current', String(b.dataset.lang === lang));
   });
+  // la página del encuentro abre en el mismo idioma
+  const enc = document.querySelector('a.boton[data-link="landing"]');
+  if(enc && LINKS.landing){
+    enc.href = LINKS.landing + (LINKS.landing.includes('?') ? '&' : '?') + 'lang=' + lang;
+  }
   try{ localStorage.setItem('esc_lang', lang); }catch(e){}
 }
 

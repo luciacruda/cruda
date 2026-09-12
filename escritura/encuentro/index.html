@@ -43,7 +43,20 @@
     }
   }
 
-  header{ padding:76px 0 0; }
+  .idiomas{
+    display:flex; gap:16px; padding:34px 0 0;
+    font-family:"Karla",system-ui,sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase;
+  }
+  .idiomas button{
+    background:none; border:0; padding:0 0 3px; cursor:pointer;
+    font:inherit; letter-spacing:inherit; text-transform:inherit;
+    color:var(--ink-soft); border-bottom:1px solid transparent;
+  }
+  .idiomas button:hover{ color:var(--margen); }
+  .idiomas button[aria-current="true"]{ color:var(--margen); border-bottom-color:var(--margen); }
+
+  header{ padding:56px 0 0; }
   .kicker{
     font-family:"Karla",system-ui,sans-serif; font-size:13px; font-weight:600;
     letter-spacing:.26em; text-transform:uppercase; color:var(--margen); margin:0 0 20px;
@@ -120,48 +133,164 @@
 </head>
 <body>
 <div class="hoja">
+  <div class="idiomas" role="group" aria-label="Idioma">
+    <button data-lang="ca">Català</button>
+    <button data-lang="es">Castellano</button>
+    <button data-lang="en">English</button>
+  </div>
   <header>
-    <p class="kicker">Tortosa</p>
-    <h1>Primer encuentro de<em>escritura para madres</em></h1>
-    <p class="entradilla">Nos encontramos a escribir, acompañadas de un té o un café, y a conversar sobre lo que nos atraviesa cuando nos convertimos en madres.</p>
+    <p class="kicker" data-t="kicker">Tortosa</p>
+    <h1 data-t="h1" data-html>Primer encuentro de<em>escritura para madres</em></h1>
+    <p class="entradilla" data-t="entradilla">Nos encontramos a escribir, acompañadas de un té o un café, y a conversar sobre lo que nos atraviesa cuando nos convertimos en madres.</p>
   </header>
 
 
-  <h2>Qué es</h2>
-  <p>Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.</p>
-  <p>Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.</p>
-  <p>Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.</p>
+  <h2 data-t="h2que">Qué es</h2>
+  <p data-t="p1">Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.</p>
+  <p data-t="p2">Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.</p>
+  <p data-t="p3">Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.</p>
 
-  <h2>Lo práctico</h2>
+  <h2 data-t="h2practico">Lo práctico</h2>
   <dl>
-    <dt>Dónde</dt><dd><a href="https://maps.app.goo.gl/km5MiHNQM2udTwss7" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.</dd>
-    <dt>Cuánto dura</dt><dd>Entre 60 y 75 minutos.</dd>
-    <dt>Cuánto cuesta</dt><dd>Nada. Cada quien paga su consumición.</dd>
-    <dt>Qué traer</dt><dd>Un cuaderno y algo para escribir.</dd>
-    <dt>Hijos</dt><dd>El lugar es apto para venir con ellos, si hace falta.</dd>
-    <dt>Lenguas</dt><dd>Se escribe y se lee en català, castellano o inglés.</dd>
+    <dt data-t="dtDonde">Dónde</dt><dd data-t="ddDonde" data-html><a href="https://maps.app.goo.gl/km5MiHNQM2udTwss7" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.</dd>
+    <dt data-t="dtDura">Cuánto dura</dt><dd data-t="ddDura">Entre 60 y 75 minutos.</dd>
+    <dt data-t="dtCuesta">Cuánto cuesta</dt><dd data-t="ddCuesta">Nada. Cada quien paga su consumición.</dd>
+    <dt data-t="dtTraer">Qué traer</dt><dd data-t="ddTraer">Un cuaderno y algo para escribir.</dd>
+    <dt data-t="dtHijos">Hijos</dt><dd data-t="ddHijos">El lugar es apto para venir con ellos, si hace falta.</dd>
+    <dt data-t="dtLenguas">Lenguas</dt><dd data-t="ddLenguas">Se escribe y se lee en català, castellano o inglés.</dd>
   </dl>
 
   <section class="eleccion">
-    <h2>Las fechas</h2>
-    <p>Estas son las cuatro opciones posibles. El día lo elegimos entre todas: al entrar al grupo, en la descripción está el enlace para votar la que mejor te vaya, y ahí se ve lo que han marcado las demás.</p>
+    <h2 data-t="h2fechas">Las fechas</h2>
+    <p data-t="pfechas">Estas son las cuatro opciones posibles. El día lo elegimos entre todas: al entrar al grupo, en la descripción está el enlace para votar la que mejor te vaya, y ahí se ve lo que han marcado las demás.</p>
     <ul class="fechas">
-      <li><span class="dia">miércoles 30/09</span> <span class="hora">18:00</span></li>
-      <li><span class="dia">jueves 1/10</span> <span class="hora">11:30</span></li>
-      <li><span class="dia">miércoles 7/10</span> <span class="hora">11:30</span></li>
-      <li><span class="dia">jueves 8/10</span> <span class="hora">18:00</span></li>
+      <li><span class="dia" data-t="d1">miércoles 30/09</span> <span class="hora">18:00</span></li>
+      <li><span class="dia" data-t="d2">jueves 1/10</span> <span class="hora">11:30</span></li>
+      <li><span class="dia" data-t="d3">miércoles 7/10</span> <span class="hora">11:30</span></li>
+      <li><span class="dia" data-t="d4">jueves 8/10</span> <span class="hora">18:00</span></li>
     </ul>
-    <p>El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.</p>
-    <a class="btn grande" href="https://chat.whatsapp.com/DDUzwP0pT1v6cdvKpjhOhc" target="_blank" rel="noopener">Entrar al grupo de WhatsApp</a>
+    <p data-t="pgrupo">El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.</p>
+    <a class="btn grande" href="https://chat.whatsapp.com/DDUzwP0pT1v6cdvKpjhOhc" target="_blank" rel="noopener" data-t="btnGrupo">Entrar al grupo de WhatsApp</a>
   </section>
 
-  <h2>Quién convoca</h2>
-  <p>Mi nombre es Lucía. Nací hace 40 años en Argentina, pero hace más de 15 vivo en este lado del Atlántico. Llegué a Tortosa con la gestación de mi primer hijo y desde entonces habito este territorio, que me encanta.</p>
+  <h2 data-t="h2quien">Quién convoca</h2>
+  <p data-t="pquien">Mi nombre es Lucía. Nací hace 40 años en Argentina, pero hace más de 15 vivo en este lado del Atlántico. Llegué a Tortosa con la gestación de mi primer hijo y desde entonces habito este territorio, que me encanta.</p>
   <div class="acciones">
-    <a class="btn secundario" href="https://wa.me/491636494792" target="_blank" rel="noopener">Escribirme</a>
+    <a class="btn secundario" href="https://wa.me/491636494792" target="_blank" rel="noopener" data-t="btnEscribir">Escribirme</a>
   </div>
   <p class="firma">Lucía</p>
 </div>
+
+
+<script>
+const MAPS = "https://maps.app.goo.gl/km5MiHNQM2udTwss7";
+const BAR = '<a href="'+MAPS+'" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.';
+const T = {
+ ca:{
+  kicker:"Tortosa",
+  h1:"Primera trobada<em>d'escriptura per a mares</em>",
+  entradilla:"Ens trobem per escriure, acompanyades d'un te o un cafè, i per conversar sobre allò que ens travessa quan ens convertim en mares.",
+  h2que:"Què és",
+  p1:"Aquest grup neix del desig de fer xarxa, trobar-nos i conversar sobre la quantitat de qüestions que ens travessen quan ens convertim en mares, compartint amb dones que també travessen l'experiència de gestar, criar i fer dol. És un espai que busca ser refugi, on poder sentir-nos segures per crear i expressar en paraules allò que necessiti sortir o quedar registrat en paper, un altar on cuidar-nos, respectar-nos i nodrir-nos. No busquem peces excepcionals, ni llibres, ni textos cèlebres; el que busquem és habitar l'escriptura des de l'honestedat, la vulnerabilitat i la sensibilitat, viure-la com a eina, escriure des del gaudi.",
+  p2:"Aquest espai té un ritme calmat i respectuós amb els desitjos i les necessitats de cadascú, i el mètode és simple: ens trobem, triem un tema, que proposarem de maneres diferents perquè cadascú trobi el seu punt de partida inspirador, i escrivim acompanyades d'un te, un cafè, una copa de vi o el que abelleixi. Com a tancament de la trobada qui vulgui podrà compartir allò escrit, una part o tot, encara que no és obligatori, només una possibilitat: no s'opinarà sobre cap text, només s'aplaudirà en acabar cada lectura, i tot el que es parli o es llegeixi aquí serà privat i confidencial.",
+  p3:"És una proposta horitzontal, no un taller ni un grup terapèutic, una iniciativa per fer xarxa materna compartint l'escriptura i el seu poder expressiu, creatiu i terapèutic, i no cal haver escrit mai per venir.",
+  h2practico:"La part pràctica",
+  dtDonde:"On", ddDonde:BAR,
+  dtDura:"Quant dura", ddDura:"Entre 60 i 75 minuts.",
+  dtCuesta:"Quant costa", ddCuesta:"Res. Cadascú es paga la consumició.",
+  dtTraer:"Què portar", ddTraer:"Una llibreta i alguna cosa per escriure.",
+  dtHijos:"Fills", ddHijos:"L'espai és apte per venir amb ells, si cal.",
+  dtLenguas:"Llengües", ddLenguas:"S'escriu i es llegeix en català, castellà o anglès.",
+  h2fechas:"Les dates",
+  pfechas:"Aquestes són les quatre opcions possibles. El dia el triem entre totes: en entrar al grup, a la descripció hi ha l'enllaç per votar la que et vagi millor, i allà es veu el que han marcat les altres.",
+  d1:"dimecres 30/09", d2:"dijous 1/10", d3:"dimecres 7/10", d4:"dijous 8/10",
+  pgrupo:"Al grup de WhatsApp és on aviso de la data i el lloc, i on es comparteix el que sorgeixi. Es pot ser només llegint, sense contestar mai.",
+  btnGrupo:"Entrar al grup de WhatsApp",
+  h2quien:"Qui convoca",
+  pquien:"Em dic Lucía. Vaig néixer fa 40 anys a l'Argentina, però fa més de 15 que visc en aquesta banda de l'Atlàntic. Vaig arribar a Tortosa amb la gestació del meu primer fill i des de llavors habito aquest territori, que m'encanta.",
+  btnEscribir:"Escriure'm"
+ },
+ es:{
+  kicker:"Tortosa",
+  h1:"Primer encuentro de<em>escritura para madres</em>",
+  entradilla:"Nos encontramos a escribir, acompañadas de un té o un café, y a conversar sobre lo que nos atraviesa cuando nos convertimos en madres.",
+  h2que:"Qué es",
+  p1:"Este grupo surge con el deseo de hacer red, encontrarnos y conversar sobre la cantidad de cuestiones que nos atraviesan cuando nos convertimos en madres, compartiendo con mujeres que atraviesan también la experiencia de gestar, criar, duelar. Es un espacio que busca ser refugio, donde poder sentirnos seguras para crear y expresar en palabras lo que necesite salir o quedar registrado en papel, un altar donde cuidarnos, respetarnos y nutrirnos. No buscamos piezas excepcionales, ni libros, ni textos célebres; lo que buscamos es habitar la escritura desde la honestidad, la vulnerabilidad y la sensibilidad, vivirla como herramienta, escribir desde el disfrute.",
+  p2:"Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.",
+  p3:"Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.",
+  h2practico:"Lo práctico",
+  dtDonde:"Dónde", ddDonde:BAR,
+  dtDura:"Cuánto dura", ddDura:"Entre 60 y 75 minutos.",
+  dtCuesta:"Cuánto cuesta", ddCuesta:"Nada. Cada quien paga su consumición.",
+  dtTraer:"Qué traer", ddTraer:"Un cuaderno y algo para escribir.",
+  dtHijos:"Hijos", ddHijos:"El lugar es apto para venir con ellos, si hace falta.",
+  dtLenguas:"Lenguas", ddLenguas:"Se escribe y se lee en català, castellano o inglés.",
+  h2fechas:"Las fechas",
+  pfechas:"Estas son las cuatro opciones posibles. El día lo elegimos entre todas: al entrar al grupo, en la descripción está el enlace para votar la que mejor te vaya, y ahí se ve lo que han marcado las demás.",
+  d1:"miércoles 30/09", d2:"jueves 1/10", d3:"miércoles 7/10", d4:"jueves 8/10",
+  pgrupo:"El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.",
+  btnGrupo:"Entrar al grupo de WhatsApp",
+  h2quien:"Quién convoca",
+  pquien:"Mi nombre es Lucía. Nací hace 40 años en Argentina, pero hace más de 15 vivo en este lado del Atlántico. Llegué a Tortosa con la gestación de mi primer hijo y desde entonces habito este territorio, que me encanta.",
+  btnEscribir:"Escribirme"
+ },
+ en:{
+  kicker:"Tortosa",
+  h1:"A first gathering of<em>writing for mothers</em>",
+  entradilla:"We meet to write, with a cup of tea or coffee, and to talk about what runs through us when we become mothers.",
+  h2que:"What this is",
+  p1:"This group comes from the wish to build a network, to meet and talk about the many things that run through us when we become mothers, sharing with women who are also going through carrying, raising, grieving. It wants to be a refuge, a place where we feel safe to create and put into words whatever needs to come out or stay on paper, an altar where we care for ourselves, respect ourselves and nourish ourselves. We are not after exceptional pieces, or books, or famous texts; what we are after is inhabiting writing from honesty, vulnerability and sensitivity, living it as a tool, writing for the pleasure of it.",
+  p2:"This space has a calm rhythm, respectful of what each person wants and needs, and the method is simple: we meet, we choose a theme, offered in different ways so that everyone finds their own starting point, and we write with a tea, a coffee, a glass of wine or whatever feels right. At the end, whoever wants to can share what they wrote, part of it or all of it, though it is not compulsory, only a possibility: no one comments on anyone's text, we simply applaud when each reading ends, and everything spoken or read here stays private and confidential.",
+  p3:"This is a horizontal proposal, not a workshop and not a therapy group, an initiative to build a mothers' network by sharing writing and its expressive, creative and therapeutic power, and you do not need to have ever written before.",
+  h2practico:"Practical details",
+  dtDonde:"Where", ddDonde:BAR,
+  dtDura:"How long", ddDura:"Between 60 and 75 minutes.",
+  dtCuesta:"Cost", ddCuesta:"Free. Everyone pays for their own drink.",
+  dtTraer:"What to bring", ddTraer:"A notebook and something to write with.",
+  dtHijos:"Children", ddHijos:"The place is fine for bringing them along, if you need to.",
+  dtLenguas:"Languages", ddLenguas:"We write and read in Catalan, Spanish or English.",
+  h2fechas:"The dates",
+  pfechas:"These are the four possible options. We choose the day together: once you join the group, the description has the link to vote for the one that suits you best, and there you can see what the others have marked.",
+  d1:"Wednesday 30/09", d2:"Thursday 1/10", d3:"Wednesday 7/10", d4:"Thursday 8/10",
+  pgrupo:"The WhatsApp group is where I announce the date and the place, and where anything that comes up gets shared. Reading only is completely fine.",
+  btnGrupo:"Join the WhatsApp group",
+  h2quien:"Who is calling this",
+  pquien:"My name is Lucía. I was born 40 years ago in Argentina, but I have lived on this side of the Atlantic for more than 15. I arrived in Tortosa carrying my first child and I have lived in this land ever since, and I love it.",
+  btnEscribir:"Write to me"
+ }
+};
+
+function pintar(lang){
+  const d = T[lang]; if(!d) return;
+  document.documentElement.lang = lang;
+  document.title = (lang==="ca" ? "Trobades d'escriptura per a mares · Tortosa"
+                  : lang==="en" ? "Writing gatherings for mothers · Tortosa"
+                  : "Encuentros de escritura para madres · Tortosa");
+  document.querySelectorAll("[data-t]").forEach(el=>{
+    const v = d[el.dataset.t]; if(v==null) return;
+    if(el.hasAttribute("data-html")) el.innerHTML = v; else el.textContent = v;
+  });
+  document.querySelectorAll(".idiomas button").forEach(b=>{
+    b.setAttribute("aria-current", String(b.dataset.lang===lang));
+  });
+  try{ localStorage.setItem("esc_lang", lang); }catch(e){}
+}
+
+document.querySelectorAll(".idiomas button").forEach(b=>{
+  b.addEventListener("click", ()=> pintar(b.dataset.lang));
+});
+
+// hereda el idioma elegido en cruda.eu/escritura, y si no, el del navegador
+let inicial = "ca";
+try{
+  const q = new URLSearchParams(location.search).get("lang");
+  const guardado = localStorage.getItem("esc_lang");
+  if(q && T[q]) inicial = q;
+  else if(guardado && T[guardado]) inicial = guardado;
+  else { const nav=(navigator.language||"").slice(0,2); if(T[nav]) inicial = nav; }
+}catch(e){}
+pintar(inicial);
+</script>
 
 </body>
 </html>
