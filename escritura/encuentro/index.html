@@ -206,7 +206,7 @@
     <dt data-t="dtLenguas">Lenguas</dt><dd data-t="ddLenguas">Se escribe y se lee en català, castellano o inglés.</dd>
   </dl>
 
-  <section class="eleccion">
+  <section class="eleccion" id="votar">
     <h2 data-t="h2fechas">Las fechas</h2>
     <p id="pfechas" data-t="pfechas">Estas son las cuatro opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien, y ahí mismo se ve lo que han marcado las demás. La votación se cierra el viernes 2/10.</p>
     <ul class="fechas" id="fechas">
@@ -238,7 +238,7 @@
 <script>
 // votación dentro de la página: se activa al poner aquí la URL /exec del Apps Script
 // (pasos en personal/massa_madre_votacion.md). Vacía = botón a Framadate, como antes.
-const VOTOS = "";
+const VOTOS = "https://script.google.com/macros/s/AKfycbyd-x8uhSJBz7M6ndzZxItJvEP2PuPvsWz1mZRtYY5kuLsmDJfDiDtpaLzqKlOM6f73Og/exec";
 const MAPS = "https://maps.app.goo.gl/km5MiHNQM2udTwss7";
 const BAR = '<a href="'+MAPS+'" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.';
 const T = {
