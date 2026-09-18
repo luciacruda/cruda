@@ -114,6 +114,36 @@
   .fechas .hora{ color:var(--ink-soft); }
   .btn.grande{ font-size:17px; padding:16px 26px; width:100%; justify-content:center; }
 
+  /* votación dentro de la página */
+  [hidden]{ display:none !important; }
+  .fechas.votable li{ padding:0; }
+  .fechas.votable label{
+    display:flex; gap:14px; align-items:baseline; width:100%; padding:11px 2px; cursor:pointer;
+  }
+  .fechas.votable input{
+    width:19px; height:19px; margin:0; accent-color:var(--margen); align-self:center; flex:none;
+  }
+  .fechas .cuenta{
+    margin-left:auto; white-space:nowrap; font-family:"Karla",system-ui,sans-serif; font-size:14px; color:var(--ink-soft);
+  }
+  .voto label.nombre{
+    display:block; font-family:"Karla",system-ui,sans-serif; font-size:12px; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 6px;
+  }
+  .voto input[type=text]{
+    width:100%; font:inherit; font-size:18px; color:var(--ink); background:var(--ground);
+    border:1px solid var(--rule); border-radius:2px; padding:11px 13px; margin:0 0 14px;
+  }
+  .voto input[type=text]:focus-visible{ outline:2px solid var(--focus); outline-offset:1px; }
+  .voto button.btn{ cursor:pointer; }
+  .voto button.btn:disabled{ opacity:.55; cursor:default; }
+  .voto .aviso{ margin:12px 0 0; font-size:17px; color:var(--ink); }
+  .voto .aviso:empty{ display:none; }
+  @media (max-width:520px){
+    .fechas.votable label{ gap:10px; }
+    .fechas.votable .dia{ min-width:0; }
+  }
+
   dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:12px 26px; align-items:baseline; }
   dt{
     font-family:"Karla",system-ui,sans-serif; font-size:12px; font-weight:600;
@@ -178,14 +208,20 @@
 
   <section class="eleccion">
     <h2 data-t="h2fechas">Las fechas</h2>
-    <p data-t="pfechas">Estas son las cuatro opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien, y ahí mismo se ve lo que han marcado las demás. La votación se cierra el viernes 2/10.</p>
-    <ul class="fechas">
+    <p id="pfechas" data-t="pfechas">Estas son las cuatro opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien, y ahí mismo se ve lo que han marcado las demás. La votación se cierra el viernes 2/10.</p>
+    <ul class="fechas" id="fechas">
       <li><span class="dia" data-t="d1">miércoles 7/10</span> <span class="hora">11:30</span></li>
       <li><span class="dia" data-t="d2">jueves 8/10</span> <span class="hora">18:00</span></li>
       <li><span class="dia" data-t="d3">miércoles 14/10</span> <span class="hora">18:00</span></li>
       <li><span class="dia" data-t="d4">jueves 15/10</span> <span class="hora">11:30</span></li>
     </ul>
-    <a class="btn grande" style="margin-bottom:26px" href="https://beta.framadate.org/polls/encuentro-escritura" target="_blank" rel="noopener" data-t="btnVotar">Votar la fecha</a>
+    <form class="voto" id="voto" hidden style="margin-bottom:26px">
+      <label class="nombre" for="vnombre" data-t="vNombre">Tu nombre</label>
+      <input type="text" id="vnombre" maxlength="60" autocomplete="given-name">
+      <button type="submit" class="btn grande" data-t="vBtn">Votar</button>
+      <p class="aviso" id="vaviso" role="status"></p>
+    </form>
+    <a id="votarFuera" class="btn grande" style="margin-bottom:26px" href="https://beta.framadate.org/polls/encuentro-escritura" target="_blank" rel="noopener" data-t="btnVotar">Votar la fecha</a>
     <p data-t="pgrupo">El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.</p>
     <a class="btn grande secundario" href="https://chat.whatsapp.com/DDUzwP0pT1v6cdvKpjhOhc" target="_blank" rel="noopener" data-t="btnGrupo">Entrar al grupo de WhatsApp</a>
   </section>
@@ -200,6 +236,9 @@
 
 
 <script>
+// votación dentro de la página: se activa al poner aquí la URL /exec del Apps Script
+// (pasos en personal/massa_madre_votacion.md). Vacía = botón a Framadate, como antes.
+const VOTOS = "";
 const MAPS = "https://maps.app.goo.gl/km5MiHNQM2udTwss7";
 const BAR = '<a href="'+MAPS+'" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.';
 const T = {
@@ -230,6 +269,8 @@ const T = {
   pfechas:"Aquestes són les quatre opcions possibles. El dia el triem entre totes: marca les que et vagin bé, i allà mateix es veu el que han marcat les altres. La votació es tanca el divendres 2/10.",
   d1:"dimecres 7/10", d2:"dijous 8/10", d3:"dimecres 14/10", d4:"dijous 15/10",
   pgrupo:"Al grup de WhatsApp és on aviso de la data i el lloc, i on es comparteix el que sorgeixi. Es pot ser només llegint, sense contestar mai.",
+  pfechasV:"Aquestes són les quatre opcions possibles. El dia el triem entre totes: marca les que et vagin bé i deixa el teu nom. Al costat de cada data es veu quantes l'han marcada. La votació es tanca el divendres 2/10.",
+  vNombre:"El teu nom", vBtn:"Votar", vOk:"Gràcies, {n}. El teu vot està comptat. Si canvies d'idea, torna a votar amb el mateix nom.", vErr:"No s'ha pogut desar. Torna-ho a provar d'aquí a una estona o escriu-me.", vIncompleto:"Marca almenys una data i escriu el teu nom.", vCerrada:"La votació ja està tancada.", vMarca:"marca", vMarcas:"marques",
   btnVotar:"Votar la data",
   btnGrupo:"Entrar al grup de WhatsApp",
   h2quien:"Qui convoca",
@@ -263,6 +304,8 @@ const T = {
   pfechas:"Estas son las cuatro opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien, y ahí mismo se ve lo que han marcado las demás. La votación se cierra el viernes 2/10.",
   d1:"miércoles 7/10", d2:"jueves 8/10", d3:"miércoles 14/10", d4:"jueves 15/10",
   pgrupo:"El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.",
+  pfechasV:"Estas son las cuatro opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien y deja tu nombre. Al lado de cada fecha se ve cuántas la marcaron. La votación se cierra el viernes 2/10.",
+  vNombre:"Tu nombre", vBtn:"Votar", vOk:"Gracias, {n}. Tu voto está contado. Si cambias de idea, vuelve a votar con el mismo nombre.", vErr:"No se pudo guardar. Prueba otra vez en un rato o escríbeme.", vIncompleto:"Marca al menos una fecha y escribe tu nombre.", vCerrada:"La votación ya está cerrada.", vMarca:"marca", vMarcas:"marcas",
   btnVotar:"Votar la fecha",
   btnGrupo:"Entrar al grupo de WhatsApp",
   h2quien:"Quién convoca",
@@ -296,6 +339,8 @@ const T = {
   pfechas:"These are the four possible options. We choose the day together: tick the ones that suit you, and you can see right there what the others have marked. Voting closes on Friday 2/10.",
   d1:"Wednesday 7/10", d2:"Thursday 8/10", d3:"Wednesday 14/10", d4:"Thursday 15/10",
   pgrupo:"The WhatsApp group is where I announce the date and the place, and where anything that comes up gets shared. Reading only is completely fine.",
+  pfechasV:"These are the four possible options. We choose the day together: tick the ones that suit you and leave your name. Next to each date you can see how many have ticked it. Voting closes on Friday 2/10.",
+  vNombre:"Your name", vBtn:"Vote", vOk:"Thank you, {n}. Your vote is in. If you change your mind, vote again with the same name.", vErr:"It could not be saved. Try again in a while, or write to me.", vIncompleto:"Tick at least one date and write your name.", vCerrada:"Voting is now closed.", vMarca:"tick", vMarcas:"ticks",
   btnVotar:"Vote on the date",
   btnGrupo:"Join the WhatsApp group",
   h2quien:"Who is calling this",
@@ -304,6 +349,7 @@ const T = {
  }
 };
 
+let idioma = "ca", ultimo = null;
 function pintar(lang){
   const d = T[lang]; if(!d) return;
   document.documentElement.lang = lang;
@@ -318,6 +364,7 @@ function pintar(lang){
     b.setAttribute("aria-current", String(b.dataset.lang===lang));
   });
   try{ localStorage.setItem("esc_lang", lang); }catch(e){}
+  idioma = lang; pintarCuentas();
 }
 
 document.querySelectorAll(".idiomas button").forEach(b=>{
@@ -334,6 +381,66 @@ try{
   else { const nav=(navigator.language||"").slice(0,2); if(T[nav]) inicial = nav; }
 }catch(e){}
 pintar(inicial);
+
+function pintarCuentas(){
+  if(!ultimo) return;
+  const d = T[idioma];
+  document.querySelectorAll("#fechas .cuenta").forEach(el=>{
+    const n = (ultimo.cuenta||{})[el.dataset.k] || 0;
+    el.textContent = n ? n + " " + (n===1 ? d.vMarca : d.vMarcas) : "";
+  });
+  if(ultimo.cerrada) cerrar();
+}
+function cerrar(){
+  document.querySelector("#voto button").disabled = true;
+  document.querySelectorAll("#fechas input").forEach(i=> i.disabled = true);
+  document.getElementById("vaviso").textContent = T[idioma].vCerrada;
+}
+if(VOTOS){
+  const ul = document.getElementById("fechas");
+  ul.classList.add("votable");
+  ul.querySelectorAll("li").forEach((li,i)=>{
+    const k = "d"+(i+1);
+    const lab = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox"; cb.value = k;
+    lab.appendChild(cb);
+    while(li.firstChild) lab.appendChild(li.firstChild);
+    const c = document.createElement("span"); c.className = "cuenta"; c.dataset.k = k;
+    lab.appendChild(c);
+    li.appendChild(lab);
+  });
+  document.getElementById("pfechas").dataset.t = "pfechasV";
+  document.getElementById("votarFuera").hidden = true;
+  const form = document.getElementById("voto");
+  form.hidden = false;
+  pintar(idioma);
+  try{ const n = localStorage.getItem("esc_nombre"); if(n) document.getElementById("vnombre").value = n; }catch(e){}
+  form.addEventListener("submit", ev=>{
+    ev.preventDefault();
+    const d = T[idioma], aviso = document.getElementById("vaviso");
+    const nombre = document.getElementById("vnombre").value.trim();
+    const fechas = [...ul.querySelectorAll("input:checked")].map(i=>i.value);
+    if(!nombre || !fechas.length){ aviso.textContent = d.vIncompleto; return; }
+    const b = form.querySelector("button"); b.disabled = true; aviso.textContent = "";
+    fetch(VOTOS, { method:"POST", body: JSON.stringify({ nombre, fechas }) })
+      .then(r=>r.json())
+      .then(j=>{
+        if(j.error==="cerrada"){ ultimo = Object.assign({cuenta:{}}, ultimo, {cerrada:true}); cerrar(); return; }
+        if(j.error) throw j.error;
+        ultimo = j; pintarCuentas();
+        aviso.textContent = d.vOk.replace("{n}", nombre);
+        try{ localStorage.setItem("esc_nombre", nombre); }catch(e){}
+        b.disabled = false;
+      })
+      .catch(()=>{
+        aviso.innerHTML = '<a href="https://wa.me/491636494792" target="_blank" rel="noopener"></a>';
+        aviso.firstChild.textContent = d.vErr;
+        b.disabled = false;
+      });
+  });
+  fetch(VOTOS).then(r=>r.json()).then(j=>{ ultimo = j; pintarCuentas(); }).catch(()=>{});
+}
 </script>
 
 </body>
