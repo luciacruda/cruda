@@ -16,7 +16,6 @@
 <script>
 const LINKS = {
   landing:    "/escritura/encuentro/",     // listo
-  formulario: "/escritura/encuentro/#votar", // votación dentro de la página del encuentro
   grupo:      "https://chat.whatsapp.com/DDUzwP0pT1v6cdvKpjhOhc", // listo
   chat:       "https://wa.me/491636494792" // listo
 };
@@ -138,7 +137,6 @@ footer{margin-top:48px;text-align:center;font-size:12.5px;color:var(--suave)}
 
   <nav class="botones">
     <a class="boton" data-link="landing"><span class="titulo" data-t="b1"></span><span class="nota" data-t="b1n"></span></a>
-    <a class="boton" data-link="formulario"><span class="titulo" data-t="b2"></span><span class="nota" data-t="b2n"></span></a>
     <a class="boton" data-link="grupo"><span class="titulo" data-t="b3"></span><span class="nota" data-t="b3n"></span></a>
     <a class="boton" data-link="chat"><span class="titulo" data-t="b4"></span><span class="nota" data-t="b4n"></span></a>
   </nav>
@@ -151,7 +149,6 @@ const T = {
   ca:{
     titulo:"Escriptura per a mares",
     b1:"La primera trobada",   b1n:"Què és, com funciona, on i quan.",
-    b2:"Votar la data",        b2n:"Triem entre totes el dia. Es veu el que han marcat les altres.",
     b3:"El grup de WhatsApp",  b3n:"Allà avisem de la data i el lloc. Es pot ser només llegint.",
     b4:"Escriure a la Lúcia",  b4n:"Per qualsevol dubte abans de venir.",
     pie:"Gratuït. Cadascú es paga la consumició."
@@ -159,7 +156,6 @@ const T = {
   es:{
     titulo:"Escritura para madres",
     b1:"El primer encuentro",  b1n:"Qué es, cómo funciona, dónde y cuándo.",
-    b2:"Votar la fecha",       b2n:"Elegimos entre todas el día. Se ve lo que han marcado las demás.",
     b3:"El grupo de WhatsApp", b3n:"Ahí aviso de la fecha y el lugar. Se puede estar solo leyendo.",
     b4:"Escribirle a Lucía",   b4n:"Para cualquier duda antes de venir.",
     pie:"Gratuito. Cada quien se paga su consumición."
@@ -167,7 +163,6 @@ const T = {
   en:{
     titulo:"Writing for mothers",
     b1:"The first gathering",  b1n:"What it is, how it works, where and when.",
-    b2:"Vote on the date",     b2n:"We pick the day together. You can see what the others marked.",
     b3:"The WhatsApp group",   b3n:"Date and place are announced there. Reading only is fine.",
     b4:"Write to Lucía",       b4n:"For any question before coming.",
     pie:"Free. Everyone pays for their own drink."
@@ -204,7 +199,9 @@ document.querySelectorAll('a.boton').forEach(a=>{
 let inicial = 'ca';
 try{
   const guardado = localStorage.getItem('esc_lang');
-  if(guardado && T[guardado]) inicial = guardado;
+  const q = new URLSearchParams(location.search).get('lang');
+  if(q && T[q]) inicial = q;
+  else if(guardado && T[guardado]) inicial = guardado;
   else { const nav = (navigator.language||'').slice(0,2); if(T[nav]) inicial = nav; }
 }catch(e){}
 pintar(inicial);
