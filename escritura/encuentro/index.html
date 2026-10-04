@@ -112,6 +112,8 @@
   .fechas li:first-child{ border-top:1px solid var(--rule); }
   .fechas .dia{ font-weight:500; color:var(--ink); min-width:12.5ch; }
   .fechas .hora{ color:var(--ink-soft); }
+  .fechas li.ganadora .dia, .fechas li.ganadora .hora{ color:var(--ink); font-weight:600; }
+  .fechas .gana{ font-family:"Karla",system-ui,sans-serif; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--margen); }
   .btn.grande{ font-size:17px; padding:16px 26px; width:100%; justify-content:center; }
 
   /* votación dentro de la página */
@@ -198,6 +200,7 @@
 
   <h2 data-t="h2practico">Lo práctico</h2>
   <dl>
+    <dt data-t="dtCuando">Cuándo</dt><dd data-t="ddCuando">Jueves 15 de octubre, a las 11:30.</dd>
     <dt data-t="dtDonde">Dónde</dt><dd data-t="ddDonde" data-html><a href="https://maps.app.goo.gl/km5MiHNQM2udTwss7" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa. Este primer encuentro es allí; el lugar de los siguientes se avisa en el grupo.</dd>
     <dt data-t="dtDura">Cuánto dura</dt><dd data-t="ddDura">Entre 60 y 75 minutos.</dd>
     <dt data-t="dtCuesta">Cuánto cuesta</dt><dd data-t="ddCuesta">Nada. Cada quien paga su consumición.</dd>
@@ -240,6 +243,8 @@
 // votación dentro de la página: se activa al poner aquí la URL /exec del Apps Script
 // (pasos en personal/massa_madre_votacion.md). Vacía = botón a Framadate, como antes.
 const VOTOS = "https://script.google.com/macros/s/AKfycbyd-x8uhSJBz7M6ndzZxItJvEP2PuPvsWz1mZRtYY5kuLsmDJfDiDtpaLzqKlOM6f73Og/exec";
+// fecha elegida: con una clave (d1, d2…) la votación se da por cerrada y se marca esa fecha
+const GANADORA = "d4";
 const MAPS = "https://maps.app.goo.gl/km5MiHNQM2udTwss7";
 const BAR = '<a href="'+MAPS+'" target="_blank" rel="noopener">Bar Tassa Màgica</a>, Tortosa.';
 const T = {
@@ -260,6 +265,7 @@ const T = {
   p2:"Aquest espai té un ritme calmat i respectuós amb els desitjos i les necessitats de cadascú, i el mètode és simple: ens trobem, triem un tema, que proposarem de maneres diferents perquè cadascú trobi el seu punt de partida inspirador, i escrivim acompanyades d'un te, un cafè, una copa de vi o el que abelleixi. Com a tancament de la trobada qui vulgui podrà compartir allò escrit, una part o tot, encara que no és obligatori, només una possibilitat: no s'opinarà sobre cap text, només s'aplaudirà en acabar cada lectura, i tot el que es parli o es llegeixi aquí serà privat i confidencial.",
   p3:"És una proposta horitzontal, no un taller ni un grup terapèutic, una iniciativa per fer xarxa materna compartint l'escriptura i el seu poder expressiu, creatiu i terapèutic, i no cal haver escrit mai per venir.",
   h2practico:"La part pràctica",
+  dtCuando:"Quan", ddCuando:"Dijous 15 d'octubre, a les 11:30.",
   dtDonde:"On", ddDonde:BAR+" Aquesta primera trobada és allà; el lloc de les següents s'avisa al grup.",
   dtDura:"Quant dura", ddDura:"Entre 60 i 75 minuts.",
   dtCuesta:"Quant costa", ddCuesta:"Res. Cadascú es paga la consumició.",
@@ -272,8 +278,9 @@ const T = {
   d1:"dimecres 7/10", d2:"dijous 8/10", d3:"dimecres 14/10", d4:"dijous 15/10",
   pgrupo:"Al grup de WhatsApp és on aviso de la data i el lloc, i on es comparteix el que sorgeixi. Es pot ser només llegint, sense contestar mai.",
   pfechasV:"Aquestes són les cinc opcions possibles. El dia el triem entre totes: marca les que et vagin bé i deixa el teu nom. Al costat de cada data es veu quantes l'han marcada. La votació es tanca el divendres 2/10.",
-  vNombre:"El teu nom", vBtn:"Votar", vOk:"Gràcies, {n}. El teu vot està comptat. Si canvies d'idea, torna a votar amb el mateix nom.", vErr:"No s'ha pogut desar. Torna-ho a provar d'aquí a una estona o escriu-me.", vIncompleto:"Marca almenys una data i escriu el teu nom.", vCerrada:"La votació ja està tancada.", vMarca:"marca", vMarcas:"marques",
+  vNombre:"El teu nom", vBtn:"Votar", vOk:"Gràcies, {n}. El teu vot està comptat.", vErr:"No s'ha pogut desar. Torna-ho a provar d'aquí a una estona o escriu-me.", vIncompleto:"Marca almenys una data i escriu el teu nom.", vCerrada:"La votació ja està tancada.", vMarca:"marca", vMarcas:"marques",
   btnVotar:"Votar la data",
+  pfechasG:"La votació ja està tancada i ha guanyat el dijous 15/10 a les 11:30. Gràcies a totes les que heu votat. Al costat de cada data queda quantes l'han marcada.", vGana:"triada",
   btnGrupo:"Entrar al grup de WhatsApp",
   h2quien:"Qui convoca",
   pquien:"Em dic Lucía. Vaig néixer fa 40 anys a l'Argentina, però fa més de 15 que visc en aquesta banda de l'Atlàntic. Vaig arribar a Tortosa amb la gestació del meu primer fill i des de llavors habito aquest territori, que m'inspira quotidianament.",
@@ -296,6 +303,7 @@ const T = {
   p2:"Este espacio tiene un ritmo calmo y respetuoso con los deseos y necesidades de cada quien, y el método es simple: nos encontramos, elegimos un tema, que propondremos de diferentes formas para que cada quien encuentre su punto de partida inspirador, y escribimos acompañadas de un té, un café, una copa de vino o lo que apetezca. Como cierre del encuentro quien quiera podrá compartir lo escrito, parte o todo ello, aunque no es obligatorio, solo una posibilidad: no se opinará sobre ningún texto, solo se aplaudirá al acabar cada lectura, y todo lo que se hable o se lea aquí será privado y confidencial.",
   p3:"Es una propuesta horizontal, no un taller ni un grupo terapéutico, una iniciativa para hacer red materna compartiendo la escritura y su poder expresivo, creativo y terapéutico, y no hace falta haber escrito nunca para venir.",
   h2practico:"Lo práctico",
+  dtCuando:"Cuándo", ddCuando:"Jueves 15 de octubre, a las 11:30.",
   dtDonde:"Dónde", ddDonde:BAR+" Este primer encuentro es allí; el lugar de los siguientes se avisa en el grupo.",
   dtDura:"Cuánto dura", ddDura:"Entre 60 y 75 minutos.",
   dtCuesta:"Cuánto cuesta", ddCuesta:"Nada. Cada quien paga su consumición.",
@@ -308,8 +316,9 @@ const T = {
   d1:"miércoles 7/10", d2:"jueves 8/10", d3:"miércoles 14/10", d4:"jueves 15/10",
   pgrupo:"El grupo de WhatsApp es donde aviso de la fecha y el lugar, y donde se puede compartir lo que surja. Se puede estar solo leyendo, sin contestar nunca.",
   pfechasV:"Estas son las cinco opciones posibles. El día lo elegimos entre todas: marca las que te vayan bien y deja tu nombre. Al lado de cada fecha se ve cuántas la marcaron. La votación se cierra el viernes 2/10.",
-  vNombre:"Tu nombre", vBtn:"Votar", vOk:"Gracias, {n}. Tu voto está contado. Si cambias de idea, vuelve a votar con el mismo nombre.", vErr:"No se pudo guardar. Prueba otra vez en un rato o escríbeme.", vIncompleto:"Marca al menos una fecha y escribe tu nombre.", vCerrada:"La votación ya está cerrada.", vMarca:"marca", vMarcas:"marcas",
+  vNombre:"Tu nombre", vBtn:"Votar", vOk:"Gracias, {n}. Tu voto está contado.", vErr:"No se pudo guardar. Prueba otra vez en un rato o escríbeme.", vIncompleto:"Marca al menos una fecha y escribe tu nombre.", vCerrada:"La votación ya está cerrada.", vMarca:"marca", vMarcas:"marcas",
   btnVotar:"Votar la fecha",
+  pfechasG:"La votación ya está cerrada y ganó el jueves 15/10 a las 11:30. Gracias a todas las que votaron. Al lado de cada fecha queda cuántas la marcaron.", vGana:"elegida",
   btnGrupo:"Entrar al grupo de WhatsApp",
   h2quien:"Quién convoca",
   pquien:"Mi nombre es Lucía. Nací hace 40 años en Argentina, pero hace más de 15 vivo en este lado del Atlántico. Llegué a Tortosa con la gestación de mi primer hijo y desde entonces habito este territorio, que me inspira cotidianamente.",
@@ -332,6 +341,7 @@ const T = {
   p2:"This space has a calm rhythm, respectful of what each person wants and needs, and the method is simple: we meet, we choose a theme, offered in different ways so that everyone finds their own starting point, and we write with a tea, a coffee, a glass of wine or whatever feels right. At the end, whoever wants to can share what they wrote, part of it or all of it, though it is not compulsory, only a possibility: no one comments on anyone's text, we simply applaud when each reading ends, and everything spoken or read here stays private and confidential.",
   p3:"This is a horizontal proposal, not a workshop and not a therapy group, an initiative to build a mothers' network by sharing writing and its expressive, creative and therapeutic power, and you do not need to have ever written before.",
   h2practico:"Practical details",
+  dtCuando:"When", ddCuando:"Thursday 15 October, at 11:30.",
   dtDonde:"Where", ddDonde:BAR+" That is where this first gathering takes place; the place for the next ones is announced in the group.",
   dtDura:"How long", ddDura:"Between 60 and 75 minutes.",
   dtCuesta:"Cost", ddCuesta:"Free. Everyone pays for their own drink.",
@@ -344,8 +354,9 @@ const T = {
   d1:"Wednesday 7/10", d2:"Thursday 8/10", d3:"Wednesday 14/10", d4:"Thursday 15/10",
   pgrupo:"The WhatsApp group is where I announce the date and the place, and where anything that comes up gets shared. Reading only is completely fine.",
   pfechasV:"These are the five possible options. We choose the day together: tick the ones that suit you and leave your name. Next to each date you can see how many have ticked it. Voting closes on Friday 2/10.",
-  vNombre:"Your name", vBtn:"Vote", vOk:"Thank you, {n}. Your vote is in. If you change your mind, vote again with the same name.", vErr:"It could not be saved. Try again in a while, or write to me.", vIncompleto:"Tick at least one date and write your name.", vCerrada:"Voting is now closed.", vMarca:"tick", vMarcas:"ticks",
+  vNombre:"Your name", vBtn:"Vote", vOk:"Thank you, {n}. Your vote is in.", vErr:"It could not be saved. Try again in a while, or write to me.", vIncompleto:"Tick at least one date and write your name.", vCerrada:"Voting is now closed.", vMarca:"tick", vMarcas:"ticks",
   btnVotar:"Vote on the date",
+  pfechasG:"Voting is now closed and Thursday 15/10 at 11:30 won. Thank you to everyone who voted. Next to each date you can still see how many ticked it.", vGana:"chosen",
   btnGrupo:"Join the WhatsApp group",
   h2quien:"Who is calling this",
   pquien:"My name is Lucía. I was born 40 years ago in Argentina, but I have lived on this side of the Atlantic for more than 15. I arrived in Tortosa carrying my first child and I have lived in this land ever since, and it inspires me daily.",
@@ -400,7 +411,22 @@ function cerrar(){
   document.querySelectorAll("#fechas input").forEach(i=> i.disabled = true);
   document.getElementById("vaviso").textContent = T[idioma].vCerrada;
 }
-if(VOTOS){
+if(GANADORA){
+  const ul = document.getElementById("fechas");
+  ul.querySelectorAll("li").forEach(li=>{
+    if(li.dataset.k===GANADORA){
+      li.classList.add("ganadora");
+      const g = document.createElement("span"); g.className = "gana"; g.dataset.t = "vGana";
+      li.appendChild(g);
+    }
+    const c = document.createElement("span"); c.className = "cuenta"; c.dataset.k = li.dataset.k;
+    li.appendChild(c);
+  });
+  document.getElementById("pfechas").dataset.t = "pfechasG";
+  document.getElementById("votarFuera").hidden = true;
+  pintar(idioma);
+  if(VOTOS) fetch(VOTOS).then(r=>r.json()).then(j=>{ ultimo = Object.assign({}, j, {cerrada:false}); pintarCuentas(); }).catch(()=>{});
+} else if(VOTOS){
   const ul = document.getElementById("fechas");
   ul.classList.add("votable");
   ul.querySelectorAll("li").forEach(li=>{
