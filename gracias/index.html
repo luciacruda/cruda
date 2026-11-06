@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gracias · CRUDA</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Cruda';src:url('/fonts/Cruda.ttf') format('truetype');font-display:swap}
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--yema:#E3A01F;--masa:#EEDFD1;--tinta:#0D0707;--tomate:#E63B22;color-scheme:light}
+html,body{min-height:100%}
+body{background:var(--masa);color:var(--tinta);font-family:'Courier Prime','Courier New',monospace;font-size:17px;line-height:1.6;display:flex;align-items:center;justify-content:center;padding:48px 24px}
+main{max-width:520px;width:100%}
+.marca{font-family:'Cruda','Courier Prime',monospace;font-weight:normal;font-size:clamp(110px,34vw,160px);line-height:.75;text-transform:uppercase;text-align:center;margin-bottom:40px}
+.mensaje{border-top:1.5px solid var(--tinta);padding-top:28px}
+.mensaje h1{font-family:'Cruda','Courier Prime',monospace;font-weight:normal;font-size:76px;line-height:.9;text-transform:uppercase;margin-bottom:14px}
+.mensaje p{margin-bottom:14px}
+.mensaje .regalo{border:1.5px solid var(--tinta);padding:16px;margin-top:22px}
+.mensaje .regalo b{display:block;font-size:13px;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px}
+a{color:inherit;text-underline-offset:4px}
+.firma{margin-top:28px;font-style:italic}
+[hidden]{display:none!important}
+.vista .mensaje{margin-bottom:56px}
+.vista .mensaje::before{content:attr(data-etiqueta);display:block;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tomate);margin-bottom:10px}
+
+/* variante B: yema */
+.marca{margin-bottom:28px}
+.mensaje{border-top:none;padding-top:0}
+.mensaje .regalo{background:var(--yema);border:none;border-radius:2px;padding:22px 20px;margin-top:26px;transform:rotate(-1deg)}
+.mensaje .regalo b{letter-spacing:.2em}
+.mensaje .regalo p:last-child{font-weight:700;font-size:19px;margin-top:18px}
+.firma{font-family:'Cruda','Courier Prime',monospace;text-transform:uppercase;font-style:normal;font-size:72px;line-height:.9}
+
+.ojos{display:block;width:44px;height:auto;margin:0 auto 10px}
+.cierre{text-align:center;margin-top:56px;opacity:.85}
+.cierre p{font-family:'Cruda','Courier Prime',monospace;text-transform:uppercase;font-size:40px;line-height:1}
+
+.ojos-arriba{display:block;width:72px;height:auto;margin:0 auto 64px}
+</style>
+</head>
+<body>
+<main>
+<img class="ojos-arriba" src="/img/ojos.svg" alt="CRUDA">
+
+<section class="mensaje" data-opcion="taller" data-etiqueta="si eligió el taller" hidden>
+<h1>Gracias!</h1>
+<p>Gracias por contarme. Te escribo cuando lo abra.</p>
+<div class="regalo"><b>Para mientras tanto</b><p>Agarrá un papel y un lapiz y cuando te sientas lista escribe una “intención”. Guardala.</p><p>Disponte a viajar por tus fotos, tomá el tiempo que quieras y necesites.</p><p>Detenete dónde y cuando lo sientas, dejate guiar por tu intuición.</p><p>¿Cual es tu foto-oráculo de hoy?</p></div>
+</section>
+
+<section class="mensaje" data-opcion="mesa" data-etiqueta="si eligió la mesa" hidden>
+<h1>Gracias!</h1>
+<p>Gracias por contarme. Si querés, respondé el correo contándome qué fotos tenés y qué deseo hay detrás.</p>
+<div class="regalo"><b>Para mientras tanto</b><p>Agarrá un papel y un lapiz y cuando te sientas lista escribe una “intención”. Guardala.</p><p>Disponte a viajar por tus fotos, tomá el tiempo que quieras y necesites.</p><p>Detenete dónde y cuando lo sientas, dejate guiar por tu intuición.</p><p>¿Cual es tu foto-oráculo de hoy?</p></div>
+</section>
+
+<section class="mensaje" data-opcion="masadelante" data-etiqueta="si eligió más adelante" hidden>
+<h1>Gracias!</h1>
+<p>Gracias por seguir leyendo. Nos vemos en el Substack.</p>
+<p><a href="https://cruda.substack.com">cruda.substack.com</a></p>
+</section>
+
+<section class="mensaje" data-opcion="general" data-etiqueta="si llega sin elegir" hidden>
+<h1>Gracias!</h1>
+<p>Gracias por pasar.</p>
+</section>
+
+<p class="firma">Lucía</p>
+<div class="cierre"><img class="ojos" src="/img/ojos.svg" alt=""><p>Cruda</p></div>
+</main>
+<script>
+(function(){
+  var q=location.search.replace('?','').split('&')[0].toLowerCase()||location.hash.replace('#','').toLowerCase();
+  var secciones=document.querySelectorAll('.mensaje');
+  if(q==='vista'){document.body.classList.add('vista');secciones.forEach(function(s){s.hidden=false});return}
+  var hay=false;
+  secciones.forEach(function(s){if(s.dataset.opcion===q){s.hidden=false;hay=true}});
+  if(!hay)document.querySelector('[data-opcion="general"]').hidden=false;
+})();
+</script>
+</body>
+</html>
