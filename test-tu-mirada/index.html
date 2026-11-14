@@ -39,7 +39,7 @@ button{font:inherit;color:inherit}
 /* copias */
 .copia{position:absolute;left:0;top:0;width:var(--w);background:var(--papel);padding:8px 8px 26px;border:none;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
   box-shadow:0 2px 3px rgba(13,7,7,.18),0 8px 18px rgba(13,7,7,.12);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .4s,box-shadow .2s}
-.copia img{display:block;width:100%;height:auto;pointer-events:none}
+.copia img{display:block;width:100%;aspect-ratio:4/5;height:auto;object-fit:contain;background:var(--papel);pointer-events:none}
 .copia.arrastrando{cursor:grabbing;transition:none;box-shadow:0 18px 30px rgba(13,7,7,.3)}
 .copia:hover{box-shadow:0 4px 6px rgba(13,7,7,.2),0 14px 26px rgba(13,7,7,.16)}
 .copia.fuera{opacity:0}
@@ -206,7 +206,7 @@ button{font:inherit;color:inherit}
       var c=k%cols,f=Math.floor(k/cols);
       var cx=(c+.5)*mesa.clientWidth/cols,cy=zonaT+(f+.5)*zonaH/filas;
       var jx=(Math.random()-.5)*Math.max(0,mesa.clientWidth/cols-w)*.8,jy=(Math.random()-.5)*Math.max(0,zonaH/filas-h)*.8;
-      out.push({x:Math.max(4,Math.min(mesa.clientWidth-w-4,cx-w/2+jx)),y:Math.max(arriba-10,Math.min(mesa.clientHeight-h-40,cy-h/2+jy)),r:(Math.random()-.5)*8});
+      out.push({x:cx-w/2+jx,y:cy-h/2+jy,r:(Math.random()-.5)*6});
     }
     return mezclar(out);
   }
@@ -214,12 +214,12 @@ button{font:inherit;color:inherit}
   function anchoCopia(arriba){
     var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(6/cols);
     var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-50)/filas;
-    var w=Math.min(cw*.84,(ch*.88-34)/1.5); // copia vertical 2:3 más el borde de papel
-    return Math.max(90,w*escala);
+    var w=Math.min(cw*.86,(ch*.9-34)/1.25); // caja fija 4:5 más el borde de papel
+    return Math.max(50,w*escala);
   }
   function reacomodar(){
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.5+34,arriba);
+    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.25+34,arriba);
     cs.forEach(function(el,k){el.style.setProperty("--w",w+"px");poner(el,ps[k])});
   }
   function poner(el,p){el.dataset.x=p.x;el.dataset.y=p.y;el.dataset.r=p.r;el.style.transform="translate("+p.x+"px,"+p.y+"px) rotate("+p.r+"deg)"}
@@ -244,7 +244,7 @@ button{font:inherit;color:inherit}
     $("zoom").hidden=!(ronda<6);
     if(ronda<6){
       var w=anchoCopia(arriba);
-      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.5+34,arriba);
+      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.25+34,arriba);
       cats.forEach(function(cat,k){
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
@@ -367,8 +367,8 @@ button{font:inherit;color:inherit}
   $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
   $("cerca").addEventListener("click",function(e){if(e.target===this||e.target.classList.contains("marco"))cerrarCerca()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("cerca").hidden)cerrarCerca()});
-  $("mas").addEventListener("click",function(){escala=Math.min(1.8,escala*1.2);reacomodar()});
-  $("menos").addEventListener("click",function(){escala=Math.max(.6,escala/1.2);reacomodar()});
+  $("mas").addEventListener("click",function(){escala=Math.min(2.2,escala*1.2);reacomodar()});
+  $("menos").addEventListener("click",function(){escala=Math.max(.35,escala/1.2);reacomodar()});
   window.addEventListener("resize",function(){if(!$("tira").hidden)reacomodar()});
   $("empezar").addEventListener("click",empezar);$("otra").addEventListener("click",empezar);
   var KIT_FORM="https://app.kit.com/forms/10189204/subscriptions";
