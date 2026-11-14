@@ -296,7 +296,7 @@ body{font-size:19px}
 
   function repartir(){
     limpiar();bloqueo=false;
-    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(TIPO[ronda]==="freno"||OPCIONES[TIPO[ronda]]?" · no suma, solo me ayuda a conocerte":"");par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
+    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL;par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
     $("zoom").hidden=!esFoto(ronda);
