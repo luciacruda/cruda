@@ -162,7 +162,7 @@ body{font-size:19px}
   <div class="portada" id="portada">
     <span class="cinta i"></span><span class="cinta d"></span>
     <h1>¿De dónde parte tu mirada?</h1>
-    <p>Seis rondas de fotos sobre la mesa y dos de papelitos. Las fotos son mías. Tocá la que te llame; si querés, primero movelas.</p>
+    <p>Once rondas de fotos sobre la mesa y dos de papelitos. Las fotos son mías. Tocá la que te llame; si querés, primero movelas.</p>
     <p class="tenue">No hay respuestas correctas. Elegí rápido, con el cuerpo más que con la cabeza.</p>
     <button class="boton" id="empezar" type="button">Empezar</button>
   </div>
@@ -222,8 +222,9 @@ body{font-size:19px}
     conceptual:{n:"Conceptual",de:"de una idea",mia:"de una idea",l:"Tu imagen parte de una idea."}
   };
   var ORDEN=Object.keys(R);
-  var PREG=["¿Cuál no terminás de entender, pero no podés dejar de mirar?","¿Delante de cuál te quedarías en silencio?","Sacá de la mesa la que menos te dice.","¿Cuál se parece a tu semana?","Elegí dos que irían juntas en una serie.","¿Cuál pondrías en la tapa de un libro de tu vida?","Si hoy salieras con la cámara, ¿qué harías?","¿Qué te frena hoy?"];
-  var TIPO=["uno","uno","sacar","uno","par","uno","frase","freno"],PESO=[1,1,0,2,1,1,1,0];
+  var PREG=["¿Cuál te detiene?","¿Cuál no terminás de entender, pero no podés dejar de mirar?","¿Cuál te hubiera gustado hacer a vos?","Sacá de la mesa la que menos te dice.","¿Delante de cuál te quedarías en silencio?","¿Cuál te da ganas de salir a fotografiar?","¿Cuál se parece a tu semana?","Elegí dos que irían juntas en una serie.","¿Cuál guardarías para mirar dentro de diez años?","¿Cuál pondrías en la tapa de un libro de tu vida?","¿Cuál mostrarías para explicar cómo mirás?","Si hoy salieras con la cámara, ¿qué harías?","¿Qué te frena hoy?"];
+  var TIPO=["uno","uno","uno","sacar","uno","uno","uno","par","uno","uno","uno","frase","freno"],PESO=[1,1,1,0,1,1,2,1,1,1,1,1,0];
+  function esFoto(r){return TIPO[r]==="uno"||TIPO[r]==="sacar"||TIPO[r]==="par"}
   var AYUDA={uno:"tocá una para elegir · la lupa, para verla de cerca · arrastrá para mover",sacar:"tocá la que querés sacar de la mesa",par:"tocá dos fotos que irían juntas"};
   var TOTAL=PREG.length;
   var FRENOS={tecnica:"La técnica.",tiempo:"El tiempo.",que:"No saber qué fotografiar.",mostrar:"Mostrar lo que hago.",terminar:"Terminar las cosas."};
@@ -289,11 +290,11 @@ body{font-size:19px}
 
   function repartir(){
     limpiar();bloqueo=false;
-    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(ronda===7?" · no suma, solo me ayuda a saber qué mandarte":"");par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
+    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(TIPO[ronda]==="freno"?" · no suma, solo me ayuda a saber qué mandarte":"");par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
-    $("zoom").hidden=!(ronda<6);
-    if(ronda<6){
+    $("zoom").hidden=!esFoto(ronda);
+    if(esFoto(ronda)){
       var w=anchoCopia(arriba);
       var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.2,arriba);
       cats.forEach(function(cat,k){
@@ -307,7 +308,7 @@ body{font-size:19px}
         setTimeout(function(){el.classList.remove("fuera");poner(el,ps[k])},40+k*70);
         arrastre(el,function(){accion(cat,src,el)});
       });
-    }else if(ronda===7){
+    }else if(TIPO[ronda]==="freno"){
       var w3=movil?Math.min(mesa.clientWidth*.44,200):Math.min(mesa.clientWidth*.22,240);
       var ks=mezclar(Object.keys(FRENOS)),ps3=lugares(ks.length,mesa.clientWidth,mesa.clientHeight,w3,90,arriba);
       ks.forEach(function(fk,k){
@@ -384,7 +385,7 @@ body{font-size:19px}
     ORDEN.slice().sort(function(x,y){return puntos[y]-puntos[x]}).forEach(function(c){
       var r=document.createElement("div");r.className="punto";
       var n=document.createElement("span");n.textContent=R[c].n;
-      var b=document.createElement("span");b.className="b";var i=document.createElement("i");i.style.width=(puntos[c]/8*100)+"%";b.appendChild(i);
+      var b=document.createElement("span");b.className="b";var i=document.createElement("i");i.style.width=(puntos[c]/Math.max(1,Math.max.apply(null,ORDEN.map(function(z){return puntos[z]})))*100)+"%";b.appendChild(i);
       var v=document.createElement("span");v.textContent=puntos[c];r.appendChild(n);r.appendChild(b);r.appendChild(v);p.appendChild(r);
     });
     var rf=$("r-freno");if(freno){rf.hidden=false;rf.textContent="Lo que hoy te frena: "+FRENO_TXT[freno]+". En el correo te mando algo para eso."}else rf.hidden=true;
