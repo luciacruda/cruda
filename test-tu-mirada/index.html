@@ -141,6 +141,7 @@ button{font:inherit;color:inherit}
           <form id="f-correo"><input id="correo" type="email" required placeholder="tu correo" aria-label="Tu correo"><button class="boton" type="submit">Recibirla</button></form>
           <p class="tenue" id="hecho" hidden>Listo. En unos minutos te llega a tu correo. Si no lo ves, mirá en promociones o en spam.</p>
         </div>
+        <button class="boton" id="guardar" type="button">Guardar mi carta</button>
         <div class="acciones"><button class="otra" id="ver" type="button" aria-expanded="false">Ver tu recorrido</button><button class="otra" id="otra" type="button">Hacerlo otra vez</button></div>
       </div>
       <div class="hoja ancha" id="detalle" hidden>
@@ -319,6 +320,31 @@ button{font:inherit;color:inherit}
     ronda=0;ultima7=null;recorrido=[];freno=null;ORDEN.forEach(function(c){puntos[c]=0;elegidas[c]=[];usadas[c]=[]});
     $("portada").hidden=true;$("resultado").hidden=true;$("tira").hidden=false;$("ayuda").hidden=false;repartir();
   }
+  function envolver(ctx,txt,max){var ps=txt.split(" "),ls=[],l="";ps.forEach(function(w){var t=l?l+" "+w:w;if(ctx.measureText(t).width>max&&l){ls.push(l);l=w}else l=t});if(l)ls.push(l);return ls}
+  function cargar(src){return new Promise(function(ok,mal){var i=new Image();i.onload=function(){ok(i)};i.onerror=mal;i.src=src})}
+  $("guardar").addEventListener("click",function(){
+    var b=this;b.disabled=true;b.textContent="Preparando…";
+    var W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
+    Promise.all([cargar($("c-img").src),cargar(document.querySelector(".carta .pie img").src),document.fonts.load('120px Cruda'),document.fonts.load('40px "Courier Prime"')]).then(function(r){
+      var foto=r[0],ojos=r[1];
+      x.fillStyle="#FBF6F0";x.fillRect(0,0,W,H);x.strokeStyle="#0D0707";x.lineWidth=4;x.strokeRect(40,40,W-80,H-80);
+      x.fillStyle="#5E524C";x.font='34px "Courier Prime", monospace';x.textBaseline="top";
+      x.fillText($("c-arriba").textContent.toUpperCase().split("").join(String.fromCharCode(8202)),100,110);
+      var bx=100,by=200,bw=W-200,bh=1060,k=Math.min(bw/foto.width,bh/foto.height),fw=foto.width*k,fh=foto.height*k;
+      x.drawImage(foto,bx+(bw-fw)/2,by+(bh-fh)/2,fw,fh);
+      x.fillStyle="#0D0707";x.font='130px Cruda, "Courier Prime", monospace';
+      var nom=envolver(x,$("c-nom").textContent.toUpperCase(),W-200),y=1320;nom.forEach(function(l){x.fillText(l,100,y);y+=128});
+      x.font='42px "Courier Prime", monospace';y+=20;envolver(x,$("c-lin").textContent,W-200).forEach(function(l){x.fillText(l,100,y);y+=56});
+      var ow=150,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,100,H-110-oh,ow,oh);
+      x.font='34px "Courier Prime", monospace';x.textAlign="right";x.fillText("cruda.eu/test-tu-mirada",W-100,H-150);x.textAlign="left";
+      cv.toBlob(function(blob){
+        var f=new File([blob],"mi-mirada-cruda.png",{type:"image/png"});
+        if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi mirada",text:"cruda.eu/test-tu-mirada"}).catch(function(){})}
+        else{var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-mirada-cruda.png";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)}
+        b.disabled=false;b.textContent="Guardar mi carta";
+      },"image/png");
+    }).catch(function(){b.disabled=false;b.textContent="Guardar mi carta"});
+  });
   $("ver").addEventListener("click",function(){var d=$("detalle"),abre=d.hidden;d.hidden=!abre;this.setAttribute("aria-expanded",abre?"true":"false");this.textContent=abre?"Cerrar el recorrido":"Ver tu recorrido";if(abre)d.scrollIntoView({behavior:"smooth",block:"start"})});
   $("cerca-volver").addEventListener("click",cerrarCerca);
   $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
