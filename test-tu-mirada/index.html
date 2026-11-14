@@ -124,6 +124,8 @@ button{font:inherit;color:inherit}
 .otra{background:none;border:none;text-decoration:underline;text-underline-offset:3px;cursor:pointer;justify-self:start;padding:0;color:var(--lapiz)}
 /* con la foto de cerca, los controles siguen a mano para volver a la mesa */
 .zoom{z-index:2100}
+.copia.marcada img{outline:5px solid var(--yema);outline-offset:3px}
+.copia.marcada::after{content:"✓";position:absolute;left:8px;top:8px;width:30px;height:30px;border-radius:50%;background:var(--yema);color:var(--tinta);display:grid;place-items:center;font-weight:700}
 .cerca{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 /* 14 nov: sin borde; la foto sola, sin aire alrededor (la caja es transparente) */
 .copia{background:none;padding:0;box-shadow:none}
@@ -220,7 +222,9 @@ body{font-size:19px}
     conceptual:{n:"Conceptual",de:"de una idea",mia:"de una idea",l:"Tu imagen parte de una idea."}
   };
   var ORDEN=Object.keys(R);
-  var PREG=["¿Cuál te detiene?","¿Cuál te hubiera gustado hacer a vos?","¿Cuál te da ganas de salir a fotografiar?","¿Cuál guardarías para mirar dentro de diez años?","¿Cuál se parece a tu semana?","¿Cuál mostrarías para explicar cómo mirás?","Si hoy salieras con la cámara, ¿qué harías?","¿Qué te frena hoy?"];
+  var PREG=["¿Cuál no terminás de entender, pero no podés dejar de mirar?","¿Delante de cuál te quedarías en silencio?","Sacá de la mesa la que menos te dice.","¿Cuál se parece a tu semana?","Elegí dos que irían juntas en una serie.","¿Cuál pondrías en la tapa de un libro de tu vida?","Si hoy salieras con la cámara, ¿qué harías?","¿Qué te frena hoy?"];
+  var TIPO=["uno","uno","sacar","uno","par","uno","frase","freno"],PESO=[1,1,0,2,1,1,1,0];
+  var AYUDA={uno:"tocá una para elegir · la lupa, para verla de cerca · arrastrá para mover",sacar:"tocá la que querés sacar de la mesa",par:"tocá dos fotos que irían juntas"};
   var TOTAL=PREG.length;
   var FRENOS={tecnica:"La técnica.",tiempo:"El tiempo.",que:"No saber qué fotografiar.",mostrar:"Mostrar lo que hago.",terminar:"Terminar las cosas."};
   var FRENO_TXT={tecnica:"la técnica",tiempo:"el tiempo",que:"no saber qué fotografiar",mostrar:"mostrar lo que hacés",terminar:"terminar las cosas"};
@@ -233,7 +237,7 @@ body{font-size:19px}
     conceptual:"Pensar primero una idea y buscar cómo fotografiarla."
   };
   var $=function(id){return document.getElementById(id)};
-  var lupaTocada=false,mesa=$("mesa"),recorrido=[],freno=null,ronda=0,puntos={},elegidas={},usadas={},ultima7=null,tope=10,bloqueo=false;
+  var lupaTocada=false,descartes=[],par=[],mesa=$("mesa"),recorrido=[],freno=null,ronda=0,puntos={},elegidas={},usadas={},ultima7=null,tope=10,bloqueo=false;
 
   function mezclar(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
   function sacar(cat){ // una foto del grupo que no haya salido todavía
@@ -285,7 +289,7 @@ body{font-size:19px}
 
   function repartir(){
     limpiar();bloqueo=false;
-    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(ronda===7?" · no suma, solo me ayuda a saber qué mandarte":"");$("enunciado").textContent=PREG[ronda];
+    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(ronda===7?" · no suma, solo me ayuda a saber qué mandarte":"");par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
     $("zoom").hidden=!(ronda<6);
@@ -297,11 +301,11 @@ body{font-size:19px}
         el.setAttribute("aria-label","Foto "+(k+1));
         var src=sacar(cat),im=document.createElement("img");im.src=src;im.alt="";el.appendChild(im);
         var lu=document.createElement("span");lu.className="lupa";lu.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l4.5 4.5" stroke-linecap="round"/></svg>';lu.setAttribute("aria-hidden","true");el.appendChild(lu);
-        el._cerca=function(){abrirCerca(src,function(){elegir(cat,src,el)})};
+        el._cerca=function(){abrirCerca(src,function(){accion(cat,src,el)})};
         mesa.appendChild(el);poner(el,{x:mesa.clientWidth/2-w/2,y:mesa.clientHeight+40,r:0});
         el.style.zIndex=++tope;
         setTimeout(function(){el.classList.remove("fuera");poner(el,ps[k])},40+k*70);
-        arrastre(el,function(){elegir(cat,src,el)});
+        arrastre(el,function(){accion(cat,src,el)});
       });
     }else if(ronda===7){
       var w3=movil?Math.min(mesa.clientWidth*.44,200):Math.min(mesa.clientWidth*.22,240);
@@ -325,11 +329,29 @@ body{font-size:19px}
   }
 
   var alElegirCerca=null;
-  function abrirCerca(src,fn){$("cerca-img").src=src;alElegirCerca=fn;$("cerca").hidden=false;$("cerca-elegir").focus()}
+  function abrirCerca(src,fn){$("cerca-elegir").textContent=TIPO[ronda]==="sacar"?"Sacar esta":TIPO[ronda]==="par"?"Sumar esta al par":"Elegir esta";$("cerca-img").src=src;alElegirCerca=fn;$("cerca").hidden=false;$("cerca-elegir").focus()}
   function cerrarCerca(){$("cerca").hidden=true;alElegirCerca=null}
+  function accion(cat,src,el){
+    var t=TIPO[ronda];
+    if(t==="sacar"){if(bloqueo)return;bloqueo=true;descartes.push({r:ronda,cat:cat,src:src});
+      el.style.zIndex=++tope;poner(el,{x:+el.dataset.x,y:-400,r:-25});
+      [].slice.call(mesa.querySelectorAll(".copia")).forEach(function(o){if(o!==el)o.classList.add("fuera")});
+      ronda++;setTimeout(function(){repartir()},620);return}
+    if(t==="par"){
+      var i=par.indexOf(el);
+      if(i>-1){par.splice(i,1);el.classList.remove("marcada");return}
+      el.classList.add("marcada");el._dato={cat:cat,src:src};par.push(el);
+      if(par.length<2)return;
+      if(bloqueo)return;bloqueo=true;
+      par.forEach(function(o,k){var d=o._dato;puntos[d.cat]+=1;elegidas[d.cat].push(d.src);recorrido.push({r:ronda,cat:d.cat,src:d.src});
+        o.style.zIndex=++tope;poner(o,{x:mesa.clientWidth-110+k*30,y:mesa.clientHeight-150,r:(k?8:-8)});o.style.transform+=" scale(.35)"});
+      [].slice.call(mesa.querySelectorAll(".copia")).forEach(function(o){if(par.indexOf(o)<0)o.classList.add("fuera")});
+      ronda++;setTimeout(function(){repartir()},700);return}
+    elegir(cat,src,el);
+  }
   function elegir(cat,src,el){
     if(bloqueo)return;bloqueo=true;
-    if(cat){puntos[cat]+=(ronda===4?2:1);if(src)elegidas[cat].push(src);recorrido.push({r:ronda,cat:cat,src:src});}
+    if(cat){puntos[cat]+=(PESO[ronda]||1);if(src)elegidas[cat].push(src);recorrido.push({r:ronda,cat:cat,src:src});}
     // la elegida va a la pila, las otras se retiran
     [].slice.call(mesa.querySelectorAll(".copia,.papelito")).forEach(function(o){
       if(o===el){o.style.zIndex=++tope;poner(o,{x:mesa.clientWidth-90,y:mesa.clientHeight-140,r:(Math.random()-.5)*20});o.style.transform+=" scale(.35)";}
@@ -374,6 +396,12 @@ body{font-size:19px}
       if(!x.src)t.textContent=(x.r+1)+". "+PREG[x.r]+" Elegiste hacer algo que parte "+R[x.cat].de+".";
       li.appendChild(m);li.appendChild(t);ol.appendChild(li);
     });
+    descartes.forEach(function(x){
+      var li=document.createElement("li"),m=document.createElement("div");m.className="mini";m.style.opacity=".55";
+      var im=document.createElement("img");im.src=x.src;im.alt="";m.appendChild(im);
+      var t=document.createElement("span");t.textContent=(x.r+1)+". "+PREG[x.r]+" Sacaste una imagen que parte "+R[x.cat].de+".";
+      li.appendChild(m);li.appendChild(t);ol.appendChild(li);
+    });
     var dl=$("mapa");dl.innerHTML="";
     ORDEN.forEach(function(c){var d=document.createElement("div"),dt=document.createElement("dt"),dd=document.createElement("dd");dt.textContent=R[c].n;dd.textContent=R[c].l;d.appendChild(dt);d.appendChild(dd);dl.appendChild(d)});
     $("detalle").hidden=true;$("ver").setAttribute("aria-expanded","false");$("ver").textContent="Ver tu recorrido";
@@ -381,7 +409,7 @@ body{font-size:19px}
   }
 
   function empezar(){
-    ronda=0;ultima7=null;recorrido=[];freno=null;ORDEN.forEach(function(c){puntos[c]=0;elegidas[c]=[];usadas[c]=[]});
+    ronda=0;ultima7=null;recorrido=[];freno=null;descartes=[];par=[];ORDEN.forEach(function(c){puntos[c]=0;elegidas[c]=[];usadas[c]=[]});
     $("portada").hidden=true;$("resultado").hidden=true;$("tira").hidden=false;$("ayuda").hidden=false;repartir();
   }
   function envolver(ctx,txt,max){var ps=txt.split(" "),ls=[],l="";ps.forEach(function(w){var t=l?l+" "+w:w;if(ctx.measureText(t).width>max&&l){ls.push(l);l=w}else l=t});if(l)ls.push(l);return ls}
