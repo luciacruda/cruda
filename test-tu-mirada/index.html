@@ -39,7 +39,7 @@ button{font:inherit;color:inherit}
 /* copias */
 .copia{position:absolute;left:0;top:0;width:var(--w);background:var(--papel);padding:8px 8px 26px;border:none;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
   box-shadow:0 2px 3px rgba(13,7,7,.18),0 8px 18px rgba(13,7,7,.12);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .4s,box-shadow .2s}
-.copia img{display:block;width:100%;aspect-ratio:4/5;height:auto;object-fit:contain;background:var(--papel);pointer-events:none}
+.copia img{display:block;width:100%;aspect-ratio:5/6;height:auto;object-fit:contain;background:var(--papel);pointer-events:none}
 .copia.arrastrando{cursor:grabbing;transition:none;box-shadow:0 18px 30px rgba(13,7,7,.3)}
 .copia:hover{box-shadow:0 4px 6px rgba(13,7,7,.2),0 14px 26px rgba(13,7,7,.16)}
 .copia.fuera{opacity:0}
@@ -50,7 +50,7 @@ button{font:inherit;color:inherit}
 /* 14 nov: controles abajo al centro, más grandes */
 .zoom{top:auto;right:auto;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:10px;align-items:center}
 .zoom button{width:54px;height:54px;font-size:30px}
-.zoom .ordenar{width:auto;padding:4px 16px 0;font-size:26px}
+.zoom .ordenar{width:auto;padding:5px 20px 1px;font-size:36px;font-weight:700}
 .ayuda{left:50%;transform:translateX(-50%) rotate(-1deg);bottom:calc(84px + env(safe-area-inset-bottom,0px));white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}
 .copia{position:absolute}
 .lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
@@ -216,7 +216,7 @@ button{font:inherit;color:inherit}
   // posiciones: grilla de 3×2 (2×3 en el teléfono) con desorden
   function lugares(n,ancho,alto,w,h,arriba){
     var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(n/cols),out=[];
-    var zonaT=arriba,zonaH=mesa.clientHeight-arriba-140;
+    var zonaT=arriba,zonaH=mesa.clientHeight-arriba-125;
     for(var k=0;k<n;k++){
       var c=k%cols,f=Math.floor(k/cols);
       var cx=(c+.5)*mesa.clientWidth/cols,cy=zonaT+(f+.5)*zonaH/filas;
@@ -228,20 +228,20 @@ button{font:inherit;color:inherit}
   var escala=1;
   function anchoCopia(arriba){
     var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(6/cols);
-    var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-140)/filas;
-    var w=Math.min(cw*.94,(ch*.95-34)/1.25); // caja fija 4:5 más el borde de papel
+    var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-125)/filas;
+    var w=Math.min(cw*.99,(ch*1.0-34)/1.2); // caja fija 4:5 más el borde de papel
     return Math.max(50,w*escala);
   }
   function ordenar(){
     escala=1;var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(cs.length/cols),cw=mesa.clientWidth/cols,zonaH=mesa.clientHeight-arriba-140,ch=zonaH/filas;
-    var w=Math.max(50,Math.min(cw*.95,(ch*.95-34)/1.25)),h=w*1.25+34;
+    if(!cs.length)return;var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(cs.length/cols),cw=mesa.clientWidth/cols,zonaH=mesa.clientHeight-arriba-125,ch=zonaH/filas;
+    var w=Math.max(50,Math.min(cw*.99,(ch*1.0-34)/1.2)),h=w*1.2+34;
     cs.forEach(function(el,k){var c=k%cols,f=Math.floor(k/cols);el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;
       poner(el,{x:(c+.5)*cw-w/2,y:arriba+(f+.5)*ch-h/2,r:0})});
   }
   function reacomodar(){
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.25+34,arriba);
+    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.2+34,arriba);
     cs.forEach(function(el,k){el.style.setProperty("--w",w+"px");poner(el,ps[k])});
   }
   function poner(el,p){el.dataset.x=p.x;el.dataset.y=p.y;el.dataset.r=p.r;el.style.transform="translate("+p.x+"px,"+p.y+"px) rotate("+p.r+"deg)"}
@@ -266,7 +266,7 @@ button{font:inherit;color:inherit}
     $("zoom").hidden=!(ronda<6);
     if(ronda<6){
       var w=anchoCopia(arriba);
-      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.25+34,arriba);
+      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.2+34,arriba);
       cats.forEach(function(cat,k){
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
