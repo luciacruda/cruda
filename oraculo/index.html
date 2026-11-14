@@ -91,8 +91,8 @@ button,input{font:inherit;color:inherit}
 <main class="sala">
   <a class="volver" href="https://cruda.eu">Cruda</a>
   <div class="cabeza">
-  <div class="tira"><span class="cinta i"></span><span class="cinta d"></span><h1>El oráculo fotográfico</h1><p>Para cuando necesitás un mensaje del más allá.</p></div>
-  <p class="ayuda" id="ayuda">pensá una pregunta · tocá el mazo</p>
+  <div class="tira"><span class="cinta i"></span><span class="cinta d"></span><h1>El oraculo fotografico</h1><p>Para cuando necesitás un mensaje del más allá.</p></div>
+  <p class="ayuda" id="ayuda">pensa una pregunta · toca el mazo</p>
   </div>
   <div class="zona">
     <div class="pila">
@@ -203,7 +203,7 @@ void main(){
     estado="pasando";orden=[];for(var k=1;k<=21;k++)orden.push(k);orden.sort(function(){return Math.random()-.5});pos=0;
     var c=$("carta");c.hidden=false;c.classList.add("pasando");c.classList.add("vuelta");$("num").textContent="";
     $("mazo").hidden=true;$("pregunta").hidden=true;$("quieta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;
-    $("ayuda").textContent="cuando sientas que es el momento, tocá la foto";
+    $("ayuda").textContent="cuando sientas que es el momento, toca la foto";
     reloj=setInterval(function(){pos=(pos+1)%21;poner(orden[pos])},130);poner(orden[0]);
   }
   function parar(){
@@ -216,7 +216,7 @@ void main(){
   $("mazo").addEventListener("click",empezar);
   $("carta").addEventListener("click",parar);
   $("carta").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();parar()}});
-  function volver(){clearInterval(reloj);estado="quieto";$("num").textContent="";$("pregunta").hidden=true;$("quieta").hidden=true;$("carta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;$("mazo").hidden=false;$("ayuda").hidden=false;$("ayuda").textContent="pensá una pregunta · tocá el mazo";window.scrollTo(0,0)}
+  function volver(){clearInterval(reloj);estado="quieto";$("num").textContent="";$("pregunta").hidden=true;$("quieta").hidden=true;$("carta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;$("mazo").hidden=false;$("ayuda").hidden=false;$("ayuda").textContent="pensa una pregunta · toca el mazo";window.scrollTo(0,0)}
   $("otra").addEventListener("click",volver);$("volver").addEventListener("click",volver);
   $("form").addEventListener("submit",function(e){
     e.preventDefault();var mail=$("email").value.trim();

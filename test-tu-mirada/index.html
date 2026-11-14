@@ -161,7 +161,7 @@ body{font-size:19px}
 <main class="mesa" id="mesa" aria-label="La mesa del test">
   <div class="portada" id="portada">
     <span class="cinta i"></span><span class="cinta d"></span>
-    <h1>¿De dónde parte tu mirada?</h1>
+    <h1>¿De donde parte tu mirada?</h1>
     <p>Once rondas de fotos sobre la mesa y cuatro de papelitos. Las fotos son mías. Tocá la que te llame; si querés, primero movelas.</p>
     <p class="tenue">No hay respuestas correctas. Elegí rápido, con el cuerpo más que con la cabeza.</p>
     <button class="boton" id="empezar" type="button">Empezar</button>
@@ -180,7 +180,7 @@ body{font-size:19px}
         </div>
         <div class="pie"><img src="img/ojos.png" alt="CRUDA"><span>CRUDA</span></div>
       </div>
-      <button class="guardar" id="guardar" type="button"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Guardá tu carta<small>y compartila en tus historias</small></span></button>
+      <button class="guardar" id="guardar" type="button"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Guarda tu carta<small>y compartila en tus historias</small></span></button>
       </div>
       <div class="hoja">
         <span class="cinta i"></span>
@@ -224,6 +224,7 @@ body{font-size:19px}
   var ORDEN=Object.keys(R);
   var PREG=["¿Cuál te detiene?","¿Cuál no terminás de entender, pero no podés dejar de mirar?","¿Con qué fotografiás más?","¿Cuál te hubiera gustado hacer a vos?","Sacá de la mesa la que menos te dice.","¿Delante de cuál te quedarías en silencio?","Si hoy salieras con la cámara, ¿qué harías?","¿Cuál te da ganas de salir a fotografiar?","¿Cuál se parece a tu semana?","Elegí dos que irían juntas en una serie.","¿Qué parte disfrutás más?","¿Cuál guardarías para mirar dentro de diez años?","¿Cuál pondrías en la tapa de un libro de tu vida?","¿Cuál mostrarías para explicar cómo mirás?","¿Qué te frena hoy?"];
   var TIPO=["uno","uno","camara","uno","sacar","uno","frase","uno","uno","par","momento","uno","uno","uno","freno"],PESO=[1,1,0,1,0,1,1,1,2,1,0,1,1,1,0];
+  function sinTilde(t){return t.normalize("NFD").replace(/[\u0300\u0301]/g,"").normalize("NFC")}
   function esFoto(r){return TIPO[r]==="uno"||TIPO[r]==="sacar"||TIPO[r]==="par"}
   var respuestas={};
   function esFoto(r){return TIPO[r]==="uno"||TIPO[r]==="sacar"||TIPO[r]==="par"}
@@ -247,10 +248,11 @@ body{font-size:19px}
   var lupaTocada=false,descartes=[],par=[],mesa=$("mesa"),recorrido=[],freno=null,ronda=0,puntos={},elegidas={},usadas={},ultima7=null,tope=10,bloqueo=false;
 
   function mezclar(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
-  function sacar(cat){ // una foto del grupo que no haya salido todavía
-    var libres=FOTOS[cat].map(function(_,i){return i}).filter(function(i){return usadas[cat].indexOf(i)<0});
-    if(!libres.length){usadas[cat]=[];libres=FOTOS[cat].map(function(_,i){return i})}
-    var i=libres[Math.floor(Math.random()*libres.length)];usadas[cat].push(i);return FOTOS[cat][i];
+  function libresDe(c){return FOTOS[c].map(function(_,i){return i}).filter(function(i){return usadas[c].indexOf(i)<0})}
+  function sacar(cat){ // una foto que no haya salido en esta sesión; si el grupo se agotó, de otro grupo con fotos libres
+    var c=cat,l=libresDe(c);
+    if(!l.length){var otros=ORDEN.filter(function(o){return libresDe(o).length}).sort(function(a,b){return libresDe(b).length-libresDe(a).length});if(!otros.length)return null;c=otros[0];l=libresDe(c)}
+    var i=l[Math.floor(Math.random()*l.length)];usadas[c].push(i);return {cat:c,src:FOTOS[c][i]};
   }
   function limpiar(){[].slice.call(mesa.querySelectorAll(".copia,.papelito")).forEach(function(e){e.remove()})}
 
@@ -258,22 +260,26 @@ body{font-size:19px}
   var escala=1,RESERVA=125;
   function rejilla(n,arriba){
     var W=mesa.clientWidth,H=mesa.clientHeight-arriba-RESERVA,mejor=null;
-    [[3,2],[2,3]].forEach(function(o){var cols=o[0],filas=Math.ceil(n/cols),cw=W/cols,ch=H/filas,w=Math.min(cw*.96,(ch*.96)/1.2);
+    [[3,2],[2,3]].forEach(function(o){var cols=o[0],filas=Math.ceil(n/cols),cw=W/cols,ch=H/filas,w=Math.min(cw-HUECO,(ch-HUECO)/1.2);
       if(!mejor||w>mejor.w)mejor={cols:cols,filas:filas,cw:cw,ch:ch,w:w}});
     return mejor;
   }
+  var HUECO=14;
+  function compacta(n,w,h,arriba){
+    var g=rejilla(n,arriba),cols=Math.min(g.cols,n),filas=Math.ceil(n/cols);
+    var tw=cols*w+(cols-1)*HUECO,th=filas*h+(filas-1)*HUECO,x0=(mesa.clientWidth-tw)/2,y0=arriba+Math.max(0,(mesa.clientHeight-arriba-RESERVA-th)/2),out=[];
+    for(var k=0;k<n;k++){var c=k%cols,f=Math.floor(k/cols);out.push({x:x0+c*(w+HUECO),y:y0+f*(h+HUECO)})}
+    return out;
+  }
   function lugares(n,ancho,alto,w,h,arriba){
-    var g=rejilla(n,arriba),out=[];
-    for(var k=0;k<n;k++){var c=k%g.cols,f=Math.floor(k/g.cols);
-      out.push({x:(c+.5)*g.cw-w/2,y:arriba+(f+.5)*g.ch-h/2,r:(Math.random()-.5)*3})}
-    return mezclar(out);
+    return mezclar(compacta(n,w,h,arriba).map(function(p){p.r=(Math.random()-.5)*3;return p}));
   }
   function anchoCopia(arriba){return Math.max(50,rejilla(6,arriba).w*escala)}
   function ordenar(){
     escala=1;var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
     if(!cs.length)return;var g=rejilla(cs.length,arriba),w=Math.max(50,g.w),h=w*1.2;
-    cs.forEach(function(el,k){var c=k%g.cols,f=Math.floor(k/g.cols);el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;
-      poner(el,{x:(c+.5)*g.cw-w/2,y:arriba+(f+.5)*g.ch-h/2,r:0})});
+    var ps=compacta(cs.length,w,h,arriba);
+    cs.forEach(function(el,k){el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;poner(el,{x:ps[k].x,y:ps[k].y,r:0})});
   }
   function reacomodar(){
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
@@ -296,17 +302,18 @@ body{font-size:19px}
 
   function repartir(){
     limpiar();bloqueo=false;
-    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL;par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=PREG[ronda];
+    $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL;par=[];if(AYUDA[TIPO[ronda]])$("ayuda").textContent=AYUDA[TIPO[ronda]];else $("ayuda").textContent="tocá un papelito";$("enunciado").textContent=sinTilde(PREG[ronda]);
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
     $("zoom").hidden=!esFoto(ronda);
     if(esFoto(ronda)){
       var w=anchoCopia(arriba);
-      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.2,arriba);
-      cats.forEach(function(cat,k){
+      
+      var tomas=cats.map(function(c){return sacar(c)}).filter(Boolean),ps=lugares(tomas.length,0,0,w,w*1.2,arriba);
+      tomas.forEach(function(tm,k){var cat=tm.cat,src=tm.src;
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
-        var src=sacar(cat),im=document.createElement("img");im.src=src;im.alt="";el.appendChild(im);
+        var im=document.createElement("img");im.src=src;im.alt="";el.appendChild(im);
         var lu=document.createElement("span");lu.className="lupa";lu.innerHTML='<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10 10l4.5 4.5" stroke-linecap="round"/></svg>';lu.setAttribute("aria-hidden","true");el.appendChild(lu);
         el._cerca=function(){abrirCerca(src,function(){accion(cat,src,el)})};
         mesa.appendChild(el);poner(el,{x:mesa.clientWidth/2-w/2,y:mesa.clientHeight+40,r:0});
@@ -378,12 +385,12 @@ body{font-size:19px}
     var a=top[0],txt;
     if(top.length===2){
       $("c-arriba").textContent="Mi imagen parte de";
-      $("c-nom").textContent=R[top[0]].n+" y "+R[top[1]].n.toLowerCase();
+      $("c-nom").textContent=sinTilde(R[top[0]].n+" y "+R[top[1]].n.toLowerCase());
       $("c-lin").textContent="Entre "+R[top[0]].n.toLowerCase()+" y "+R[top[1]].n.toLowerCase()+".";
       txt="Hoy tu mirada está entre dos lugares. "+R[top[0]].l+" "+R[top[1]].l+" Las formas de mirar se combinan.";
     }else{
       $("c-arriba").textContent="Mi imagen parte "+R[a].mia;
-      $("c-nom").textContent=R[a].n;$("c-lin").textContent=R[a].l;
+      $("c-nom").textContent=sinTilde(R[a].n);$("c-lin").textContent=R[a].l;
       txt=R[a].l+" Es la de hoy: la mirada cambia con el tiempo.";
     }
     var f=elegidas[a].length?elegidas[a]:(top[1]&&elegidas[top[1]].length?elegidas[top[1]]:[FOTOS[a][0]]);
