@@ -47,6 +47,11 @@ button{font:inherit;color:inherit}
 .zoom button{width:44px;height:44px;border:1.5px solid var(--tinta);background:var(--papel);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 4px rgba(13,7,7,.2)}
 .zoom button:hover{background:var(--yema)}
 .zoom .ordenar{width:auto;padding:0 10px;font-family:var(--letra);text-transform:uppercase;font-size:20px;letter-spacing:.03em}
+/* 14 nov: controles abajo al centro, más grandes */
+.zoom{top:auto;right:auto;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:10px;align-items:center}
+.zoom button{width:54px;height:54px;font-size:30px}
+.zoom .ordenar{width:auto;padding:4px 16px 0;font-size:26px}
+@media (max-width:640px){.ayuda{bottom:calc(80px + env(safe-area-inset-bottom,0px))}}
 .copia{position:absolute}
 .lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
 .lupa:hover{color:var(--tinta)}
