@@ -21,7 +21,7 @@ button{font:inherit;color:inherit}
 
 .mesa{position:relative;width:100%;height:max(100vh,720px);overflow:hidden;
   background-color:#D9B48C;background-image:linear-gradient(rgba(238,223,209,.16),rgba(238,223,209,.16)),url("img/osb.jpg");background-size:cover;background-position:center}
-@media (max-width:640px){.mesa{height:max(100vh,820px)}}
+@media (max-width:640px){.mesa{height:max(100vh,900px)}}
 
 /* papeles fijos */
 .tira{position:absolute;z-index:500;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translateX(-50%) rotate(-1deg);
@@ -42,6 +42,17 @@ button{font:inherit;color:inherit}
 .copia.arrastrando{cursor:grabbing;transition:none;box-shadow:0 18px 30px rgba(13,7,7,.3)}
 .copia:hover{box-shadow:0 4px 6px rgba(13,7,7,.2),0 14px 26px rgba(13,7,7,.16)}
 .copia.fuera{opacity:0}
+.copia{position:absolute}
+.lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
+.lupa:hover{color:var(--tinta)}
+.cerca{position:fixed;inset:0;z-index:2000;background:rgba(13,7,7,.82);display:grid;grid-template-rows:1fr auto;gap:14px;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.cerca .marco{min-height:0;display:grid;place-items:center}
+.cerca img{max-width:100%;max-height:100%;object-fit:contain;background:var(--papel);padding:10px}
+.cerca .acc{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cerca .acc button{border:none;padding:11px 22px;font-weight:700;cursor:pointer}
+.cerca .elegir{background:var(--yema);color:var(--tinta)}
+.cerca .volver{background:var(--papel);color:var(--tinta)}
 .papelito{position:absolute;left:0;top:0;width:var(--w);background:var(--papel);border:1.5px solid var(--tinta);padding:12px 14px;text-align:left;cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none;
   font-size:15px;line-height:1.35;box-shadow:0 2px 3px rgba(13,7,7,.15);transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .4s}
 .papelito.arrastrando{cursor:grabbing;transition:none}
@@ -142,7 +153,8 @@ button{font:inherit;color:inherit}
     </div>
   </div>
 
-  <p class="ayuda" id="ayuda" hidden>tocá una · arrastrá para mover</p>
+  <p class="ayuda" id="ayuda" hidden>tocá una para elegir · ⌕ para verla de cerca · arrastrá para mover</p>
+  <div class="cerca" id="cerca" hidden role="dialog" aria-label="La foto de cerca"><div class="marco"><img id="cerca-img" alt=""></div><div class="acc"><button class="elegir" id="cerca-elegir" type="button">Elegir esta</button><button class="volver" id="cerca-volver" type="button">Volver a la mesa</button></div></div>
   </main>
 
 <script>
@@ -170,7 +182,7 @@ button{font:inherit;color:inherit}
     conceptual:"Pensar primero una idea y buscar cómo fotografiarla."
   };
   var $=function(id){return document.getElementById(id)};
-  var mesa=$("mesa"),recorrido=[],freno=null,ronda=0,puntos={},elegidas={},usadas={},ultima7=null,tope=10,bloqueo=false;
+  var lupaTocada=false,mesa=$("mesa"),recorrido=[],freno=null,ronda=0,puntos={},elegidas={},usadas={},ultima7=null,tope=10,bloqueo=false;
 
   function mezclar(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t}return a}
   function sacar(cat){ // una foto del grupo que no haya salido todavía
@@ -196,12 +208,12 @@ button{font:inherit;color:inherit}
 
   function arrastre(el,alElegir){
     var ini=null,movido=false;
-    el.addEventListener("pointerdown",function(e){if(bloqueo)return;ini={px:e.clientX,py:e.clientY,x:+el.dataset.x,y:+el.dataset.y};movido=false;el.setPointerCapture(e.pointerId);el.style.zIndex=++tope});
+    el.addEventListener("pointerdown",function(e){if(bloqueo)return;lupaTocada=!!(e.target.closest&&e.target.closest(".lupa"));ini={px:e.clientX,py:e.clientY,x:+el.dataset.x,y:+el.dataset.y};movido=false;el.setPointerCapture(e.pointerId);el.style.zIndex=++tope});
     el.addEventListener("pointermove",function(e){if(!ini)return;var dx=e.clientX-ini.px,dy=e.clientY-ini.py;
       if(!movido&&Math.abs(dx)+Math.abs(dy)>6){movido=true;el.classList.add("arrastrando")}
       if(movido){var x=Math.max(-40,Math.min(mesa.clientWidth-60,ini.x+dx)),y=Math.max(0,Math.min(mesa.clientHeight-60,ini.y+dy));el.dataset.x=x;el.dataset.y=y;el.style.transform="translate("+x+"px,"+y+"px) rotate("+el.dataset.r+"deg) scale(1.03)"}});
     function fin(){if(!ini)return;ini=null;el.classList.remove("arrastrando");
-      if(movido){el.style.transform="translate("+el.dataset.x+"px,"+el.dataset.y+"px) rotate("+el.dataset.r+"deg)"}else{alElegir()}}
+      if(movido){el.style.transform="translate("+el.dataset.x+"px,"+el.dataset.y+"px) rotate("+el.dataset.r+"deg)"}else if(lupaTocada&&el._cerca){el._cerca()}else{alElegir()}}
     el.addEventListener("pointerup",fin);el.addEventListener("pointercancel",function(){ini=null;el.classList.remove("arrastrando")});
     el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();alElegir()}});
   }
@@ -212,12 +224,14 @@ button{font:inherit;color:inherit}
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
     if(ronda<6){
-      var w=movil?Math.min(mesa.clientWidth*.42,190):Math.min(mesa.clientWidth*.2,250);
+      var w=movil?Math.min(mesa.clientWidth*.45,220):Math.min(mesa.clientWidth*.25,330);
       var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.15,arriba);
       cats.forEach(function(cat,k){
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
         var src=sacar(cat),im=document.createElement("img");im.src=src;im.alt="";el.appendChild(im);
+        var lu=document.createElement("span");lu.className="lupa";lu.textContent="⌕";lu.setAttribute("aria-hidden","true");el.appendChild(lu);
+        el._cerca=function(){abrirCerca(src,function(){elegir(cat,src,el)})};
         mesa.appendChild(el);poner(el,{x:mesa.clientWidth/2-w/2,y:mesa.clientHeight+40,r:0});
         el.style.zIndex=++tope;
         setTimeout(function(){el.classList.remove("fuera");poner(el,ps[k])},40+k*70);
@@ -244,6 +258,9 @@ button{font:inherit;color:inherit}
     }
   }
 
+  var alElegirCerca=null;
+  function abrirCerca(src,fn){$("cerca-img").src=src;alElegirCerca=fn;$("cerca").hidden=false;$("cerca-elegir").focus()}
+  function cerrarCerca(){$("cerca").hidden=true;alElegirCerca=null}
   function elegir(cat,src,el){
     if(bloqueo)return;bloqueo=true;
     if(cat){puntos[cat]+=(ronda===4?2:1);if(src)elegidas[cat].push(src);recorrido.push({r:ronda,cat:cat,src:src});}
@@ -302,6 +319,10 @@ button{font:inherit;color:inherit}
     $("portada").hidden=true;$("resultado").hidden=true;$("tira").hidden=false;$("ayuda").hidden=false;repartir();
   }
   $("ver").addEventListener("click",function(){var d=$("detalle"),abre=d.hidden;d.hidden=!abre;this.setAttribute("aria-expanded",abre?"true":"false");this.textContent=abre?"Cerrar el recorrido":"Ver tu recorrido";if(abre)d.scrollIntoView({behavior:"smooth",block:"start"})});
+  $("cerca-volver").addEventListener("click",cerrarCerca);
+  $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
+  $("cerca").addEventListener("click",function(e){if(e.target===this||e.target.classList.contains("marco"))cerrarCerca()});
+  document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("cerca").hidden)cerrarCerca()});
   $("empezar").addEventListener("click",empezar);$("otra").addEventListener("click",empezar);
   var KIT_FORM="https://app.kit.com/forms/10189204/subscriptions";
   var resultado=[];
