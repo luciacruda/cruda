@@ -125,6 +125,13 @@ button{font:inherit;color:inherit}
 /* con la foto de cerca, los controles siguen a mano para volver a la mesa */
 .zoom{z-index:2100}
 .cerca{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+/* 14 nov: sin borde; la foto sola, sin aire alrededor (la caja es transparente) */
+.copia{background:none;padding:0;box-shadow:none}
+.copia:hover{box-shadow:none}
+.copia img{aspect-ratio:5/6;object-fit:contain;background:none;filter:drop-shadow(0 4px 10px rgba(13,7,7,.35))}
+.copia.arrastrando{box-shadow:none}
+.copia.arrastrando img{filter:drop-shadow(0 16px 24px rgba(13,7,7,.4))}
+.lupa{right:8px;bottom:8px;width:34px;height:34px;border-radius:50%;background:rgba(251,246,240,.92);color:var(--tinta);box-shadow:0 1px 3px rgba(13,7,7,.3)}
 /* 14 nov: la letra a máquina, 3 puntos más */
 body{font-size:19px}
 .tenue{font-size:17px}
@@ -239,7 +246,7 @@ body{font-size:19px}
   var escala=1,RESERVA=125;
   function rejilla(n,arriba){
     var W=mesa.clientWidth,H=mesa.clientHeight-arriba-RESERVA,mejor=null;
-    [[3,2],[2,3]].forEach(function(o){var cols=o[0],filas=Math.ceil(n/cols),cw=W/cols,ch=H/filas,w=Math.min(cw*.96,(ch*.96-34)/1.2);
+    [[3,2],[2,3]].forEach(function(o){var cols=o[0],filas=Math.ceil(n/cols),cw=W/cols,ch=H/filas,w=Math.min(cw*.96,(ch*.96)/1.2);
       if(!mejor||w>mejor.w)mejor={cols:cols,filas:filas,cw:cw,ch:ch,w:w}});
     return mejor;
   }
@@ -252,13 +259,13 @@ body{font-size:19px}
   function anchoCopia(arriba){return Math.max(50,rejilla(6,arriba).w*escala)}
   function ordenar(){
     escala=1;var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var g=rejilla(cs.length,arriba),w=Math.max(50,g.w),h=w*1.2+34;
+    if(!cs.length)return;var g=rejilla(cs.length,arriba),w=Math.max(50,g.w),h=w*1.2;
     cs.forEach(function(el,k){var c=k%g.cols,f=Math.floor(k/g.cols);el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;
       poner(el,{x:(c+.5)*g.cw-w/2,y:arriba+(f+.5)*g.ch-h/2,r:0})});
   }
   function reacomodar(){
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.2+34,arriba);
+    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.2,arriba);
     cs.forEach(function(el,k){el.style.setProperty("--w",w+"px");poner(el,ps[k])});
   }
   function poner(el,p){el.dataset.x=p.x;el.dataset.y=p.y;el.dataset.r=p.r;el.style.transform="translate("+p.x+"px,"+p.y+"px) rotate("+p.r+"deg)"}
@@ -283,7 +290,7 @@ body{font-size:19px}
     $("zoom").hidden=!(ronda<6);
     if(ronda<6){
       var w=anchoCopia(arriba);
-      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.2+34,arriba);
+      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.2,arriba);
       cats.forEach(function(cat,k){
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
