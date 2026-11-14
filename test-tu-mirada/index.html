@@ -307,7 +307,7 @@ button{font:inherit;color:inherit}
     e.preventDefault();var mail=$("correo").value.trim();if(!mail)return;
     var b=this.querySelector("button");b.disabled=true;b.textContent="Enviando…";
     var datos=new URLSearchParams();datos.append("email_address",mail);
-    datos.append("fields[mirada]",resultado[0]||"");datos.append("fields[freno]",freno||"");
+    datos.append("fields[mirada]",resultado[0]||"");var PARTE={autobiografica:"de tu vida",intima:"de los tuyos",documental:"del mundo",abstracta:"de la forma",experimental:"del proceso",conceptual:"de una idea"};datos.append("fields[parte]",PARTE[resultado[0]]||"de tu mirada");datos.append("fields[freno]",freno||"");
     fetch(KIT_FORM,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:datos.toString()})
       .then(function(){$("hecho").hidden=false;b.textContent="Enviado"},function(){b.disabled=false;b.textContent="Recibirla";$("hecho").hidden=false;$("hecho").textContent="No se pudo enviar. Probá otra vez en un rato."});
   });
