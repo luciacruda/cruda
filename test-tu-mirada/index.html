@@ -313,6 +313,7 @@ body{font-size:19px}
       var cuantas=Math.max(2,Math.min(6,Math.floor(libresTot/Math.max(1,rondasRest))));
       cats=ORDEN.slice().sort(function(a,b){return libresDe(b).length-libresDe(a).length||Math.random()-.5}).slice(0,cuantas);cats=mezclar(cats);
       var tomas=cats.map(function(c){return sacar(c)}).filter(Boolean),ps=lugares(tomas.length,0,0,w,w*1.2,arriba);
+      if(tomas.length<2){ronda++;if(ronda<TOTAL)repartir();else terminar();return}
       tomas.forEach(function(tm,k){var cat=tm.cat,src=tm.src;
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
