@@ -20,9 +20,9 @@ body{margin:0;color:var(--tinta);font-family:var(--texto);font-size:16px;line-he
 :focus-visible{outline:2px solid var(--tinta);outline-offset:4px}
 button{font:inherit;color:inherit}
 
-.mesa{position:relative;width:100%;height:max(100vh,720px);overflow:hidden;
+.mesa{position:relative;width:100%;height:max(100vh,1000px);overflow:hidden;
   background-color:#D9B48C;background-image:linear-gradient(rgba(238,223,209,.16),rgba(238,223,209,.16)),url("img/osb.jpg");background-size:cover;background-position:center}
-@media (max-width:640px){.mesa{height:max(100vh,900px)}}
+@media (max-width:640px){.mesa{height:max(100vh,1150px)}}
 
 /* papeles fijos */
 .tira{position:absolute;z-index:500;left:50%;top:calc(18px + env(safe-area-inset-top,0px));transform:translateX(-50%) rotate(-1deg);
@@ -216,7 +216,7 @@ button{font:inherit;color:inherit}
   // posiciones: grilla de 3×2 (2×3 en el teléfono) con desorden
   function lugares(n,ancho,alto,w,h,arriba){
     var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(n/cols),out=[];
-    var zonaT=arriba,zonaH=mesa.clientHeight-arriba-50;
+    var zonaT=arriba,zonaH=mesa.clientHeight-arriba-140;
     for(var k=0;k<n;k++){
       var c=k%cols,f=Math.floor(k/cols);
       var cx=(c+.5)*mesa.clientWidth/cols,cy=zonaT+(f+.5)*zonaH/filas;
@@ -228,13 +228,13 @@ button{font:inherit;color:inherit}
   var escala=1;
   function anchoCopia(arriba){
     var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(6/cols);
-    var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-50)/filas;
-    var w=Math.min(cw*.86,(ch*.9-34)/1.25); // caja fija 4:5 más el borde de papel
+    var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-140)/filas;
+    var w=Math.min(cw*.94,(ch*.95-34)/1.25); // caja fija 4:5 más el borde de papel
     return Math.max(50,w*escala);
   }
   function ordenar(){
     escala=1;var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
-    if(!cs.length)return;var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(cs.length/cols),cw=mesa.clientWidth/cols,zonaH=mesa.clientHeight-arriba-50,ch=zonaH/filas;
+    if(!cs.length)return;var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(cs.length/cols),cw=mesa.clientWidth/cols,zonaH=mesa.clientHeight-arriba-140,ch=zonaH/filas;
     var w=Math.max(50,Math.min(cw*.95,(ch*.95-34)/1.25)),h=w*1.25+34;
     cs.forEach(function(el,k){var c=k%cols,f=Math.floor(k/cols);el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;
       poner(el,{x:(c+.5)*cw-w/2,y:arriba+(f+.5)*ch-h/2,r:0})});
