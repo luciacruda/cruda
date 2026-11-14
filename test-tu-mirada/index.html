@@ -122,6 +122,9 @@ button{font:inherit;color:inherit}
 .mapa dt{font-weight:700}
 .mapa dd{margin:0;font-size:14px;color:var(--lapiz)}
 .otra{background:none;border:none;text-decoration:underline;text-underline-offset:3px;cursor:pointer;justify-self:start;padding:0;color:var(--lapiz)}
+/* con la foto de cerca, los controles siguen a mano para volver a la mesa */
+.zoom{z-index:2100}
+.cerca{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 /* 14 nov: la letra a máquina, 3 puntos más */
 body{font-size:19px}
 .tenue{font-size:17px}
@@ -408,9 +411,9 @@ body{font-size:19px}
   $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
   $("cerca").addEventListener("click",function(e){if(e.target===this||e.target.classList.contains("marco"))cerrarCerca()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("cerca").hidden)cerrarCerca()});
-  $("ordenar").addEventListener("click",ordenar);
-  $("mas").addEventListener("click",function(){escala=Math.min(2.2,escala*1.2);reacomodar()});
-  $("menos").addEventListener("click",function(){escala=Math.max(.35,escala/1.2);reacomodar()});
+  $("ordenar").addEventListener("click",function(){if(!$("cerca").hidden)cerrarCerca();ordenar()});
+  $("mas").addEventListener("click",function(){if(!$("cerca").hidden)cerrarCerca();escala=Math.min(2.2,escala*1.2);reacomodar()});
+  $("menos").addEventListener("click",function(){if(!$("cerca").hidden)cerrarCerca();escala=Math.max(.35,escala/1.2);reacomodar()});
   window.addEventListener("resize",function(){if(!$("tira").hidden)reacomodar()});
   $("empezar").addEventListener("click",empezar);$("otra").addEventListener("click",empezar);
   var KIT_FORM="https://app.kit.com/forms/10189204/subscriptions";
