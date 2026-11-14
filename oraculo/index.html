@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="El oráculo fotográfico de CRUDA: pensá una pregunta, sacá una carta y recibí su mensaje.">
+<link rel="icon" href="/favicon.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>El oráculo fotográfico · CRUDA</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Cruda';src:url(data:font/ttf;base64,AAEAAAANAIAAAwBQT1MvMnk1d0sAAAFYAAAAYGNtYXCIet8zAAAC/AAAAjZjdnQgACECeQAABTwAAAAEZ2FzcAAAABAAACrwAAAACGdseWb6B28IAAAF5AAAIaRoZWFkLpXO5AAAANwAAAA2aGhlYQZAA8AAAAEUAAAAJGhtdHhM3g9zAAABuAAAAURsb2NhMcE6EgAABUAAAACkbWF4cACWAEgAAAE4AAAAIG5hbWW5y0K9AAAniAAAAoVwb3N0KvTX3QAAKhAAAADecHJlcGgGjIUAAAU0AAAABwABAAAAAQAAcPWDW18PPPUACwPoAAAAAOYFxb0AAAAA5gXFvQAh/+sDSgKaAAAACAACAAAAAAAAAAEAAAKa/+sAWgODAAAAAANKAAEAAAAAAAAAAAAAAAAAAABRAAEAAABRAEUAAwAAAAAAAgAAAAEAAQAAAEAAAAAAAAAABADwAZAABQAAAooCvAAAAIwCigK8AAAB4AAxAQIAAAIABQMAAAAAAAAAAABDAAAgAAAAAAAAAAAAQ0xHUgBAAAAlzAMg/zgAWgKaABUAAAADAAAAAADjAXMAAAAgAAEBbAAhAPoAAAFNAAAA+gAAAPoAAAC1ADQArwAyAH4AMgCRADQAfQAzAH8AMgCNADIAnAAyAPsAMwC+ADIBBwA1ANAAMgDZADIA7wA0AOAANQD7ADMAigAyAOwANwDdADMA8AAyAQwAMwDlADMAzQA0AM8AMwEYADYA1wAzAMMANwEDADkBEQA2AOsANwE+ADUA7wAzAPQANgD7ADcA/wA2AMAAMwDLADQBDQA1AOUANQDHADQA5wA1AO0ANACuADYBPgA4AScANQEZADgBAgAzAQsANAECADYA0gAzANEAMwD1ADMBNAA4APkANwE4ADYA6QA2ASgAMwDeADUBLAA2AOYAMwD6AAAA1AAyAMAAMgDXADQBUAA1A4MANAEBADUBGwA1AQMANgDlADQBEgA2ALcAMwEGADQA+AA1AMcAMgC1ADMAAAADAAAAAwAAABwAAQAAAAABMAADAAEAAAAcAAQBFAAAAD4AIAAEAB4AAAANACIAJwAsAC4AOwA/AFoAegCgAKgAtAC/AMEAyQDNANEA0wDaAOEA6QDtAPEA8wD6AwMgGiAeJcz//wAAAAAADQAgACcALAAuADoAPwBBAGEAoACoALQAvwDBAMkAzQDRANMA2gDhAOkA7QDxAPMA+gMDIBggHCXM//8AAf/2/+T/4P/c/9v/0P/N/8z/xv+h/5r/j/+F/4T/ff9//3b/df9v/2n/Yv9f/1z/W/9P/UwAAAAA2oQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAwAAAAAAAcABwAHAAYABgAGAAABBgAAAQAAAAAAAAABAgAAAAMAAAAAAAAAAAAAAAAAAAABAAAEBQYAAAAABwAAAAAIAAkAAAAAAAAAAAAAAAoLAAAADAANDg8QERITFBUWFxgZGhscHR4fICEiIyQlJgAAAAAAACcoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj9AAAAAAAAAAABGRwAASgAAAAAAAEsAAABMAAAATU4AAAAAAAAAAAAAAAAAAAAAAAAAQ0IAAAAAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARQAAAAAAAEgAAABJAAAAAAAAAAAAAAAAAAAAuAH/hbAEjQAAIQJ5AAAAFAAUABQAFAAUADoAaAB+AJYAqADQAPgBKgF6AcoCAAIuAmYCnALcAyYDUgOEA7oD3gQeBFIEhATEBRYFVAWABawF4AYQBlIGjga+BwYHTAeCB64H2AgQCEYIpAjUCQQJPAl2CcoKAgoyCngKsAsACzYLdAvEDAgMLgxyDKQM6A0sDSwNUA1oDaQOBg5aDp4O+g80D2gPqA/QEBgQYhCsENIAAgAhAAABKgKaAAMABwAAMxEhESczESMhAQnox8cCmv1mIQJYAAAAAAIANAB0AIAB9wANABUAABM2MzIVFAYHIhQjIjU0ByY3NhcWBwZwAwUIKgcBAQQSAwUEBAQIAwHoDxUi6QUBEzWiAwsJCgwDAQAAAAACADIBtQB9AjUADQAdAAATNjMyFxYVFCMiJyY1NBcmNjMyFxYVFAciFCMiJzQ3BAMHBAINAwMGLQMECAwFBAYBAQUKAjEEKBYKOAUJOi8aCQYPEBsfBAEuAwAAAAEAMgG3AEwCIQAKAAATNjMyFRQHBiMiNTIBCg8ECQYHAf0kKQoUIzQAAAAAAQA0ADcAXwCCAA0AADc2MzIXFRYVFAYjIjU0RAoIBAQBIAcEbBYGAQEBCzcFCgAAAQAzAGkASwCEAAgAAD4BFhUUByMiNTMKDgsCC3oKBwgKAgsAAgAyAH4ATQFKAAwAGQAAEzYzMhUUByIxByI1NBc2MzIVFAcGIyImNTQ0AwYMCAECDAEFCgsIAgMFCQFBCRQQAgETA6ULEAoGAQkHBAAAAAACADIAJQBbASUABwAYAAASNDIVFAcGIxcmNjMyFRQHBiMiNTQ3NjU0MhwEBAgFBQwICQoKBgMCBAEDIgkHCAqmCAsRExMUCAoHFAYEAAAAAAIAMgB2AGkBfgAWAB4AABM2MzIXFhUUBwYHFCMiJyY1NDc2NCcmFz4BFhUUBiY3AwgKDg8OCwIOBAQGDg0NDRADDAkVCAF2CAoKFxMeFCUkBgsTIhocGgoH5wUDBAQGCQgAAAACADMAVQDIAWwADQA5AAATJiMiBwYVFDMyNzY1NCc2MzIXFjMyFRQiFxYVFCMiJyYnJiMiBwYHBgcGIyI1NDc2NTQnJjU0MzI2fgYGBwQCBwQHCh4ICRAPDw8NFgQcCRMUCAUCAwQLEAgDCQ4MBQcFBQgKCRYBHRUYEAIMBAQJBUYUMjEKCwtlJQpoKAMBAwQEAzdPCg8uHgkLAgIND1YAAwAyAGMAjAFrAA4AGgA2AAA3NjU0JiMiBh0BFB8BNzYnNjU0JyYGFxYVFDInNjMyFxYVFAcGFRQWFRQHDgEHBiMiJic0JjU0bQIHDA0IBQULDg8NEwsEAgUDHAQWGw4NCAQUBggeDQcFCwcCAdISAQYDBgwIHRkbGhtjCxIUAQIFCw0TDU8KDg0QCxMIBgcOCgcaI0MHBDVMDjAKLQAAAAEANQBpANEBcAAjAAATNhcWFRQGIyIGFRQXFjMyNzYzMhUUBwYiFCMiJy4BNTQ3PgGIEgUDCwcWKRQTEQwJFgcWBAcUExIbHSAUEBsBaQcFAwUHDU0pIxUUAQIHBAQKDggIMiQmLSEfAAAAAAIAMgBkAJ4BZQAJABwAADc0LwEHFBczMjYnNjMyFxYVFAcGIyInJicmNTQ2ghsbAQYCCiVEAwQYKxY6DQgFBAsGAwjoGxweVFUERY0DOB0hNUYQAwYdDykxaQAAAQAyAGcAowF6ACQAABM2MzIXFhUUDwEVNzYVFAcGFRQfATc2MzIVFAcOASMiJicmPQFMGAoIBAEYHBQVFRQFBCweAQgDBxkeFw4EBwFwCgYBAQcJC2oDAwgKBQcTChwbBAIDAgUNCQYMEW5tAAAAAAEANABpALcBhgAjAAATNjMyFRQHDgEPAQYVFB8BNzMyFRQPARcWFRQHIyInJjU0NzJyKg0ONAsdBwcBAwUpEBk2HgYFBwELDwcJBQF7CwsKDQMIAgIEBA0VKAIECwgFJygTGwONPB8bAgAAAAEANQBwAK4BfwAsAAATNjMyFxYVFAYjIgcGFRQWFxYzMj0BIyI0NzYzMhceARUUBw4BBwYjIiY1NDZeDAwXBwITDBYHDBsTBAMMFhIUDAcJCAkGAgIODggEIC0TAXsEBwICBQgJDygrWhADTDIQDAYEBAoPAyw5LwUCYEYuLwAAAQAzAGEAzAF0ADMAABM2MzIXFhcWBwYVFBcWFRQjIjU0Jy4BIyIHDgEVFBcWFRQjIiYnJjU0MzIdATc2Nz4BNTSeBAULAgEMCwoIAgITCgQDCQ0IGQ0HAQsLDgkEAhEKEhIUDgYBago0LwcHBwYYBSIgCC4eGi4aEQUDBQcIBkgLDypTNA1CODgEBQQCDRwoAAAAAAIAMgBuAFgBuQAKABkAABM2FxYVFAYjIjU0BjYXFhcWFRQHBicmNTQ3QA8IAQ8HCgEKBwkDAgkKCQgBAaoPDQEECA8KCF4OAgFpOAgoBwkMCS4fFQAAAAABADcAfgC6AY8AIAAAEzYzMhcWFRQHDgEjIicuATQzMhcWMzI3Njc2NTQuATU0bAMIGhkQCggSEQkJECwEBRcbDwkDAwoFDioBjAMQCiIUU0AuBAYzGhofCgdWLxAYEgoLBAAAAQAzAGgAqAGCACcAABM2MzIdAhQzMjc2MhUUDwEXHgEVFAcGIyInJiMiHQIUIyInJjU0PAYFBgUGGBYMHx8QFS8BBAUPHhoEAwoLBQMBdgwhJwsYJiMHECsoEhVTDQIBBDQtEw4KHjMbK2QAAQAyAHIAugGCABUAABM1NDIXFhcWMzI3NjMyFxYVFA8BJyYyEgQFBgYQBRYcBRECAkA3CQgBEiVLbHAPDAICBQIFDgECGBgAAQAzAE4A2gFSACoAABM2MzIXFjMyNzY3NjMyFxYVFAcGIyInJi8BBwYjIi8BBwYHBiMiJyY1NDZKAwMJDwsFBAMHDggFEBMWBwUDCAkICgsNDg4MCQoEAwYECAMEAhEBTQUaFAgMDghkcRQMBgVDOS4yFRURExsaPTwKBgwligABADMAcwCzAVoAIgAAEzYzMhcWFRQjIicmJzUiBwYHIyI1NDc+ATMyFxYfAScmNTSVBgQLBgMODSIiAgEEBAcBDgICBgkNERATEgQCAVQGTjQhQDk7CAE8QwJQDiIsFyUmGhpMFSIYAAIANABvAJsBQwAPACAAABMmIyIHBhUUFx4BMjc2NTQnNjMyFxYVFCMiJy4BPQE0NnAKBgUMCgIEGRgEAj4PEBgRDyYMDhUSBgEcDA0LEQUUIzEXEApFLwwWFT1sCg80MRUbEgACADMATQCZAYkADQApAAATJicmIyIVFDMyNzY1NCc2MzIXHgEVFAcOAQ8BFxYVFAcOASYnJicmNTR2DgoIAQcJBhARQAwGCBIbFAECDhUjBgMHBAUDAgsEAgFXCQICJikQERALLwkHCRUTCAUUFxMfRSMPFgcEAgYHNYs4BiEAAAIANgBFAOEBZgAaADoAABMmJyYjIgcGFRQXFjI1NCcmNDMyFxYzMjc1NCc2MzIXFhUUBwYVFBcWFRQjIicmIyIHBiMiJyY1NDc2lQsNBgMIChQYEhIGBwcGCgQCAwE7DwgMEyMHAxgXDAkYFAsDBA0HCxQlAgwBIB8FAxEfLTAUDgwIBAUoEwwfCSBWChMjSBwWCAYLIB8OCyEeAgUQIEEJEEAAAgAzAGcApQFzAAgAKQAAEyYvARU3Njc2JzYzMhcWFRQPARcWFRQiJyYjIhUUFhUWFRQjIicuATU0gwoXFhUVCwxZAxQoFxUfFx4eFhkbBgQBAQUHBQQLAUEKBgdgDg4SEDYHERAZIRwVNDMPCi4yEwMOBQgNGwcGsC0SAAEANwBFAJEBbgAcAAATNjcyFRQHBhUUFxYVFAcOASMiNDc2NTQnJjU0NmYYCgkaIQ4tCAodCgwNGyIbGwFgDAIGDQ0RDwoRNUMZDxMbDg0bIiczKQkNIAABADkAdQDKAZYAHQAAEzYzMhUUBiMiFRQXFhUUIyInJicmPQE3BwYjIjQ2jScKDCwQBgoCCgEGCgUDAx0QAgweAZAGCQcSIzFoIAccAgRdOTAUIAUCEAoAAQA2AHcA3wFxACAAABM2MhcVFhUUBgcOASMiJicuATU0NzYzMhceATMyNzY3NskCDwQBEggHIBQTFw4IFAEDBAkKCyERDQoJDQkBaQgJAgICFXoeHSEUHBBcEwYBBjIyOxMQVkIAAAABADcAewC3AY0AHQAAEz4BMhYHBgcOAQcGIyInJicmNTQ3NjMyFxYzMjc2lgQJEAQCBg0MEAkCBA4SDwoHAwQDCxgQAwQMBQFtEw0GCRtTVDwEAUY7Fw8KBgMEQipOJAABADUAaQEKAWMAKwAAATYzMhUUBwYHBiMiJyYjIgcGIyImJyYnJjc2MzIXHgEVFDMyNzYzMh8BNzYBAgQCAhYaAwMGDQUMBAMOEQ8MDg0LCgoDAwgNCggYBQgJDRAMDAsXFgFdBggbXm4FBhQ0HygnS0APEAoJEw9qEw0aKx0cU1MAAAABADMAQwC4AWQAJwAAEzYzMhUUBgcGFRQXFhUUIyImLwEHBiMiNTQ/AScmJyY1NDMyHwE3NpQPCgs0CAQQFQsIDQsSFRACBBATDQoIBgcQFAsODwFGHgUEXgkEChI0Rw0JGSlCHxkPEhocIR0LBgwOMxwUFQAAAAABADYAMwC9AV0AIAAAEzYzMh8BMjc2MzIVFAcGBwYjIicmNTQ3NjU0Iy4BNTQxNwUEDxEUBBUXDA0YFhseCQMDARIRAwgoAVYGLzAuMgMCNC9fYwMBBRU/PRAIAl0PAQABADcAhQDIAXAAMgAAEzYzMhUUBwYVFDMyFRQHBg8BMzIUBgcjIjU0NzY1NCMmNDMyNj8BJgYHBiMiJyY1NDc2kBIFCA4QFxkuFQ0FLi4eKxMhDQoBFBQJDAcMAQ4NDxAJAwsmHQFpBwgKISgICwcIBwM0FBQHAQ8KIBsJAwcWDhQmAQEDAwEDBQsFAwAAAAADADYAoQDMAScABwAQAC8AADc0IyIVFDMyNzYnJgcVFDMWNzYzMhcWFxYzMjc2MzIVFAcGIyImBwYHBiMiJjU0NlIEAwMEBQMEAgICAgUGBw0NCgkHBQYNEAUDERQNDCADAQwNDQgGGMcEBAMaCQQEBgcHAUgFLCIJCAcIAwYRFCQDARQUCxAbQgAAAAIAMwCaAI0BkQALACIAADc2Jy4BBgcGFRQzMic2MzIdATc2MzIWFxYVFAcGIyInJjU0aAwCAQMHBxAGBR4GAwobDgMHBQMCGRIYDgUEww4LBQMDBQsODdUGR0MEAggODgUaHBQIBTubAAAAAAEANAB5AJcBDAAbAAA3NjMyFxYHDgEVFDMyNz4BPwEHBiMiJyY1NDc2Tw0JBQQECwoOBwIIBBoGExIUFhULBwUK+xEGBwQELB0cAgEGAQQTFBIQCQ4RKQABADUAfADXAT4AGQAAEzYWFx0CFB8BBwYjIi8BBwYiNT4BNzY3NngEEgExFxILDBoSDA8QIgEcCw8EBgE4BgIHDDEGWAQCDAcdFBsbEBE5BgkmKQACADUAdQCxAPYACgAlAAA3NCMiBw4BFjMyNiY2MzIXFhUUBgcOAiMHFBYzMhUUBiMiJjU0egoICAQFAQQIFi8aEBMJAxUPBQwHAQIjFSQpFhcm0goIBAwKEhgSDgUGDB0IAwUEAgUIBggOHhMRAAAAAQA0ACIAlAEMACUAABM2MzIWFRQjIicuASMiBwYVFDMyNzYzMhUUBw4BFRQiNTQ3NjU0WwoODRQFAwIDEQQIBQ0CBBIQCAYcEgoiDg4BAQsUDAcBAQgOISsLDg0KCRMMEBEwbDcREAcJAAAAAwA1/+sAswEEAAoAEwBBAAA3NjU0IyIHBhcWNic2JyYHBhUUMzc2MzIXFg8BFxYdAQYdARc3NjMyFRQHDgEHDgEjIicmNTQ3NjU0JisBIiY9ATZfAwQDBgkIBQQDAgICAQECCQoKCwMEFBQQDwEBGRMGAxcRDAIDHBAMCQQdEQYJBAwGAhcMBwkMEwgEBZsLCQQHAwYLVQoKCQcIBgYUCQwYChATDwMHHBQaFx4pDwoHJB0PEwsHBQwONwABADQAfAC4AUQAHwAAEzQzMh0BNzYzMhcWFxYVFCMiJy4BDgEHBiMiJyY1NDU1ChIODAoNCwoQERQdFAMDBAQECw4MAwUBPwVnJhcUIyEICAgKIQUDAQQGEAwUeggKAAACADYATAB7AYYACwAfAAATNjMyFRQHBiMiNTQHNjMyFxYHBhUUFxYVFCMiJyY1NEYDBQoHAQIKDAMKDQkHCgUSFgUKGR0BfwcSDAUBEgVvCQ8MBwMGBzZAEA89TCUMAAABADgAEAEIAS0AJQAAEzY3MzIWFxYzMjc2MzIVFAcGBxQGBwYjIjU0NzY1NCcuASMiNTQ8BRYGFRMFBAsJKy8KAkMxARILBwcUEA4JBQkOFQEpAgIgJzIlKgUXNikVGToJBysgGhYiHSkWCw0EAAAAAQA1AB4A7wEZACkAABM2MzIVFAcGFRQzMjc2MzIVFCMnKgIGKwEXFgcjIj0BNjMyHwE3NjU0fgUDCBERFxAJHAkuBQQEDQ4oDFIDAgkBBwEDAgYGGRkBCw4tJyonCAMBAhAJAQEaGQIzG0ctKTQxHhcAAAADADgAPgDjAVIACQAQADkAADc2JyYHFBUUMxY3NicGBxcwJzYzMhcWFRQHBhUUMzI3NjMyFxYVFAYHBiMiJyYjIgcGIjU0Nz4BNzaIAwQCAgICBwICAgECFQsPDAgDCxMaCxIWBQMBAhkRDAkbEQMCBhEUEBYQCQIE/gkEBAYDBAcBIwsKAwoLHhoRBgkQJEAfIAUEAQICBxAFAxcEHSQEBSkdJCxAAAABADMASADMANQAIwAANzY7ARYXFjMyNz4BFxYVFBcWFRQHBiMiLwEHBiMiLwEGBzUmRhINAg8BAgMEDQgHCAwQDAMHBwwPDg0LCw8DBBUQAbAkAR4dDwoCBgoLDBkRCAQDBxkYFhQtKTgpIR0AAAAAAQA0AFMA1ADyAB4AADc2MzIdATc2MzIXFhcWFRQjIiYvAQcGIyInJjU0NzZAAwQKEAwLDgUMJRgPEyoMDw4SDQUCBQME6QkeHRQQGDcXDwsIIBcdHCIBAw8MHikAAAAAAgA2AFMAzQEQAAsALwAANyYjIhUUMzI3NjU0NzYzMhUUBwYVFBcWFRQGBwYnLgE1NDc2JyY0NzYyFxYzMjc2cwcFCQ4CBQc3EgcDMxAECBYQEQcHCwEECwoKBRALDQYHDSG0DSAyBgwSE2EJAgolDAYDCA4UGS0EAwMFKBMKBBYEBCAJBQQFCBQAAAACADP/+wCgAPoACgAkAAA3JiMiBwYXMjY1NCc2FhUUNzYzMhYVFAYHDgEVFAcGIyI1NDc2gAUEBQgHBAkRRAUSERAJChgnEw0FCQYEDgIG0QsRFwERCAQjBwUICwsLIQ4RLQUDETBABAMyDEB2AAAAAgAz//kAoQDqAAgANwAANzYnJiMHBhQyJzYzMhYVFAYVBhQWFRQyBwYHBgciIwciNTQ/AQcGIyI1NDc2NTQmBwYjIicmNTRgCQICAQsIBgcSCQsOAQEJFgkIDAoNAQICBgMFFQUHCRgYBAkPCgsHBawEEgsREAYyEhMOAQUCBA4QCxELCDw3AwEMChYuBAEECAkKEw0DCAwKBwkjAAAAAAEAMwCHAMAA/gAkAAA3NjMyFRQHBhUUFxYzMjYzNjMyFAcGIyInJiMiBwYjIjU0Nz4BWRIFGAkHCQsQAggCBQgLCgsREBYNBgcKDQYKBAsO+gQUDBAOBgQIBwEBCgoLCwcKCxAEEiwfAAAAAAEAOAA7AQAA8wAqAAA3PgE7AR4BFxYzMjc2MzIVFAcOAyMiJyY1NDc2NTQjIgcOASMiNTQ3NoEQDwgCCQcBAgIFFRcMBCEVDgYRCgcGCRESBgcVFC0JBBgawh4TAg8ZKA4PAwsYDxQkFgYHDxMWFSASKCY5BwYhKgAAAAABADcANQDHAS0ANwAAEzYzMhUUMzI3NjMyFRQHDgEVFBYXHgEUBgcGIyInJiMiBwYHBiMiNTQ3PgE1NAYHBjU0Nz4BNzaBBQQOCQULDAIIGg0IGA0FBAMFBwgTEQsFAxYVDAICBgsHJQ4KGBsTCgMEAScGFhQDAgMGCwUNDhk4BAICBAQFByYbNzcEAQgKFg5mBQEBAgQKCgUDChIUAAAAAQA2AFUBAgDwAC4AADc2MzIWFRQGFRQfATc2MzIXHgE7AQcGIyInLgEGBwYjIicmIyIHBiMiNTQ3Njc2aAMFBgkCAgUICQ0MBgUnFA4OCBAZFggHBQMIDwsEBQMICw0KCA0LCgnsBAoGBAQIBxIZGx4cFSELBxQIBAMGDAcGGxsGBR0WKiYAAAEANgBrALMBJQAWAAA3PgEzMhQHBgcGByMiJyY1NDMyFx4BMnEDIBEOChEXCQ4CDBMTBAIBBxwMvBtODgcQaSsBJSYYCAEFNgAAAAABADMAcgD1AQQALQAANzYzMhcWFxYVFCMiJi8BBwYjIiYjIgcGIyInJjU0MhcWMzI3NjMyFx4BNjc+AaUICQ8MChAKBQkfBgwHCxEIDgQFCgwMEAgHEgcGBgULCg4IBgMEAgIBCfAUKSUeFgcEGQ4YFiAODQ8XGS8gKywcGwsFAwUIAh0AAAAAAQA1AAkAqwEDACAAADc2MzIVFA8BFxYVFCMiJicmIyIHBiMiNTQ2Nz4BFxYzMokUCgQaGRsXBQoeCRAHAwcGBhIRCwoIBwYDBuQfCAktL0M4DwMmGCkHBhkXMQoJAQgGAAAAAAEANgA6APgBAAAvAAA+ARYHFQYVFBYzMjc2MzIdATc2MzIVFAcGBwYHBisBJic1NDc2NTQjIgcGIyInJjU2EgoCAREGCAsRDA8mHwkFBgYoJggOGQQQARMVCgcGBQcODA/6BgcHAgEBDCUVGyYfFhEDBAcIHBsYMAEYCBASEREMAQEQEhwAAAABADMADwCwANIALwAAPgEzMhYVFAcGFRQfATc2FxYVFAcGFRQGIyI1NDc2NTQnJgcGIjU0NzY1NCMiBiMGMxIKDQ8HAw8TExMFAh8YIQoNEw4ECgwICgoPCgECAQvAEhUPDg0GBAgMEhITBAIFFRcSCAkfDRAVDgcEBAsIBQcKERsRDwEDAAAAAgAyAWAApAGJAAoAFQAAEzYzMhYHBiMiNTQHNjMyFxYjIiY1NI8DBgcFBQMFCVoDBgsDAQkHCgF/Cg0HBgoEBAgSDwoHAgAAAQAyAVIAjQGRAA0AABM2MzIVFAcGFRQiNTQ2YBYRBiMiFhoBhQwDAhgXBgUHCBkAAgA0ABYAowFLAAsAKQAAEzYzMhQHBiMiJjU0BzYzMhUUBwYHFAYVFDMyNzYzFxYVFAYHBiMiNTQ2bwQIDAYBAgULCBkJAhgdBAESBhkVCQMBJRIFCikUAUQHGgQBDQYEhyMEDyMuJAMJAhwHCAEBAggXAgE0Gi0AAwA1ADQBFQITAAsAFwBEAAATNjMyFRQHBiMiNTQHJiMiBhUXFjc2NTQXFBYVFCMiJy4BIyIGIw4BFRQGBwYnJjU0Nz4BNzYzMhcWFxYfATI3NhUUBwbqFg4HFx8EBj4FBQMOAQIVDysrCw0QGQwHAQUCEh0pBAUGARkaEgkHBg8UAQEMCAUFEwcMEwH7GAMFFx8FCXkRQAwEBAgGCwosDIoYEz5dJQECFQsNsAQFBwEHHnx/SgoJRQIEKQMBBwICAgwRAAMANACIA0oCSQAIABYANgAAADQzMhcWDgEjBTYzMhUUBwYmJyY1NDYHNhcWFAcOAQ8BFxYVFA8BHgEVFxYVFAcGIyImJyY1NAMwCgwDAQIFBP1uEQUBMwEFAQIXXQoQEA4JBwEDJCIkIwEDJEkMBBAZPQYKAjsOBwIDAk8OAgtDAQEBAgMLJm0MAgMOAwIRGysCAQgGAwINNQ0FCQsFBAILBgpRcAAAAAIANQCdAM8B0gAMAC0AABM2MzIVFAYHBiMiNTQXNhcWFRQGBwYjIi8BBwYPASI9ATYyFxYXHgMzMjc2fRgVDScZBQkMXQUICAQJDAwXLhsEBAgBBAIUBzsVAgMCAgEGAQIByggFBw8EAQUKLggCA2hHJgoOTi9AQAgBLTVoDnETAQQCAXBNAAADADUAhQDjAcUADAAZAD8AABM2MzIVFAcGBwYjIjQHJiMiBwYVFDc2Nz4BJzYzMhYXFhUUBw4BIyImNTQ3NhcUFjMyNzY9ASYjIgcGIyI1NDazERQLDAsOCAYHJAwSDAUFDBULDgM8CQwYLwoOCQkwDhYrCgoCHxMFBCQDFAMHGBwgFQG2DwcGBgMMBxBRCQUDDw0EBwIDBCYEHRYcKiEWGDFRIxUJCAIqUQMXQgg+BRUYDSgAAAAAAgA2AHMAzQHeAAsAJgAAEzYzMhUUBwYjIjU0FzYzMhUOAQcGIyInJjU0NzYzMhUUHgEzMjc2lwwFBBYVBgI6DgoCAS0GDhIhDxMEAwQPGgoEDhMNAdENBQ0kIgUmXhECFboJF0RaKhIEAx4NgxpxRgAAAAACADQAWwCxAVIACgAiAAATNjMyFQ4BIyI1NAc2MzIWFxQWMzIWBgcGIyIvAQcGIyI1NIwJDgYBLwUBNAsGBxoBLAgGBQUGBAkdDgwOEAcJAUYMBQYxAg9ZDx8ICjcHCQICGxQZHDA1AAMANgB4ANoBggAMABQALQAAEzYzMhQjIgcGIyI1NAc0IyIVFDM2JzYzMhYUBiIVFBYzMhcWFRQHBiMiJyY1NLAUDQkHBRoPBwM3BgcEBxsMDg0SFxIYBgUeFggJEBscIAFtFRQWDgMJdQkOCgMlDBAaIgUGFwgHAwIGBg8QMR4AAgAzAFoAgAFSAAsAGQAAEzYzMhUUBwYjIjU0BzYzMhcWFRQGIyImNTRTHQ0DEhkRBwUEAwsDAQUICgQBNhwCCBIbAgQ7BEoSGBMJFC9EAAACADQAgADRAVEADAAxAAATNjMyFxUXFAYjIjU0Bz4BOwEWHQEHNzYzMhcWMzI3NjMyFRQHBiMiLwEHBiMiJyY1NFYWDwsCASUTFgQCBQcBCQIRDAkOCg8dBgMIAgcQCQskFA0NEBEEAQEBTAUFAQEGDggKciYWAxMNIhMOJTABAgUHCgYpGRUcAgELFQAAAAADADUAdQDCATAACgASADIAABM2MzIUBwYjIjU0BxQXNzYnJgc3NjMyFRQHDgEVFBYdARQGIicmNzYjIjU0NjMyHwEzMpYQDw0YEAoHMQEDAgICAiYYEwcdEAsBFhoGBgQCBggWDAMCAgIKASMNDA4JBQd/BgEDCQQEBkMVBQcUDQwJAQYCBxQeEA8GBQ8OGAEBAAAAAgAyAIsAlAFJABAAMgAAEzYzMhcWFRQGIyImBwYmNTQXNjMyFRQGFRQrAS4BLwEXHgE3NjU0JyYHBiMiPQE+ATM2OAINMRADEgkNHAoGBEMHCg0YKwUOBwIDDgkICAoHCAcIBwkCCBUfAUcCCQIDBQ0OCAUCCA5BBQYHEiA8AQoQFxELAgYJEg0GBAcIFAYTBwIAAAIAMwB+AIIA4gAIABcAADc0IyIHBhUUMic2MzIXFhUUBiMiJyY1NGIDAgQFDhYQCQsKCBgQCwoSrBQEBA4SQQkQDBEVIgsTFhkAAAAAABAAxgABAAAAAAABAAwAAAABAAAAAAACAAcADAABAAAAAAADAC8AEwABAAAAAAAEABQAQgABAAAAAAAFAA8AVgABAAAAAAAGABQAZQABAAAAAAAKABwAeQADAAEECQABABgAlQADAAEECQACAA4ArQADAAEECQADAF4AuwADAAEECQAEACgBGQADAAEECQAFAB4BQQADAAEECQAGACgBXwADAAEECQAKADgBhwADAAEECQAQABgAlQADAAEECQARAA4ArUNydWRhX2ZvbnRfMVJlZ3VsYXJDYWxsaWdyYXBociA6IENydWRhX2ZvbnRfMSBSZWd1bGFyIDogMTUtMDQtMjAyNkNydWRhX2ZvbnRfMSBSZWd1bGFyVmVyc2lvbiAwMDEuMDAxQ3J1ZGFfZm9udF8xLVJlZ3VsYXJDcmVhdGVkIHdpdGggQ2FsbGlncmFwaHIuY29tAEMAcgB1AGQAYQBfAGYAbwBuAHQAXwAxAFIAZQBnAHUAbABhAHIAQwBhAGwAbABpAGcAcgBhAHAAaAByACAAOgAgAEMAcgB1AGQAYQBfAGYAbwBuAHQAXwAxACAAUgBlAGcAdQBsAGEAcgAgADoAIAAxADUALQAwADQALQAyADAAMgA2AEMAcgB1AGQAYQBfAGYAbwBuAHQAXwAxACAAUgBlAGcAdQBsAGEAcgBWAGUAcgBzAGkAbwBuACAAMAAwADEALgAwADAAMQBDAHIAdQBkAGEAXwBmAG8AbgB0AF8AMQAtAFIAZQBnAHUAbABhAHIAQwByAGUAYQB0AGUAZAAgAHcAaQB0AGgAIABDAGEAbABsAGkAZwByAGEAcABoAHIALgBjAG8AbQAAAAACAAAAAAAA/7UAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAFEAAAABAAIBAgADAAQABQAKAA8AEQAdAB4AIgAkACUAJgAnACgAKQAqACsALAAtAC4ALwAwADEAMgAzADQANQA2ADcAOAA5ADoAOwA8AD0ARABFAEYARwBIAEkASgBLAEwATQBOAE8AUABRAFIAUwBUAFUAVgBXAFgAWQBaAFsAXABdAQMAjgCNAKIAyQBlAGYA0ADUAGkAcAB0AHgAeQEEAQUCQ1IEbmJzcAl0aWxkZWNvbWIHdW5pMjVjYwAAAAEAAf//AA8=) format('truetype');font-display:block}
+/* el oráculo como habitación propia: bruma oscura que se mueve, y encima las piezas de CRUDA (tira con cinta, tira amarilla, copia con borde, papel del mensaje, ojos). Un solo tema oscuro */
+:root{--noche:#0b0b0b;--masa:#EEDFD1;--tinta:#0D0707;--tomate:#E63B22;--yema:#E3A01F;--papel:#FBF6F0;--lapiz:#5E524C;
+  --texto:'Courier Prime','Courier New',monospace;--letra:'Cruda','Courier Prime',monospace;color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html,body{background:var(--noche)}
+body{margin:0;color:var(--tinta);font-family:var(--texto);font-size:16px;line-height:1.5;min-height:100vh}
+:focus-visible{outline:2px solid var(--yema);outline-offset:4px}
+button,input{font:inherit;color:inherit}
+#cielo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.sala{position:relative;z-index:1;min-height:100vh;display:grid;gap:26px;align-content:start;justify-items:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+.tira{background:var(--papel);border:1.5px solid var(--tinta);padding:10px 22px 12px;transform:rotate(-1deg);position:relative;text-align:center;max-width:min(94vw,680px)}
+.tira h1{font-family:var(--letra);font-weight:normal;text-transform:uppercase;font-size:clamp(34px,6.6vw,56px);line-height:.95;margin:4px 0 0;letter-spacing:.03em;text-wrap:balance}
+.tira p{margin:6px 0 0;font-size:14px;color:var(--lapiz)}
+.cinta{position:absolute;width:80px;height:20px;background:rgba(227,160,31,.82);top:-10px}
+.cinta.i{left:14px;transform:rotate(-6deg)}.cinta.d{right:14px;transform:rotate(5deg)}
+.cabeza{display:flex;flex-wrap:wrap;gap:22px 30px;align-items:center;justify-content:center;width:100%;max-width:1100px}
+.cabeza .tira{max-width:min(94vw,560px)}
+.ayuda{font-family:var(--letra);text-transform:uppercase;font-size:clamp(26px,3.9vw,37px);line-height:1.05;background:var(--yema);padding:8px 16px 4px;transform:rotate(1deg);margin:0;text-align:center;max-width:94vw}
+.zona{display:flex;flex-wrap:wrap;gap:36px;align-items:flex-start;justify-content:center;width:100%;max-width:1100px}
+.mazo{position:relative;width:min(56vw,230px);aspect-ratio:7/10;border:none;background:none;padding:0;cursor:pointer;margin-top:10px}
+.mazo span{position:absolute;inset:0;background:#111 url("dorso.jpg") center/cover;border:1.5px solid #000;box-shadow:0 6px 14px rgba(0,0,0,.5);transition:transform .25s}
+.mazo span:nth-child(1){transform:rotate(-7deg) translate(-8px,6px)}
+.mazo span:nth-child(2){transform:rotate(5deg) translate(7px,2px)}
+.mazo span:nth-child(3){transform:rotate(-1deg);background-image:url("dorso_marca.jpg")}
+.mazo:hover span:nth-child(3){transform:rotate(-2deg) translateY(-6px)}
+.mazo.baraja span:nth-child(1){animation:b1 .5s ease-in-out infinite alternate}
+.mazo.baraja span:nth-child(2){animation:b2 .42s ease-in-out infinite alternate}
+.mazo.baraja span:nth-child(3){animation:b3 .36s ease-in-out infinite alternate}
+@keyframes b1{to{transform:rotate(-14deg) translate(-40px,4px)}}
+@keyframes b2{to{transform:rotate(11deg) translate(42px,-2px)}}
+@keyframes b3{to{transform:rotate(3deg) translate(0,-14px)}}
+.carta{width:min(84vw,420px);perspective:1400px;display:grid;gap:14px}
+.carta .dentro{position:relative;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.3,.7,.2,1)}
+.carta.vuelta .dentro{transform:rotateY(180deg)}
+.carta .cara,.carta .dorso{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.carta .cara{transform:rotateY(180deg);background:var(--papel);padding:10px 10px 30px;box-shadow:0 10px 24px rgba(0,0,0,.55)}
+.carta .dorso{position:absolute;inset:0;background:#111 url("dorso_marca.jpg") center/cover}
+.carta img{display:block;width:100%;height:auto}
+.carta.pasando{cursor:pointer}
+.carta.pasando .cara{transform:none}
+.carta.pasando .dorso{display:none}
+.carta.pasando .dentro{transform:none!important;transition:none}
+.carta .num{position:absolute;left:12px;bottom:6px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lapiz)}
+.pregunta{background:var(--papel);border:1.5px solid var(--tinta);padding:10px 14px;font-size:17px;transform:rotate(-.6deg);margin:0}
+.quieta{color:var(--masa);font-size:14px;font-style:italic;margin:0;text-align:center}
+.hoja{width:min(92vw,460px);background:var(--papel);border:1.5px solid var(--tinta);padding:24px 22px 18px;position:relative;transform:rotate(.8deg);display:grid;gap:12px;box-shadow:0 10px 24px rgba(0,0,0,.45)}
+.hoja h2{font-family:var(--letra);font-weight:normal;text-transform:uppercase;font-size:34px;line-height:1;margin:0;letter-spacing:.03em}
+.hoja p{margin:0}
+.tenue{color:var(--lapiz);font-size:14px}
+.fila{display:flex;gap:8px;flex-wrap:wrap}
+.fila input{flex:1 1 200px;min-width:0;background:#fff;border:1.5px solid var(--tinta);padding:9px 10px;color:var(--tinta)}
+.consent{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--lapiz)}
+.boton{background:var(--tinta);color:var(--masa);border:none;padding:10px 20px;font-weight:700;cursor:pointer}
+.boton:hover{background:var(--tomate)}
+.link{background:none;border:none;padding:0;text-decoration:underline;text-underline-offset:3px;cursor:pointer;color:var(--lapiz)}
+.acc{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+.error{color:var(--tomate);font-size:14px;margin:0;min-height:1em}
+.firma{display:flex;align-items:center;gap:10px;justify-content:flex-end}
+.firma img{width:46px}
+.firma span{font-size:11px;letter-spacing:.14em}
+.volver{color:var(--masa);font-family:var(--letra);text-transform:uppercase;font-size:28px;text-decoration:none;justify-self:start;letter-spacing:.03em}
+
+/* 14 nov: sin borde blanco; mazo y carta en el mismo lugar y del mismo tamaño */
+.pila{display:grid;gap:14px;justify-items:center;width:min(78vw,380px)}
+.pila>.mazo,.pila>.carta{grid-area:1/1}
+.pila .mazo{width:100%;margin-top:0}
+.carta{width:100%;gap:0}
+.carta .dentro{aspect-ratio:7/10;width:100%}
+.carta .cara{position:absolute;inset:0;background:none;padding:0;box-shadow:none;display:grid;place-items:center}
+.carta img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 10px 24px rgba(0,0,0,.55)}
+.carta .num{position:static;display:block;color:var(--masa);opacity:.8;margin:0;text-align:center}
+.debajo{display:grid;gap:12px;width:100%}
+.debajo .num{color:var(--masa);opacity:.8;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){.carta .dentro,.mazo span{transition:none;animation:none!important}}
+</style>
+</head><body>
+<canvas id="cielo" aria-hidden="true"></canvas>
+<main class="sala">
+  <a class="volver" href="https://cruda.eu">Cruda</a>
+  <div class="cabeza">
+  <div class="tira"><span class="cinta i"></span><span class="cinta d"></span><h1>El oráculo fotográfico</h1><p>Para cuando necesitás un mensaje del más allá.</p></div>
+  <p class="ayuda" id="ayuda">pensá una pregunta · tocá el mazo</p>
+  </div>
+  <div class="zona">
+    <div class="pila">
+      <button class="mazo" id="mazo" type="button" aria-label="Sacar una carta"><span></span><span></span><span></span></button>
+      <div class="carta" id="carta" hidden role="button" tabindex="0" aria-label="Parar en esta carta">
+        <div class="dentro"><div class="cara"><img id="carta-img" alt=""></div><div class="dorso"></div></div>
+      </div>
+      <div class="debajo">
+        <span class="num tenue" id="num"></span>
+        <p class="pregunta" id="pregunta" hidden></p>
+        <p class="quieta" id="quieta" hidden>Antes de leer nada más, quedate un rato con la imagen.</p>
+      </div>
+    </div>
+    <div class="hoja" id="pedir" hidden><span class="cinta i"></span>
+      <h2>El mensaje de esta carta</h2>
+      <p>Cada carta tiene un texto que la acompaña. Dejame tu correo y te lo muestro acá; desde ese momento sos parte de CRUDA.</p>
+      <form id="form" novalidate>
+        <div class="fila"><input type="email" id="email" placeholder="tu correo" autocomplete="email" aria-label="Tu correo"><button class="boton" type="submit">Ver el mensaje</button></div>
+        <label class="consent"><input type="checkbox" id="acepto"> Acepto recibir correos de CRUDA. Puedo darme de baja cuando quiera.</label>
+        <p class="error" id="error" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="hoja" id="leer" hidden><span class="cinta i"></span>
+      <h2>El mensaje de esta carta</h2>
+      <div id="mensaje" style="display:grid;gap:12px"></div>
+      <div class="acc"><button class="boton" id="otra" type="button">Sacar otra</button><button class="link" id="volver" type="button">Volver al mazo</button></div>
+      <div class="firma"><img src="ojos.png" alt="CRUDA"><span>CRUDA</span></div>
+    </div>
+  </div>
+</main>
+<script>
+/* ── Cielo del oráculo: nubosidad que fluye, dibujada en la tarjeta gráfica ── */
+// Un cielo animado dibujado en la tarjeta gráfica. Se usa para el oráculo y para la luna.
+function crearCielo(cv, FRAG, escala, extra){
+  const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const VERT = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+  let gl = null, uR, uT, uE, corriendo = false, id = 0, t0 = performance.now(), listo = null;
+  const plano = () => { cv.style.background = 'radial-gradient(ellipse at 50% 40%, #2a2a2a, #0b0b0b 70%)'; return false; };
+  function preparar(){
+    gl = cv.getContext('webgl', { antialias:false, premultipliedAlpha:false });
+    if(!gl) return plano();
+    const sh = (tipo, src) => { const x = gl.createShader(tipo); gl.shaderSource(x, src); gl.compileShader(x); return x; };
+    const prog = gl.createProgram();
+    gl.attachShader(prog, sh(gl.VERTEX_SHADER, VERT));
+    gl.attachShader(prog, sh(gl.FRAGMENT_SHADER, FRAG));
+    gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog, gl.LINK_STATUS)) return plano();
+    gl.useProgram(prog);
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(prog, 'p');
+    gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    uR = gl.getUniformLocation(prog, 'r'); uT = gl.getUniformLocation(prog, 't'); uE = gl.getUniformLocation(prog, 'e');
+    medir(); addEventListener('resize', () => { medir(); if(!corriendo) dibujar(); });
+    return true;
+  }
+  function medir(){
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    cv.width = Math.round(innerWidth*dpr*escala); cv.height = Math.round(innerHeight*dpr*escala);
+    gl.viewport(0, 0, cv.width, cv.height);
+  }
+  function dibujar(){
+    gl.uniform2f(uR, cv.width, cv.height);
+    gl.uniform1f(uT, quieto ? 40 : (performance.now() - t0)/1000);
+    if(uE && extra){ const v = extra(); gl.uniform2f(uE, v[0], v[1]); }
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+  }
+  function bucle(){ if(!corriendo) return; dibujar(); id = requestAnimationFrame(bucle); }
+  function iniciar(){
+    if(listo === null) listo = preparar();
+    if(!listo) return;
+    if(quieto){ dibujar(); return; }
+    if(corriendo) return;
+    corriendo = true; id = requestAnimationFrame(bucle);
+  }
+  function parar(){ corriendo = false; cancelAnimationFrame(id); }
+  return { iniciar, parar, get corriendo(){ return corriendo; } };
+}
+
+/* ── Oráculo: una bruma gris muy quieta, para que no compita con las fotos ── */
+const cielo = crearCielo(document.getElementById('cielo'), `
+precision highp float;
+uniform vec2 r; uniform float t;
+float h(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
+float n(vec2 p){
+  vec2 i = floor(p), f = fract(p); f = f*f*(3.-2.*f);
+  return mix(mix(h(i),h(i+vec2(1,0)),f.x), mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x), f.y);
+}
+float fbm(vec2 p){ float v=0., a=.5; for(int i=0;i<4;i++){ v += a*n(p); p = p*2.03 + 7.1; a *= .5; } return v; }
+void main(){
+  vec2 uv = (gl_FragCoord.xy - .5*r) / min(r.x,r.y);
+  float T = t*.02;
+  float f = fbm(uv*1.2 + vec2(T, -T*.6));
+  float gris = .055 + .05*smoothstep(.3,.75,f);
+  gris *= 1. - .45*dot(uv,uv);
+  gris += (h(gl_FragCoord.xy) - .5) * .012;
+  gl_FragColor = vec4(vec3(gris), 1.);
+}`, .5);
+(function(){
+  var C={"1": {"p": "¿Qué necesitas para sentirte libre?", "m": ["Esta carta tiene la energía de la aprendiz, de la emoción por lo que no se conoce aún, del entusiasmo, la ilusión y confianza. El desconocido es misterio que inspira y enciende.", "A la vez hay seguridad. Acompaña la confianza, aunque sea ciega y difusa por momentos. Pero hay claridad y se está preparada. Aunque sea solo el inicio, lo esencial ya está.", "Esta carta puede sugerir que se están moviendo hilos trascendentales, que se está definiendo un nuevo camino."]}, "2": {"p": "¿Es el vacío posibilidad de espacio disponible o una oportunidad de estar ligera para volar?", "m": ["Esta carta trae una sensación invernal, del silencio de la noche nevada.", "Esta carta puede sugerir un estado de pausa, de concentración, de tomar impulso.", "¿Hay algo que dependa de tu veredicto? ¿Qué te separa de eso que podría y puede ser?", "Esta carta habla de posibilidad y de antesala incómoda a algo nuevo, disruptivo y transformador."]}, "3": {"p": "¿Qué estás dejando atrás? ¿Qué estás yendo a buscar?", "m": ["Esta carta trae la energía del umbral, del paso de una dimensión a otra fundamentalmente desconocida.", "La imagen es la nieve cayendo afuera en plena primavera, vista desde adentro a través del vidrio. La nieve que se descongela con el sol mientras el aire de adentro es cálido. Una mezcla que no se resuelve: la calma y la intensidad, la ilusión y el cansancio que conviven.", "Esta carta habla de la fe en el camino propio, de la confianza plena en lo que se va trazando aunque la incertidumbre sea el paisaje de fondo. La naturaleza como semilla esparcida adentro. Algo ya fue plantado, algo crece sin que se note.", "Esta carta puede sugerir que estamos en el cruce exacto, en ese umbral donde lo que fue ya quedó atrás y lo que viene todavía no tiene nombre. La intuición como único mapa disponible."]}, "4": {"p": "¿Qué colores, sensaciones, aromas y texturas tiene la felicidad?", "m": ["Esta carta trae la energía de la observación, de prestar atención y afinar la mirada, literal y simbólicamente.", "Estás transitando un momento crucial en la vida, aunque tal vez ahora no lo veas del todo, aunque solo lo sientas de manera difusa. En el futuro mirarás atrás y entenderás todo.", "Es un momento de absorber, de sentir, de vivir la introspección desde un registro nuevo. De palpar lo mágico, de encontrar la paz en lugares inesperados: en colores, texturas, aromas y sonidos.", "Respira. Estás donde tienes que estar."]}, "5": {"p": "¿Qué en tu vida está pidiendo suavidad y amor?", "m": ["Esta carta habla del invierno, de la calidez de dejar derretir las capas que nos recubren a modo de protección, de dejarnos cuidar; de soltar toda resistencia y dejarse disfrutar de la suavidad que pueda traer una caricia: literal o simbólicamente.", "Esta fotografía-carta habla de procesos, de abrirse a una parte nueva y desconocida de la vida. Confiar en que trae luz y registros nuevos."]}, "6": {"p": "¿Qué necesita tu refugio para ser refugio?", "m": ["Esta carta tiene la energía de hogar, de calidez, de eso que se necesita para ablandar el alma, dejarse cuidar y querer.", "Trae el augurio de fertilidad, biológica, creativa y/o emocional.", "Esta carta puede sugerir que estamos en tierra segura. Ahora sólo hace falta fluir, confiar y disfrutar."]}, "7": {"p": "¿Qué marca la grieta? ¿Qué posibilidad abre?", "m": ["Tal vez estés en un momento umbral, buscando, de a poco entrando. ¿Qué rol tiene en todo esto tu intuición y sensibilidad? ¿Estás moviéndote por tu instinto?", "La energía de esta carta es la del momento de exploración orgánica, la búsqueda de la armonía, la plenitud más íntima. Tal vez sea buscar un nuevo camino de vida, personal, profesional, creativo. Tal vez una mudanza o cambio de piel. Tal vez una mezcla de todo.", "Conecta con la parte de tu cuerpo que es guía, confía en tu voz profunda como faro. Entrégate a investigar, explorar, jugar y disfrutar."]}, "8": {"p": "¿A dónde querés que te lleve el camino? ¿Cómo lo estás transitando?", "m": ["Me dejo llevar, orgánica y fluidamente, a ese punto de fuga que me llama. Es un camino, es un llamado y también un portal.", "La energía de esta carta se siente en el cuerpo. Es un llamado del alma.", "Tal vez se ignore lo que depara el otro lado del sendero pero, probablemente, eso sea el sentido de todo."]}, "9": {"p": "¿Cómo podrías nutrir de magia tu cotidiano hoy?", "m": ["Esta carta trae la energía de las preguntas, de volver a la memoria, de querer encontrar los inicios de los hilos de los cuales poder tirar. Encontrar respuestas, sí, pero desde los lugares propios. Desde la magia y mística de los sueños, de las plantas, de las piedras. Esta carta te invita a conectar con el Adentro como quien emprende un viaje, a preparar tu propia medicina y disfrutarla desde la calidez interna como quien mira por la ventana la nieve caer. Todo camino necesita un momento de pausa, descanso, nutrición y reflexión."]}, "10": {"p": "¿De dónde sale la luz que alimenta tus esperanzas e ilusiones?", "m": ["Esta carta nos remite a la textura porosa de una roca que ha sido bañada una y mil veces por el agua. Inundada, vaciada de tantas formas distintas, la huella que ha dejado es única.", "Trae la sensación de habitar un oasis en medio del ruido, de ser testigos de un recorte precioso del entorno donde podemos sumergirnos y hacer contacto con la paz.", "Esta imagen nos habla del tiempo, del proceso, de cómo lo vivido convive y coopera para posibilitar nuevos escenarios y posibilidades. Nos sitúa en un lugar de impulso, no solo energético, sino desde el recorrido orgánico que llevamos. Amorosamente nos empuja. Fluimos porque tenemos una clara dirección. Vamos guiadas por el corazón."]}, "11": {"p": "¿Qué está limpiando tu sangre?", "m": ["Esta carta trae energía mística, de naturaleza salvaje, de sabiduría ancestral y de fuerza femenina.", "Esta carta puede sugerir una fuerte conexión y armonía en mente, cuerpo y alma; una relación directa con tu naturaleza de mujer y con la fortaleza que estar en contacto con tu intuición y esencia representa.", "Lo sientas o aún no, esta carta invoca una profunda armonía con tu adentro y, en consecuencia, un nuevo paradigma con el afuera."]}, "12": {"p": "¿Cuál es tu medicina natural?", "m": ["En el lugar más inesperado puede que aparezca eso que estamos anhelando o simplemente necesitando. Esta carta invita a abrirnos de lo mundano a lo más divino. A dejarnos llevar por la mística del entorno, que nos ofrenda sus magias y medicinas. Esta carta trae la energía de la gratitud, de la generosidad, de la confianza en que lo que tenga que ser será. Nos invita a confiar en los frutos de la creatividad, en las señales que nos aparecen, en las llaves que nos son dadas para ascender a esos sitios que son parte inconsciente del mapa."]}, "13": {"p": "¿Qué hábitos cotidianos querés nutrir?", "m": ["Esta carta trae la energia de la tierra, de la montaña, del micelio que se despliega por debajo nuestro cotidianamente, trayendo la magia de lo que sucede en planos inaccesibles a la vista pero aun así necesarios, poderosos y esenciales.", "Esta carta habla de los mensajes de la voz más interna, de esa conexión con la naturaleza que nos sostiene, nutre y también es capaz de rescatarnos.", "Esta carta habla del compromiso, del entendimiento, de sentir en el cuerpo lo que necesitamos, del discernimiento; de la pausa, del soltar, del aferrarse.", "Esta carta es guía y también portal. Puede sugerir que estamos entrando en terrenos profundos, nuevos, desconocidos y aun no habitados. Sin embargo nos trae el guiño de lo místico, de lo mágico que cada quién sabe necesita y elige para transitar heroicamente el camino."]}, "14": {"p": "¿Hace cuánto no celebras una cita con vos misma?", "m": ["La energía de esta carta es de los últimos días de verano, de transformación casi conclusa, de mutación que ha llegado a su, momentáneo, fin. Se ha llegado a otro estado.", "La sensación es que el aire es fresco, reconfortante y de inicios.", "Esta carta habla de los límites que nos hacen bien, de volver al cuerpo, a esos pequeños hábitos que nos nutren cotidianamente.", "Esta carta sugiere que se está construyendo un nuevo registro, está comenzando un nuevo momento, tal vez en la vida o en lo vincular con respecto a alguna persona cercana. Lo que sea plantea una resignificación compleja que pedirá conexión profunda con la seguridad y naturaleza propia.", "Esta carta viene a reivindicar la verdad de una."]}, "15": {"p": "¿Qué conexiones se están haciendo internamente?", "m": ["Esta carta tiene la energía de ruido exterior pero de silencio interior. En un contexto que incluso puede sentirse caótico algo adentro nos sostiene en el ritmo propio, profundo y calmo.", "Esta carta puede sugerir que a pesar de que se percibe, el ruido no se siente, no afecta ni desborda. La llama interna sigue brillando, está sostenida y tiene la fuerza de quién va por buen camino. A la vez, simbólicamente, habla de conexión y energía en movimiento."]}, "16": {"p": "¿Qué en tus días está tomando otro sentido?", "m": ["Esta carta tiene la energía del verano, de la ensoñación y de paseo por una noche cálida.", "Esta carta está plasmada de calma, de reconciliación con el pasado, desde un presente consciente, un nuevo punto de partida, una hoja en blanco desde un lugar enraizado, con límites claros, saludables e inspirados en la compasión.", "Esta carta trae energía de belleza, de poesía en lo simple, del poder del silencio compartido. Te invita a respirar profundo, soltar los pensamientos y observar tu alrededor, esas cosas o personas que traen armonía a los días."]}, "17": {"p": "¿Qué te pide resiliencia hoy?", "m": ["Esta carta trae la fuerza, esa que el cruce de lo urbano y la naturaleza representa. Convivencia, resiliencia, complemento. Trae la paciencia y la calma para transitar la incomodidad del camino, cuando se alarga un poco y anhelamos volver a casa. El tiempo de barbecho comienza a llegar a su fin, la primavera y sus frutos están llegando."]}, "18": {"p": "¿Qué te sostiene? ¿Qué te trae calma?", "m": ["Esta carta trae la energía de la calma después de la tormenta, la calma después del caos, después de la efervescencia emocional, creativa y sensorial. La calma de la paz, la tranquilidad.", "A la vez es una invitación, a mirar el horizonte con optimismo y disfrute. A compartir también esta sensación de nuevo-estado, a honrarlo desde la sencillez, presencia y gratitud.", "Esta carta funciona como faro, y sea cual sea, es augurio de que se va por buen camino."]}, "19": {"p": "¿Qué necesitas desconectar hoy?", "m": ["Esta carta trae la belleza y el mimo sensorial de eso que viene a traernos calma, silencio y pausa. Abre un espacio en el tiempo para contemplar la vida y experimentarla desde un lugar presente, consciente y sencillo. Es un refugio creativo, un hogar donde poder descansar. Un paréntesis que puede parecer de otros tiempos y nos permite registrar quién somos cuando no hay ruido."]}, "20": {"p": "¿Con qué necesitas fundirte hoy?", "m": ["Te estás formando, aunque no lo notes, aunque pienses que sólo es un poco de incomodidad, estás mutando.", "De forma orgánica, con suavidad, conexión con el entorno, siendo parte de ese ecosistema que con paciencia y dedicación cultivas cada día.", "Esta carta puede sugerir que es hora de confiar, dejarse llevar un rato y disfrutar."]}, "21": {"p": "¿Cómo habitás tu Adentro-Afuera?", "m": ["Esta carta trae la energía del cambio de estado, de posición, de registro, de mirada. De mirar desde dentro el Adentro, sin miedo ni incomodidad de habitar el Afuera. Esta carta encarna el Afuera-Adentro, ese lugar simbólico o literal que habitamos cotidianamente. De los contrastes y contradicciones, de la oscuridad y la luz que conviven con sentido y armonía. Esta carta viene a confirmar que se está mirando desde una nueva perspectiva, una más propia, libre y enraizada."]}},KIT_FORM="https://app.kit.com/forms/10190729/subscriptions";
+  var $=function(i){return document.getElementById(i)},estado="quieto",ultima=0,actual=0,miembro=false;
+  try{miembro=localStorage.getItem("cruda-miembro")==="1"}catch(e){}
+  cielo.iniciar();
+  var reloj=null,pos=0,orden=[];
+  for(var k=1;k<=21;k++){var pre=new Image();pre.src="cartas/"+String(k).padStart(2,"0")+".jpg"}
+  function poner(n){$("carta-img").src="cartas/"+String(n).padStart(2,"0")+".jpg"}
+  function empezar(){
+    estado="pasando";orden=[];for(var k=1;k<=21;k++)orden.push(k);orden.sort(function(){return Math.random()-.5});pos=0;
+    var c=$("carta");c.hidden=false;c.classList.add("pasando");c.classList.add("vuelta");$("num").textContent="";
+    $("mazo").hidden=true;$("pregunta").hidden=true;$("quieta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;
+    $("ayuda").textContent="cuando sientas que es el momento, tocá la foto";
+    reloj=setInterval(function(){pos=(pos+1)%21;poner(orden[pos])},130);poner(orden[0]);
+  }
+  function parar(){
+    if(estado!=="pasando")return;clearInterval(reloj);estado="quieto";
+    var n=orden[pos];actual=n;poner(n);var c=$("carta");c.classList.remove("pasando");
+    $("num").textContent="carta "+n+" de 21";$("pregunta").textContent=C[n].p;$("pregunta").hidden=false;$("quieta").hidden=false;$("ayuda").hidden=true;
+    var m=$("mensaje");m.innerHTML="";C[n].m.forEach(function(t){var p=document.createElement("p");p.textContent=t;m.appendChild(p)});
+    setTimeout(function(){(miembro?$("leer"):$("pedir")).hidden=false},1800);
+  }
+  $("mazo").addEventListener("click",empezar);
+  $("carta").addEventListener("click",parar);
+  $("carta").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();parar()}});
+  function volver(){clearInterval(reloj);estado="quieto";$("num").textContent="";$("pregunta").hidden=true;$("quieta").hidden=true;$("carta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;$("mazo").hidden=false;$("ayuda").hidden=false;$("ayuda").textContent="pensá una pregunta · tocá el mazo";window.scrollTo(0,0)}
+  $("otra").addEventListener("click",volver);$("volver").addEventListener("click",volver);
+  $("form").addEventListener("submit",function(e){
+    e.preventDefault();var mail=$("email").value.trim();
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail)){$("error").textContent="Revisá el correo, parece que falta algo.";return}
+    if(!$("acepto").checked){$("error").textContent="Para mostrarte el mensaje necesito que marques la casilla.";return}
+    $("error").textContent="";
+    if(KIT_FORM.indexOf("http")===0){var d=new URLSearchParams();d.append("email_address",mail);d.append("fields[carta]",String(actual));
+      fetch(KIT_FORM,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:d.toString()}).catch(function(){})}
+    miembro=true;try{localStorage.setItem("cruda-miembro","1")}catch(e){}
+    $("pedir").hidden=true;$("leer").hidden=false;
+  });
+})();
+</script>
+
+</body></html>
