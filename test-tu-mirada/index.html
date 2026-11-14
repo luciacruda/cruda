@@ -43,6 +43,9 @@ button{font:inherit;color:inherit}
 .copia.arrastrando{cursor:grabbing;transition:none;box-shadow:0 18px 30px rgba(13,7,7,.3)}
 .copia:hover{box-shadow:0 4px 6px rgba(13,7,7,.2),0 14px 26px rgba(13,7,7,.16)}
 .copia.fuera{opacity:0}
+.zoom{position:absolute;z-index:600;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:grid;gap:8px}
+.zoom button{width:44px;height:44px;border:1.5px solid var(--tinta);background:var(--papel);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 4px rgba(13,7,7,.2)}
+.zoom button:hover{background:var(--yema)}
 .copia{position:absolute}
 .lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
 .lupa:hover{color:var(--tinta)}
@@ -155,6 +158,7 @@ button{font:inherit;color:inherit}
     </div>
   </div>
 
+  <div class="zoom" id="zoom" hidden><button type="button" id="mas" aria-label="Fotos más grandes">+</button><button type="button" id="menos" aria-label="Fotos más chicas">−</button></div>
   <p class="ayuda" id="ayuda" hidden>tocá una para elegir · la lupa, para verla de cerca · arrastrá para mover</p>
   <div class="cerca" id="cerca" hidden role="dialog" aria-label="La foto de cerca"><div class="marco"><img id="cerca-img" alt=""></div><div class="acc"><button class="elegir" id="cerca-elegir" type="button">Elegir esta</button><button class="volver" id="cerca-volver" type="button">Volver a la mesa</button></div></div>
   </main>
@@ -201,10 +205,22 @@ button{font:inherit;color:inherit}
     for(var k=0;k<n;k++){
       var c=k%cols,f=Math.floor(k/cols);
       var cx=(c+.5)*mesa.clientWidth/cols,cy=zonaT+(f+.5)*zonaH/filas;
-      var jx=(Math.random()-.5)*mesa.clientWidth/cols*.22,jy=(Math.random()-.5)*zonaH/filas*.18;
-      out.push({x:Math.max(4,Math.min(mesa.clientWidth-w-4,cx-w/2+jx)),y:Math.max(arriba-10,Math.min(mesa.clientHeight-h-40,cy-h/2+jy)),r:(Math.random()-.5)*14});
+      var jx=(Math.random()-.5)*Math.max(0,mesa.clientWidth/cols-w)*.8,jy=(Math.random()-.5)*Math.max(0,zonaH/filas-h)*.8;
+      out.push({x:Math.max(4,Math.min(mesa.clientWidth-w-4,cx-w/2+jx)),y:Math.max(arriba-10,Math.min(mesa.clientHeight-h-40,cy-h/2+jy)),r:(Math.random()-.5)*8});
     }
     return mezclar(out);
+  }
+  var escala=1;
+  function anchoCopia(arriba){
+    var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(6/cols);
+    var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-50)/filas;
+    var w=Math.min(cw*.84,(ch*.88-34)/1.5); // copia vertical 2:3 más el borde de papel
+    return Math.max(90,w*escala);
+  }
+  function reacomodar(){
+    var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
+    if(!cs.length)return;var w=anchoCopia(arriba),ps=lugares(cs.length,0,0,w,w*1.5+34,arriba);
+    cs.forEach(function(el,k){el.style.setProperty("--w",w+"px");poner(el,ps[k])});
   }
   function poner(el,p){el.dataset.x=p.x;el.dataset.y=p.y;el.dataset.r=p.r;el.style.transform="translate("+p.x+"px,"+p.y+"px) rotate("+p.r+"deg)"}
 
@@ -225,9 +241,10 @@ button{font:inherit;color:inherit}
     $("num").textContent="Ronda "+(ronda+1)+" de "+TOTAL+(ronda===7?" · no suma, solo me ayuda a saber qué mandarte":"");$("enunciado").textContent=PREG[ronda];
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18;
     var movil=mesa.clientWidth<640,cats=mezclar(ORDEN);
+    $("zoom").hidden=!(ronda<6);
     if(ronda<6){
-      var w=movil?Math.min(mesa.clientWidth*.45,220):Math.min(mesa.clientWidth*.25,330);
-      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.15,arriba);
+      var w=anchoCopia(arriba);
+      var ps=lugares(6,mesa.clientWidth,mesa.clientHeight,w,w*1.5+34,arriba);
       cats.forEach(function(cat,k){
         var el=document.createElement("button");el.type="button";el.className="copia fuera";el.style.setProperty("--w",w+"px");
         el.setAttribute("aria-label","Foto "+(k+1));
@@ -276,7 +293,7 @@ button{font:inherit;color:inherit}
   }
 
   function terminar(){
-    limpiar();$("tira").hidden=true;$("ayuda").hidden=true;
+    limpiar();$("tira").hidden=true;$("ayuda").hidden=true;$("zoom").hidden=true;
     var max=Math.max.apply(null,ORDEN.map(function(c){return puntos[c]}));
     var top=ORDEN.filter(function(c){return puntos[c]===max});
     if(top.length>2)top=(ultima7&&top.indexOf(ultima7)>-1)?[ultima7]:[top[0]];
@@ -350,6 +367,9 @@ button{font:inherit;color:inherit}
   $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
   $("cerca").addEventListener("click",function(e){if(e.target===this||e.target.classList.contains("marco"))cerrarCerca()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("cerca").hidden)cerrarCerca()});
+  $("mas").addEventListener("click",function(){escala=Math.min(1.8,escala*1.2);reacomodar()});
+  $("menos").addEventListener("click",function(){escala=Math.max(.6,escala/1.2);reacomodar()});
+  window.addEventListener("resize",function(){if(!$("tira").hidden)reacomodar()});
   $("empezar").addEventListener("click",empezar);$("otra").addEventListener("click",empezar);
   var KIT_FORM="https://app.kit.com/forms/10189204/subscriptions";
   var resultado=[];
