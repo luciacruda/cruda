@@ -384,20 +384,19 @@ body{font-size:19px}
     limpiar();$("tira").hidden=true;$("ayuda").hidden=true;$("zoom").hidden=true;
     var max=Math.max.apply(null,ORDEN.map(function(c){return puntos[c]}));
     var top=ORDEN.filter(function(c){return puntos[c]===max});
-    if(top.length>2)top=(ultima7&&top.indexOf(ultima7)>-1)?[ultima7]:[top[0]];
+    // siempre un solo resultado; si hay empate decide, en orden: la foto de "tu semana", el papelito de qué harías, la última foto elegida
+    if(top.length>1){
+      var rs=PESO.indexOf(2),sem=recorrido.filter(function(x){return x.r===rs})[0];
+      if(sem&&top.indexOf(sem.cat)>-1)top=[sem.cat];
+      else if(ultima7&&top.indexOf(ultima7)>-1)top=[ultima7];
+      else{for(var q=recorrido.length-1;q>=0;q--){if(top.indexOf(recorrido[q].cat)>-1){top=[recorrido[q].cat];break}}}
+    }
     resultado=top.slice();
     var a=top[0],txt;
-    if(top.length===2){
-      $("c-arriba").textContent="Mi imagen parte de";
-      $("c-nom").textContent=sinTilde(R[top[0]].n+" y "+R[top[1]].n.toLowerCase());
-      $("c-lin").textContent="Entre "+R[top[0]].n.toLowerCase()+" y "+R[top[1]].n.toLowerCase()+".";
-      txt="Hoy tu mirada está entre dos lugares. "+R[top[0]].l+" "+R[top[1]].l+" Las formas de mirar se combinan.";
-    }else{
-      $("c-arriba").textContent="Mi imagen parte "+R[a].mia;
-      $("c-nom").textContent=sinTilde(R[a].n);$("c-lin").textContent=R[a].l;
-      txt=R[a].l+" Es la de hoy: la mirada cambia con el tiempo.";
-    }
-    var f=elegidas[a].length?elegidas[a]:(top[1]&&elegidas[top[1]].length?elegidas[top[1]]:[FOTOS[a][0]]);
+    $("c-arriba").textContent="Mi imagen parte "+R[a].mia;
+    $("c-nom").textContent=sinTilde(R[a].n);$("c-lin").textContent=R[a].l;
+    txt=R[a].l+" Es la de hoy: la mirada cambia con el tiempo.";
+    var f=elegidas[a].length?elegidas[a]:[FOTOS[a][0]];
     $("c-img").src=f[f.length-1];$("r-texto").textContent=txt;
     var p=$("puntos");p.innerHTML="";
     ORDEN.slice().sort(function(x,y){return puntos[y]-puntos[x]}).forEach(function(c){
