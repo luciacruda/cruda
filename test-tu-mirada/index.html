@@ -51,7 +51,7 @@ button{font:inherit;color:inherit}
 .zoom{top:auto;right:auto;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:10px;align-items:center}
 .zoom button{width:54px;height:54px;font-size:30px}
 .zoom .ordenar{width:auto;padding:4px 16px 0;font-size:26px}
-@media (max-width:640px){.ayuda{bottom:calc(80px + env(safe-area-inset-bottom,0px))}}
+.ayuda{left:50%;transform:translateX(-50%) rotate(-1deg);bottom:calc(84px + env(safe-area-inset-bottom,0px));white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}
 .copia{position:absolute}
 .lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
 .lupa:hover{color:var(--tinta)}
