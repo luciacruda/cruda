@@ -46,6 +46,7 @@ button{font:inherit;color:inherit}
 .zoom{position:absolute;z-index:600;right:max(16px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:grid;gap:8px}
 .zoom button{width:44px;height:44px;border:1.5px solid var(--tinta);background:var(--papel);font-size:24px;line-height:1;cursor:pointer;display:grid;place-items:center;box-shadow:0 2px 4px rgba(13,7,7,.2)}
 .zoom button:hover{background:var(--yema)}
+.zoom .ordenar{width:auto;padding:0 10px;font-family:var(--letra);text-transform:uppercase;font-size:20px;letter-spacing:.03em}
 .copia{position:absolute}
 .lupa{position:absolute;right:6px;bottom:3px;width:26px;height:22px;display:grid;place-items:center;font-size:15px;color:var(--lapiz);cursor:zoom-in}
 .lupa:hover{color:var(--tinta)}
@@ -96,6 +97,13 @@ button{font:inherit;color:inherit}
 .correo form{display:flex;gap:8px;flex-wrap:wrap}
 .correo input{flex:1 1 180px;min-width:0;background:#fff;border:1.5px solid var(--tinta);padding:9px 10px;font:inherit}
 .acciones{display:flex;gap:18px;flex-wrap:wrap}
+.col-carta{display:grid;gap:22px;justify-items:center}
+.guardar{display:flex;align-items:center;gap:12px;background:var(--yema);color:var(--tinta);border:1.5px solid var(--tinta);padding:12px 22px 10px;cursor:pointer;transform:rotate(-1.5deg);box-shadow:4px 5px 0 var(--tinta);transition:transform .15s,box-shadow .15s;text-align:left}
+.guardar span{font-family:var(--letra);text-transform:uppercase;font-size:30px;line-height:1;letter-spacing:.03em;display:grid;gap:4px}
+.guardar small{font-family:var(--texto);text-transform:none;font-size:13px;letter-spacing:0}
+.guardar:hover{transform:rotate(0) translate(-2px,-2px);box-shadow:6px 7px 0 var(--tinta)}
+.guardar:active{transform:translate(2px,3px);box-shadow:1px 2px 0 var(--tinta)}
+.guardar:disabled{opacity:.7}
 @media (min-width:760px){.res-in>.hoja:not(.ancha){margin-top:120px}}
 .hoja.ancha{width:min(88vw,960px);transform:rotate(-.4deg)}
 .hoja h3{font-family:var(--letra);font-weight:normal;text-transform:uppercase;font-size:28px;line-height:1;margin:0;letter-spacing:.03em}
@@ -125,6 +133,7 @@ button{font:inherit;color:inherit}
   <div class="tira" id="tira" hidden><span class="cinta i"></span><span class="cinta d"></span><span class="num" id="num"></span><h2 id="enunciado"></h2></div>
   <div class="resultado" id="resultado" hidden>
     <div class="res-in">
+      <div class="col-carta">
       <div class="carta">
         <div class="arriba" id="c-arriba">Mi imagen parte de</div>
         <div class="img"><img id="c-img" alt=""></div>
@@ -133,6 +142,8 @@ button{font:inherit;color:inherit}
           <div class="lin" id="c-lin"></div>
         </div>
         <div class="pie"><img src="img/ojos.png" alt="CRUDA"><span>CRUDA</span></div>
+      </div>
+      <button class="guardar" id="guardar" type="button"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Guardá tu carta<small>y compartila en tus historias</small></span></button>
       </div>
       <div class="hoja">
         <span class="cinta i"></span>
@@ -144,7 +155,6 @@ button{font:inherit;color:inherit}
           <form id="f-correo"><input id="correo" type="email" required placeholder="tu correo" aria-label="Tu correo"><button class="boton" type="submit">Recibirla</button></form>
           <p class="tenue" id="hecho" hidden>Listo. En unos minutos te llega a tu correo. Si no lo ves, mirá en promociones o en spam.</p>
         </div>
-        <button class="boton" id="guardar" type="button">Guardar mi carta</button>
         <div class="acciones"><button class="otra" id="ver" type="button" aria-expanded="false">Ver tu recorrido</button><button class="otra" id="otra" type="button">Hacerlo otra vez</button></div>
       </div>
       <div class="hoja ancha" id="detalle" hidden>
@@ -158,7 +168,7 @@ button{font:inherit;color:inherit}
     </div>
   </div>
 
-  <div class="zoom" id="zoom" hidden><button type="button" id="mas" aria-label="Fotos más grandes">+</button><button type="button" id="menos" aria-label="Fotos más chicas">−</button></div>
+  <div class="zoom" id="zoom" hidden><button type="button" id="ordenar" class="ordenar" aria-label="Reordenar las fotos">reordenar</button><button type="button" id="mas" aria-label="Fotos más grandes">+</button><button type="button" id="menos" aria-label="Fotos más chicas">−</button></div>
   <p class="ayuda" id="ayuda" hidden>tocá una para elegir · la lupa, para verla de cerca · arrastrá para mover</p>
   <div class="cerca" id="cerca" hidden role="dialog" aria-label="La foto de cerca"><div class="marco"><img id="cerca-img" alt=""></div><div class="acc"><button class="elegir" id="cerca-elegir" type="button">Elegir esta</button><button class="volver" id="cerca-volver" type="button">Volver a la mesa</button></div></div>
   </main>
@@ -216,6 +226,13 @@ button{font:inherit;color:inherit}
     var cw=mesa.clientWidth/cols,ch=(mesa.clientHeight-arriba-50)/filas;
     var w=Math.min(cw*.86,(ch*.9-34)/1.25); // caja fija 4:5 más el borde de papel
     return Math.max(50,w*escala);
+  }
+  function ordenar(){
+    escala=1;var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
+    if(!cs.length)return;var cols=mesa.clientWidth<640?2:3,filas=Math.ceil(cs.length/cols),cw=mesa.clientWidth/cols,zonaH=mesa.clientHeight-arriba-50,ch=zonaH/filas;
+    var w=Math.max(50,Math.min(cw*.95,(ch*.95-34)/1.25)),h=w*1.25+34;
+    cs.forEach(function(el,k){var c=k%cols,f=Math.floor(k/cols);el.style.setProperty("--w",w+"px");el.style.zIndex=++tope;
+      poner(el,{x:(c+.5)*cw-w/2,y:arriba+(f+.5)*ch-h/2,r:0})});
   }
   function reacomodar(){
     var arriba=$("tira").offsetTop+$("tira").offsetHeight+18,cs=[].slice.call(mesa.querySelectorAll(".copia:not(.fuera)"));
@@ -340,7 +357,7 @@ button{font:inherit;color:inherit}
   function envolver(ctx,txt,max){var ps=txt.split(" "),ls=[],l="";ps.forEach(function(w){var t=l?l+" "+w:w;if(ctx.measureText(t).width>max&&l){ls.push(l);l=w}else l=t});if(l)ls.push(l);return ls}
   function cargar(src){return new Promise(function(ok,mal){var i=new Image();i.onload=function(){ok(i)};i.onerror=mal;i.src=src})}
   $("guardar").addEventListener("click",function(){
-    var b=this;b.disabled=true;b.textContent="Preparando…";
+    var b=this;b.disabled=true;var eti=b.querySelector("span");var antes=eti.innerHTML;eti.textContent="Preparando…";
     var W=1080,H=1920,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
     Promise.all([cargar($("c-img").src),cargar(document.querySelector(".carta .pie img").src),document.fonts.load('120px Cruda'),document.fonts.load('40px "Courier Prime"')]).then(function(r){
       var foto=r[0],ojos=r[1];
@@ -358,15 +375,16 @@ button{font:inherit;color:inherit}
         var f=new File([blob],"mi-mirada-cruda.png",{type:"image/png"});
         if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi mirada",text:"cruda.eu/test-tu-mirada"}).catch(function(){})}
         else{var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-mirada-cruda.png";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)}
-        b.disabled=false;b.textContent="Guardar mi carta";
+        b.disabled=false;eti.innerHTML=antes;
       },"image/png");
-    }).catch(function(){b.disabled=false;b.textContent="Guardar mi carta"});
+    }).catch(function(){b.disabled=false;eti.innerHTML=antes});
   });
   $("ver").addEventListener("click",function(){var d=$("detalle"),abre=d.hidden;d.hidden=!abre;this.setAttribute("aria-expanded",abre?"true":"false");this.textContent=abre?"Cerrar el recorrido":"Ver tu recorrido";if(abre)d.scrollIntoView({behavior:"smooth",block:"start"})});
   $("cerca-volver").addEventListener("click",cerrarCerca);
   $("cerca-elegir").addEventListener("click",function(){var f=alElegirCerca;cerrarCerca();if(f)f()});
   $("cerca").addEventListener("click",function(e){if(e.target===this||e.target.classList.contains("marco"))cerrarCerca()});
   document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!$("cerca").hidden)cerrarCerca()});
+  $("ordenar").addEventListener("click",ordenar);
   $("mas").addEventListener("click",function(){escala=Math.min(2.2,escala*1.2);reacomodar()});
   $("menos").addEventListener("click",function(){escala=Math.max(.35,escala/1.2);reacomodar()});
   window.addEventListener("resize",function(){if(!$("tira").hidden)reacomodar()});
