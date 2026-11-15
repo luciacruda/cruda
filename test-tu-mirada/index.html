@@ -446,12 +446,12 @@ body{font-size:19px}
       x.save();x.translate(110,FH-18);x.rotate(-.06);x.fillStyle="rgba(227,160,31,.88)";x.fillRect(0,0,250,44);x.restore();
       x.textBaseline="top";x.fillStyle="#5E524C";x.font='30px "Courier Prime", monospace';
       x.fillText("MI MIRADA HOY".split("").join(String.fromCharCode(8202)),90,FH+90);
-      x.fillStyle="#0D0707";var txt=$("c-nom").textContent.toUpperCase(),tam=320;
+      x.fillStyle="#0D0707";var txt=$("c-nom").textContent.toUpperCase(),tam=460;
       do{x.font=tam+'px Cruda, "Courier Prime", monospace';tam-=10}while(x.measureText(txt).width>W-180&&tam>120);
-      x.fillText(txt,90,FH+150);
+      x.textBaseline="alphabetic";x.fillText(txt,90,FH+330);x.textBaseline="top";
       x.font='bold 44px "Courier Prime", monospace';x.fillText("¿Y la tuya?",90,H-210);
       x.fillStyle="#5E524C";x.font='32px "Courier Prime", monospace';x.fillText("cruda.eu/test-tu-mirada",90,H-145);
-      var ow=170,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-110-oh,ow,oh);
+      var ow=110,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-74-oh,ow,oh);
       cv.toBlob(function(blob){
         var f=new File([blob],"mi-mirada-cruda.png",{type:"image/png"});
         if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi mirada",text:"cruda.eu/test-tu-mirada"}).catch(function(){})}

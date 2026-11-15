@@ -233,10 +233,11 @@ void main(){
       x.save();x.translate(110,FH-18);x.rotate(-.06);x.fillStyle="rgba(227,160,31,.9)";x.fillRect(0,0,250,44);x.restore();
       x.textBaseline="top";x.fillStyle="rgba(238,223,209,.7)";x.font='30px "Courier Prime", monospace';
       x.fillText(("EL ORÁCULO FOTOGRÁFICO · CARTA "+actual).split("").join(String.fromCharCode(8202)),90,FH+90);
-      x.fillStyle="#EEDFD1";x.font='bold 58px "Courier Prime", monospace';
-      var y=FH+150;envolver(x,C[actual].p,W-180).slice(0,4).forEach(function(l){x.fillText(l,90,y);y+=72});
+      x.fillStyle="#EEDFD1";x.font='bold 58px "Courier Prime", monospace';var ls=envolver(x,C[actual].p,W-180),lh=72;
+      if(ls.length>3){x.font='bold 50px "Courier Prime", monospace';ls=envolver(x,C[actual].p,W-180);lh=62}
+      var y=FH+150;ls.slice(0,4).forEach(function(l){x.fillText(l,90,y);y+=lh});
       x.fillStyle="rgba(238,223,209,.7)";x.font='32px "Courier Prime", monospace';x.fillText("cruda.eu/oraculo",90,H-145);
-      var ow=170,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-110-oh,ow,oh);
+      var ow=110,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-74-oh,ow,oh);
       cv.toBlob(function(blob){
         var f=new File([blob],"mi-carta-cruda.png",{type:"image/png"});
         if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi carta",text:"cruda.eu/oraculo"}).catch(function(){})}
