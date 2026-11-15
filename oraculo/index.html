@@ -84,6 +84,11 @@ button,input{font:inherit;color:inherit}
 .carta .num{position:static;display:block;color:var(--masa);opacity:.8;margin:0;text-align:center}
 .debajo{display:grid;gap:12px;width:100%}
 .debajo .num{color:var(--masa);opacity:.8;text-align:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+ .guardar{justify-self:center;display:flex;align-items:center;gap:12px;background:var(--yema);color:var(--tinta);border:1.5px solid var(--tinta);padding:12px 22px 10px;cursor:pointer;transform:rotate(-1.5deg);box-shadow:4px 5px 0 #000;transition:transform .15s,box-shadow .15s;text-align:left}
+.guardar span{font-family:var(--letra);text-transform:uppercase;font-size:30px;line-height:1;letter-spacing:.03em;display:grid;gap:4px}
+.guardar small{font-family:var(--texto);text-transform:none;font-size:14px;letter-spacing:0}
+.guardar:hover{transform:rotate(0) translate(-2px,-2px);box-shadow:6px 7px 0 #000}
+.guardar:disabled{opacity:.7}
 @media (prefers-reduced-motion:reduce){.carta .dentro,.mazo span{transition:none;animation:none!important}}
 </style>
 </head><body>
@@ -104,6 +109,7 @@ button,input{font:inherit;color:inherit}
         <span class="num tenue" id="num"></span>
         <p class="pregunta" id="pregunta" hidden></p>
         <p class="quieta" id="quieta" hidden>Antes de leer nada más, quedate un rato con la imagen.</p>
+        <button class="guardar" id="guardar" type="button" hidden><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Guarda tu carta<small>y compartila en tus historias</small></span></button>
       </div>
     </div>
     <div class="hoja" id="pedir" hidden><span class="cinta i"></span>
@@ -202,21 +208,47 @@ void main(){
   function empezar(){
     estado="pasando";orden=[];for(var k=1;k<=21;k++)orden.push(k);orden.sort(function(){return Math.random()-.5});pos=0;
     var c=$("carta");c.hidden=false;c.classList.add("pasando");c.classList.add("vuelta");$("num").textContent="";
-    $("mazo").hidden=true;$("pregunta").hidden=true;$("quieta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;
+    $("mazo").hidden=true;$("pregunta").hidden=true;$("quieta").hidden=true;$("guardar").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;
     $("ayuda").textContent="cuando sientas que es el momento, toca la foto";
     reloj=setInterval(function(){pos=(pos+1)%21;poner(orden[pos])},130);poner(orden[0]);
   }
   function parar(){
     if(estado!=="pasando")return;clearInterval(reloj);estado="quieto";
     var n=orden[pos];actual=n;poner(n);var c=$("carta");c.classList.remove("pasando");
-    $("num").textContent="carta "+n+" de 21";$("pregunta").textContent=C[n].p;$("pregunta").hidden=false;$("quieta").hidden=false;$("ayuda").hidden=true;
+    $("num").textContent="carta "+n+" de 21";$("pregunta").textContent=C[n].p;$("pregunta").hidden=false;$("quieta").hidden=false;$("guardar").hidden=false;$("ayuda").hidden=true;
     var m=$("mensaje");m.innerHTML="";C[n].m.forEach(function(t){var p=document.createElement("p");p.textContent=t;m.appendChild(p)});
     setTimeout(function(){(miembro?$("leer"):$("pedir")).hidden=false},1800);
   }
+  function envolver(ctx,txt,max){var ps=txt.split(" "),ls=[],l="";ps.forEach(function(w){var t=l?l+" "+w:w;if(ctx.measureText(t).width>max&&l){ls.push(l);l=w}else l=t});if(l)ls.push(l);return ls}
+  function cargar(src){return new Promise(function(ok,mal){var i=new Image();i.onload=function(){ok(i)};i.onerror=mal;i.src=src})}
+  function tenir(img,color){var c=document.createElement("canvas");c.width=img.width;c.height=img.height;var g=c.getContext("2d");g.drawImage(img,0,0);g.globalCompositeOperation="source-in";g.fillStyle=color;g.fillRect(0,0,c.width,c.height);return c}
+  $("guardar").addEventListener("click",function(){
+    var b=this,eti=b.querySelector("span"),antes=eti.innerHTML;b.disabled=true;eti.textContent="Preparando…";
+    var W=1080,H=1920,FH=1330,cv=document.createElement("canvas");cv.width=W;cv.height=H;var x=cv.getContext("2d");
+    Promise.all([cargar($("carta-img").src),cargar(document.querySelector(".firma img").src),document.fonts.load('40px "Courier Prime"'),document.fonts.load('bold 40px "Courier Prime"')]).then(function(r){
+      var foto=r[0],ojos=tenir(r[1],"#EEDFD1");
+      x.fillStyle="#0b0b0b";x.fillRect(0,0,W,H);
+      var k=Math.max(W/foto.width,FH/foto.height),fw=foto.width*k,fh=foto.height*k;
+      x.save();x.beginPath();x.rect(0,0,W,FH);x.clip();x.drawImage(foto,(W-fw)/2,(FH-fh)/2,fw,fh);x.restore();
+      x.save();x.translate(110,FH-18);x.rotate(-.06);x.fillStyle="rgba(227,160,31,.9)";x.fillRect(0,0,250,44);x.restore();
+      x.textBaseline="top";x.fillStyle="rgba(238,223,209,.7)";x.font='30px "Courier Prime", monospace';
+      x.fillText(("EL ORÁCULO FOTOGRÁFICO · CARTA "+actual).split("").join(String.fromCharCode(8202)),90,FH+90);
+      x.fillStyle="#EEDFD1";x.font='bold 58px "Courier Prime", monospace';
+      var y=FH+150;envolver(x,C[actual].p,W-180).slice(0,4).forEach(function(l){x.fillText(l,90,y);y+=72});
+      x.fillStyle="rgba(238,223,209,.7)";x.font='32px "Courier Prime", monospace';x.fillText("cruda.eu/oraculo",90,H-145);
+      var ow=170,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-110-oh,ow,oh);
+      cv.toBlob(function(blob){
+        var f=new File([blob],"mi-carta-cruda.png",{type:"image/png"});
+        if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi carta",text:"cruda.eu/oraculo"}).catch(function(){})}
+        else{var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="mi-carta-cruda.png";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500)}
+        b.disabled=false;eti.innerHTML=antes;
+      },"image/png");
+    }).catch(function(){b.disabled=false;eti.innerHTML=antes});
+  });
   $("mazo").addEventListener("click",empezar);
   $("carta").addEventListener("click",parar);
   $("carta").addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();parar()}});
-  function volver(){clearInterval(reloj);estado="quieto";$("num").textContent="";$("pregunta").hidden=true;$("quieta").hidden=true;$("carta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;$("mazo").hidden=false;$("ayuda").hidden=false;$("ayuda").textContent="pensa una pregunta · toca el mazo";window.scrollTo(0,0)}
+  function volver(){clearInterval(reloj);estado="quieto";$("num").textContent="";$("pregunta").hidden=true;$("quieta").hidden=true;$("guardar").hidden=true;$("carta").hidden=true;$("pedir").hidden=true;$("leer").hidden=true;$("mazo").hidden=false;$("ayuda").hidden=false;$("ayuda").textContent="pensa una pregunta · toca el mazo";window.scrollTo(0,0)}
   $("otra").addEventListener("click",volver);$("volver").addEventListener("click",volver);
   $("form").addEventListener("submit",function(e){
     e.preventDefault();var mail=$("email").value.trim();
