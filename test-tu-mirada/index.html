@@ -88,7 +88,7 @@ button{font:inherit;color:inherit}
 .carta .nom{font-family:var(--letra);text-transform:uppercase;font-size:clamp(32px,8vw,42px);line-height:.95;letter-spacing:.03em}
 .carta .lin{font-size:13.5px}
 .carta .pie{display:flex;justify-content:space-between;align-items:center}
-.carta .pie img{width:58px;mix-blend-mode:multiply}
+.carta .pie img{width:80px;mix-blend-mode:multiply}
 .carta .pie span{font-size:11px;letter-spacing:.12em}
 .hoja{background:var(--papel);border:1.5px solid var(--tinta);width:min(88vw,460px);padding:20px 20px 18px;display:grid;gap:14px;transform:rotate(1deg);position:relative;filter:drop-shadow(0 6px 8px rgba(13,7,7,.2))}
 .hoja p{margin:0}
@@ -178,7 +178,7 @@ body{font-size:19px}
           <div class="nom" id="c-nom"></div>
           <div class="lin" id="c-lin"></div>
         </div>
-        <div class="pie"><img src="img/ojos.png" alt="CRUDA"><span>CRUDA</span></div>
+        <div class="pie"><img src="img/osa.png" alt="CRUDA"><span>CRUDA</span></div>
       </div>
       <button class="guardar" id="guardar" type="button"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg><span>Guarda tu carta<small>y compartila en tus historias</small></span></button>
       </div>
@@ -451,7 +451,7 @@ body{font-size:19px}
       x.textBaseline="alphabetic";x.fillText(txt,90,FH+330);x.textBaseline="top";
       x.font='bold 44px "Courier Prime", monospace';x.fillText("¿Y la tuya?",90,H-210);
       x.fillStyle="#5E524C";x.font='32px "Courier Prime", monospace';x.fillText("cruda.eu/test-tu-mirada",90,H-145);
-      var ow=110,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-74-oh,ow,oh);
+      var ow=150,oh=ow*ojos.height/ojos.width;x.drawImage(ojos,W-90-ow,H-74-oh,ow,oh);
       cv.toBlob(function(blob){
         var f=new File([blob],"mi-mirada-cruda.png",{type:"image/png"});
         if(navigator.canShare&&navigator.canShare({files:[f]})){navigator.share({files:[f],title:"Mi mirada",text:"cruda.eu/test-tu-mirada"}).catch(function(){})}
