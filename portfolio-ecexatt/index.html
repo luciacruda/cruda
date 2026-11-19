@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio EC-EXATT</title>
+<style>:root{--fondo:#f5f4f1;--texto:#1b1b1b;--suave:#6b6b6b;--linea:#d9d7d2}
+*{box-sizing:border-box}
+html,body{background:var(--fondo)}
+body{margin:0;color:var(--texto);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.5}
+.pagina{display:grid;justify-items:center;gap:32px;padding:40px 16px 56px;max-width:1200px;margin:0 auto}
+.titulo{text-align:center}
+.titulo h1{font-weight:500;font-size:clamp(24px,4vw,34px);letter-spacing:.02em;margin:0}
+.titulo p{margin:6px 0 0;color:var(--suave);font-size:15px}
+.resumen{width:min(100%,340px)}
+.resumen video,.final video{display:block;width:100%;height:auto}
+.final{width:min(100%,900px);display:grid;justify-items:center;gap:10px}
+.final h2,.docs h2{font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);margin:0}
+.num{font-size:11px;letter-spacing:.12em;color:var(--suave)}
+.docs{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:10px 28px;border-top:1px solid var(--linea);padding-top:26px;margin-top:30px;width:min(100%,900px)}
+.docs ul{list-style:none;margin:0;padding:0;display:flex;gap:22px;flex-wrap:wrap;justify-content:center}
+.docs a{color:var(--texto);text-decoration:underline;text-underline-offset:4px;letter-spacing:.08em;font-size:13px}
+.docs a:hover{color:var(--suave)}
+
+.intro{display:grid;grid-template-columns:auto minmax(0,440px);gap:48px;align-items:center;justify-content:center;width:100%}
+.pagina{padding-top:24px;gap:110px}
+.titulo{justify-self:start;text-align:left;margin-bottom:-90px}
+.titulo h1{font-size:18px;font-weight:600;letter-spacing:.01em}
+.titulo p{font-size:14px;margin-top:2px}
+.intro .resumen{width:100%;display:grid;justify-items:center;gap:8px}
+.intro .resumen video{height:min(calc(100svh - 215px),640px);width:auto;max-width:100%;background:#000}
+.rotulo{font-weight:500;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);margin:0}
+.aparte{display:grid;justify-items:center;gap:12px;width:100%}
+.aparte video{height:min(calc(100svh - 120px),720px);width:auto;max-width:100%;background:#000}
+.cita{margin:0;font-style:italic;color:#3a3a3a;font-size:clamp(18px,1.9vw,22px);line-height:1.55}
+@media (max-width:760px){.intro{grid-template-columns:1fr;gap:20px;justify-items:center}.cita{font-size:18px}}
+.play{position:absolute;inset:0;margin:auto;width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.45);pointer-events:none}
+.play::after{content:"";position:absolute;left:18px;top:14px;border-style:solid;border-width:9px 0 9px 14px;border-color:transparent transparent transparent #fff}
+.visor{position:fixed;inset:0;z-index:1000;background:rgba(20,20,20,.94);display:grid;place-items:center}
+.visor[hidden]{display:none}
+.visor .lienzo{max-width:92vw;max-height:88vh;display:grid;place-items:center}
+.visor img,.visor video{max-width:92vw;max-height:88vh;width:auto;height:auto;display:block}
+.visor button{position:absolute;background:none;border:none;color:#eee;font:inherit;font-size:34px;line-height:1;padding:14px;cursor:pointer}
+.visor button:hover{color:#fff}
+.visor .cerrar{top:6px;right:8px;font-size:30px}
+.visor .ant{left:4px;top:50%;transform:translateY(-50%)}
+.visor .sig{right:4px;top:50%;transform:translateY(-50%)}
+.visor .cuenta{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#aaa;font-size:13px;letter-spacing:.1em}
+
+.mosaico{display:flex;flex-wrap:wrap;gap:8px;width:100%;--h:240px}
+.mosaico::after{content:"";flex-grow:999}
+.pieza{flex:var(--r) 1 calc(var(--r) * var(--h));position:relative;margin:0;padding:0;border:none;background:none;cursor:zoom-in}
+.pieza img{display:block;width:100%;height:auto;aspect-ratio:var(--r);object-fit:cover}
+@media (max-width:640px){.mosaico{--h:150px;gap:6px}.pagina{gap:64px}.titulo{margin-bottom:-44px}}
+</style></head><body><main class="pagina">
+<header class="titulo"><h1>Portfolio EC-EXATT</h1><p>Lucía Gulminelli · noviembre 2026</p></header>
+<div class="intro" id="resumen"><div class="resumen"><video src="obra/resumen.mp4" poster="obra/resumen_poster.jpg" controls playsinline preload="none"></video><h2 class="rotulo">Resumen de obra</h2></div><blockquote class="cita">«Tenemos una herramienta muy potente, que es el arte, la creatividad, pero el contexto que planteamos para usarla es esencial.»</blockquote></div>
+<div class="mosaico" id="obra"><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(0)"><img src="obra/1.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.7500" onclick="abrir(1)"><img src="obra/2.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.7500" onclick="abrir(2)"><img src="obra/3.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(3)"><img src="obra/4.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(4)"><img src="obra/5.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5500" onclick="abrir(5)"><img src="obra/6_poster.jpg" alt="" loading="lazy" draggable="false"><span class="play" aria-hidden="true"></span></button><button class="pieza" type="button" style="--r:1.3559" onclick="abrir(6)"><img src="obra/7.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(7)"><img src="obra/8.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(8)"><img src="obra/8b.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(9)"><img src="obra/8c.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(10)"><img src="obra/8d.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:1.7778" onclick="abrir(11)"><img src="obra/9.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:0.5625" onclick="abrir(12)"><img src="obra/10.jpg" alt="" loading="lazy" draggable="false"></button><button class="pieza" type="button" style="--r:1.3333" onclick="abrir(13)"><img src="obra/12.jpg" alt="" loading="lazy" draggable="false"></button></div><section class="aparte" id="biografia-sonora"><video src="obra/11.mp4" poster="obra/11_poster.jpg" controls playsinline preload="none"></video><h2 class="rotulo">Biografía sonora</h2></section>
+<section class="final" id="acto-creativo"><video src="obra/proyecto_final.mp4" poster="obra/proyecto_final_poster.jpg" controls playsinline preload="none"></video><h2>Acto creativo</h2></section>
+<section class="final" id="arpillera"><video src="obra/arpillera.mp4" poster="obra/arpillera_poster.jpg" controls playsinline preload="none"></video><h2>Arpillera</h2></section>
+<section class="docs"><h2>Documentos</h2><ul>
+<li><a href="docs/proyecto.html">PROYECTO</a></li>
+<li><a href="docs/reflexiones.html">REFLEXIONES FINALES</a></li>
+</ul></section>
+</main>
+<div class="visor" hidden role="dialog" aria-label="Obra ampliada">
+<div class="lienzo"></div>
+<button class="cerrar" type="button" aria-label="Cerrar">×</button>
+<button class="ant" type="button" aria-label="Anterior">‹</button>
+<button class="sig" type="button" aria-label="Siguiente">›</button>
+<div class="cuenta"></div></div>
+<script>
+const OBRA=[{"f": "1.jpg", "t": "img"}, {"f": "2.jpg", "t": "img"}, {"f": "3.jpg", "t": "img"}, {"f": "4.jpg", "t": "img"}, {"f": "5.jpg", "t": "img"}, {"f": "6.mp4", "t": "video"}, {"f": "7.jpg", "t": "img"}, {"f": "8.jpg", "t": "img"}, {"f": "8b.jpg", "t": "img"}, {"f": "8c.jpg", "t": "img"}, {"f": "8d.jpg", "t": "img"}, {"f": "9.jpg", "t": "img"}, {"f": "10.jpg", "t": "img"}, {"f": "12.jpg", "t": "img"}];
+const visor=document.querySelector('.visor'),lienzo=visor.querySelector('.lienzo'),cuenta=visor.querySelector('.cuenta');
+let actual=0;
+function mostrar(i){actual=(i+OBRA.length)%OBRA.length;const p=OBRA[actual];
+  lienzo.innerHTML=p.t==='video'
+    ?'<video src="obra/'+p.f+'" poster="obra/'+p.f.replace('.mp4','_poster.jpg')+'" controls autoplay playsinline></video>'
+    :'<img src="obra/'+p.f+'" alt="">';
+  cuenta.textContent=(actual+1)+' / '+OBRA.length}
+function abrir(i){mostrar(i);visor.hidden=false;document.body.style.overflow='hidden'}
+function cerrar(){visor.hidden=true;lienzo.innerHTML='';document.body.style.overflow=''}
+visor.querySelector('.cerrar').onclick=cerrar;
+visor.querySelector('.ant').onclick=()=>mostrar(actual-1);
+visor.querySelector('.sig').onclick=()=>mostrar(actual+1);
+visor.addEventListener('click',e=>{if(e.target===visor||e.target===lienzo)cerrar()});
+addEventListener('keydown',e=>{if(visor.hidden)return;
+  if(e.key==='Escape')cerrar();if(e.key==='ArrowRight')mostrar(actual+1);if(e.key==='ArrowLeft')mostrar(actual-1)});
+let tx=null;visor.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+visor.addEventListener('touchend',e=>{if(tx===null)return;const d=e.changedTouches[0].clientX-tx;tx=null;
+  if(Math.abs(d)>50)mostrar(actual+(d<0?1:-1))});
+</script></body></html>
